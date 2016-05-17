@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -7,21 +9,28 @@ namespace MethodImmo.Model
 {
     public class Personne
     {
-        public long Id;
-        public string Nom;
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id{ get; set; }
 
-        public DateTime DateDeNaissance;
-        public DateTime DateDeMort;
+        [Required]
+        public string Nom{ get; set; }
 
-        public List<Contrat> Contrats;
+        public DateTime? DateDeNaissance{ get; set; }
+        public DateTime? DateDeMort{ get; set; }
 
-        public List<Adresse> Adresses;
+        public virtual ICollection<GroupeDePersonnes> Groupes { get; set; }
 
+        [InverseProperty("OriginePersonne")]
+        public virtual ICollection<Adresse> Adresses{ get; set; }
 
-        public List<Document> Documents;
+        [InverseProperty("OriginePersonne")]
+        public virtual ICollection<Document> Documents { get; set; }
 
-        public IQueryable<Commentaire> Commentaires;
+        [InverseProperty("OriginePersonne")]
+        public virtual ICollection<Commentaire> Commentaires { get; set; }
 
-        public IQueryable<Anomalie> Anomalies;
+        [InverseProperty("OriginePersonne")]
+        public virtual ICollection<Action> Anomalies { get; set; }
     }
 }

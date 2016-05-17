@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -7,26 +9,40 @@ namespace MethodImmo.Model
 {
     public class Immeuble
     {
-        public long Id;
-        public string Label;
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
-        public string Description;
+        public string Label{ get; set; }
 
-        public List<Lot> Lots;
-        public long TotalTantiemes;
+        public string Description{ get; set; }
 
-        public List<Adresse> Adresses;
+        [InverseProperty("Immeuble")]
+        public virtual ICollection<Lot> Lots{ get; set; }
 
-        public List<CompteEnBanque> ComptesEnBanque;
+        public long? TotalTantiemes{ get; set; }
 
-        public GroupeDePersonnes ConseilSyndical;
+        [InverseProperty("OrigineImmeuble")]
+        public virtual ICollection<Adresse> Adresses{ get; set; }
 
-        public Entreprise Syndic;
+        [InverseProperty("OrigineImmeuble")]
+        public virtual ICollection<CompteBancaire> ComptesEnBanque{ get; set; }
 
-        public IQueryable<Document> Documents;
+        //[InverseProperty("ConseilImmeuble")]
+        public virtual ConseilSyndical ConseilSyndical { get; set; }
 
-        public IQueryable<Commentaire> Commentaires;
+        //public long? SyndicId { get; set; }
+        //[ForeignKey("SyndicId")]
+        //[InverseProperty("Immeuble")]
+        public virtual Entreprise Syndic{ get; set; }
 
-        public IQueryable<Anomalie> Anomalies;
+        [InverseProperty("OrigineImmeuble")]
+        public virtual ICollection<Document> Documents{ get; set; }
+
+        [InverseProperty("OrigineImmeuble")]
+        public virtual ICollection<Commentaire> Commentaires{ get; set; }
+
+        [InverseProperty("OrigineImmeuble")]
+        public virtual ICollection<Action> Anomalies{ get; set; }
     }
 }

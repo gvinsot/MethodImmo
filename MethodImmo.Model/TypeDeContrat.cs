@@ -8,7 +8,7 @@ namespace MethodImmo.Model
     public enum TypeDeContrat
     {
         Gardiennage,
-        CompteEnBanque,
+        CompteBancaire,
         Entretien,
     }
 }

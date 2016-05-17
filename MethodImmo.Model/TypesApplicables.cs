@@ -14,11 +14,11 @@ namespace MethodImmo.Model
         Entreprise,
         Document,
         Adresse,
-        CompteEnBanque,
+        CompteBancaire,
         AccesUtilisateur,
         Contrat,
         GroupeDePersonnes,
         Commentaire,
-        Anomalie,
+        Action,
     }
 }

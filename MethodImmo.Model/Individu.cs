@@ -7,7 +7,9 @@ namespace MethodImmo.Model
 {
     public class Individu : Personne
     {
-        public string Prenom;
 
+        public string Prenom { get; set; }
+
+        public virtual ICollection<Commentaire> TousLesCommentaires { get; set; }
     }
 }
