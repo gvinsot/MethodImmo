@@ -16,19 +16,30 @@
 
     <div class="container">
         <div class="row">
-                <button type="button" class="btn-link" style="width: 150px; margin:5px">MethodImmo</button>
-        </div>
-        <div class="row">
-            <div class="col-sm-2 btn-group-vertical" style="margin-top:20px">
-                
-                    <button type="button" class="btn btn-primary">Mes Tâches</button>
-                    <button type="button" class="btn btn-primary" onclick="SS.SetTemplate('MainPage','views/immeuble/list.html')">Immeubles</button>
-                    <button type="button" class="btn btn-primary">Individus</button>
-                    <button type="button" class="btn btn-primary">Entreprises</button>
-            </div>
-            <div class="col-sm-10" id="MainPage" data-template="views/home.html">
 
-            </div>
+            <nav class="navbar navbar-light bg-faded">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="$(this).tab('show');SS.SetTemplate('MainPage','views/home.html')">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="$(this).tab('show');SS.SetTemplate('MainPage', 'views/action/list.html')">Mes Tâches</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="$(this).tab('show'); SS.SetTemplate('MainPage', 'views/immeuble/list.html')">Immeubles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Individus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Entreprises</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <div class="row" id="MainPage" data-template="views/home.html">
+
         </div>
       </div>
 </body>
