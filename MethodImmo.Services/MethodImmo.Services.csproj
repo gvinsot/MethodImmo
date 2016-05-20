@@ -44,12 +44,27 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.9.8\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
@@ -70,27 +85,27 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="views\home.html" />
-    <Content Include="views\immeuble\delete.html" />
-    <Content Include="views\immeuble\listItem.html" />
-    <Content Include="views\immeuble\list.html" />
-    <Content Include="views\immeuble\edit.html" />
-    <Content Include="views\immeuble\create.html" />
+    <Content Include="Views\home.html" />
+    <Content Include="Views\Immeuble\Delete.html" />
+    <Content Include="Views\Immeuble\ListItem.html" />
+    <Content Include="Views\Immeuble\List.html" />
+    <Content Include="Views\Immeuble\Edit.html" />
+    <Content Include="Views\Immeuble\Create.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="viewmodels\GenericHandler.cs" />
+    <Compile Include="ViewModels\GenericHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="viewmodels\ImmeubleService.ashx.cs">
+    <Compile Include="ViewModels\immeuble\ImmeubleService.ashx.cs">
       <DependentUpon>ImmeubleService.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="viewmodels\ImmeubleService.ashx" />
+    <Content Include="ViewModels\immeuble\ImmeubleService.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -99,12 +114,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="App_Start\" />
-    <Folder Include="models\" />
-    <Folder Include="resources\" />
-    <Folder Include="scripts\" />
-    <Folder Include="styles\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MethodImmo.DataAccessLayer\MethodImmo.DataAccessLayer.csproj">

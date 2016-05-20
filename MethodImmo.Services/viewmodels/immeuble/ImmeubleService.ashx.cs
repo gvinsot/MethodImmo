@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 
-namespace MethodImmo.Services.viewmodels
+namespace MethodImmo.Services.ViewModels
 {
     /// <summary>
     /// Summary description for Immeuble
@@ -16,18 +16,22 @@ namespace MethodImmo.Services.viewmodels
     {
         public override List<Immeuble> Get()
         {
+            List<Immeuble> result = null;
             using (var context = new MethodImmoDb())
-            {                
-                return context.Immeubles.ToList();
-            }             
+            {
+                result = context.Immeubles.ToList();
+            }
+            return result;  
         }
 
         public override Immeuble Get(long id)
         {
+            Immeuble result = null;
             using (var context = new MethodImmoDb())
             {
-                return context.Immeubles.Find(id);
+                result = context.Immeubles.Find(id);
             }
+            return result;
         }
 
         public override ResultObject Post(Immeuble received)

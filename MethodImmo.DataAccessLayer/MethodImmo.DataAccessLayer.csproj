@@ -61,6 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MethodImmoDb.cs" />
+    <Compile Include="MethodImmoDbConfiguration.cs" />
+    <Compile Include="MethodImmoDbInitializer.cs" />
+    <Compile Include="Migrations\201605182123484_MethodImmo.cs" />
+    <Compile Include="Migrations\201605182123484_MethodImmo.Designer.cs">
+      <DependentUpon>201605182123484_MethodImmo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +82,12 @@
       <Project>{2d63b715-9aba-4946-bb1c-8d6b9c0fe508}</Project>
       <Name>MethodImmo.Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605182123484_MethodImmo.resx">
+      <DependentUpon>201605182123484_MethodImmo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
