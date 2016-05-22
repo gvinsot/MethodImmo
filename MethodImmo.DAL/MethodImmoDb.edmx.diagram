@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="80fd8e5917994c97bac81e5adbe1553e" Name="Diagram1" ZoomLevel="85" >
+        <EntityTypeShape EntityType="MethodImmoDb.AccesUtilisateur" Width="1.5" PointX="15.375" PointY="7.125" />
+        <EntityTypeShape EntityType="MethodImmoDb.Action" Width="2.875" PointX="3.875" PointY="12.5" />
+        <EntityTypeShape EntityType="MethodImmoDb.Commentaire" Width="1.5" PointX="11" PointY="14.125" />
+        <EntityTypeShape EntityType="MethodImmoDb.CompteBancaire" Width="3" PointX="1.875" PointY="1.5" />
+        <EntityTypeShape EntityType="MethodImmoDb.Contrat" Width="2" PointX="8" PointY="12.375" />
+        <EntityTypeShape EntityType="MethodImmoDb.CoordonneesBancaires" Width="2" PointX="0.75" PointY="6.5" />
+        <EntityTypeShape EntityType="MethodImmoDb.Documentation" Width="1.5" PointX="2.5" PointY="10.125" />
+        <EntityTypeShape EntityType="MethodImmoDb.DroitsGroupeUtilisateurs" Width="2" PointX="10.375" PointY="8" />
+        <EntityTypeShape EntityType="MethodImmoDb.GroupeDePersonnes" Width="1.875" PointX="8" PointY="9.375" />
+        <EntityTypeShape EntityType="MethodImmoDb.Immeuble" Width="1.5" PointX="6.875" PointY="1.875" />
+        <EntityTypeShape EntityType="MethodImmoDb.Personne" Width="1.75" PointX="12.875" PointY="8.625" />
+        <EntityTypeShape EntityType="MethodImmoDb.Individu" Width="1.5" PointX="15.375" PointY="9.375" />
+        <InheritanceConnector EntityType="MethodImmoDb.Individu" />
+        <EntityTypeShape EntityType="MethodImmoDb.Entreprise" Width="2" PointX="10.5" PointY="10.5" />
+        <InheritanceConnector EntityType="MethodImmoDb.Entreprise" />
+        <EntityTypeShape EntityType="MethodImmoDb.CoordonneesDeContact" Width="2.625" PointX="12.625" PointY="4.625" />
+        <EntityTypeShape EntityType="MethodImmoDb.AdressePostale" Width="1.5" PointX="10" PointY="2.875" />
+        <EntityTypeShape EntityType="MethodImmoDb.AdresseEmail" Width="1.5" PointX="14.125" PointY="2.25" />
+        <EntityTypeShape EntityType="MethodImmoDb.Telephone" Width="1.5" PointX="12.5" PointY="2.5" />
+        <AssociationConnector Association="MethodImmoDb.CoordonneesDeContactTelephone" />
+        <AssociationConnector Association="MethodImmoDb.CoordonneesDeContactAdresseEmail" />
+        <AssociationConnector Association="MethodImmoDb.CoordonneesDeContactAdressePostale" />
+        <AssociationConnector Association="MethodImmoDb.ImmeubleAdressePostale" />
+        <AssociationConnector Association="MethodImmoDb.ImmeubleCompteBancaire" />
+        <AssociationConnector Association="MethodImmoDb.CompteBancaireCoordonneesBancaires" />
+        <AssociationConnector Association="MethodImmoDb.ContratGroupeDePersonnes" />
+        <AssociationConnector Association="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs" />
+        <AssociationConnector Association="MethodImmoDb.Groupes" />
+        <AssociationConnector Association="MethodImmoDb.PersonneMoraleGroupeDePersonnes" />
+        <AssociationConnector Association="MethodImmoDb.ContratDocument" />
+        <EntityTypeShape EntityType="MethodImmoDb.VersionDeDocument" Width="2" PointX="0.5" PointY="13.75" />
+        <AssociationConnector Association="MethodImmoDb.DocumentationVersionDeDocument" />
+        <AssociationConnector Association="MethodImmoDb.ContratAction" />
+        <EntityTypeShape EntityType="MethodImmoDb.Anomalie" Width="1.5" PointX="4.875" PointY="16" />
+        <InheritanceConnector EntityType="MethodImmoDb.Anomalie" />
+        <AssociationConnector Association="MethodImmoDb.ActionAction" />
+        <AssociationConnector Association="MethodImmoDb.DocumentationAnomalie" />
+        <AssociationConnector Association="MethodImmoDb.VersionDeDocumentAnomalie" />
+        <AssociationConnector Association="MethodImmoDb.ContratAnomalie" />
+        <EntityTypeShape EntityType="MethodImmoDb.Lot" Width="1.5" PointX="7" PointY="5" />
+        <AssociationConnector Association="MethodImmoDb.ImmeubleLot" />
+        <EntityTypeShape EntityType="MethodImmoDb.GroupeDeRepartition" Width="1.875" PointX="8" PointY="7.875" />
+        <InheritanceConnector EntityType="MethodImmoDb.GroupeDeRepartition" />
+        <AssociationConnector Association="MethodImmoDb.LotGroupeDeRepartition" />
+        <AssociationConnector Association="MethodImmoDb.LotGroupeDePersonnes" ManuallyRouted="false" >
+        </AssociationConnector>
+        <EntityTypeShape EntityType="MethodImmoDb.Partenaire" Width="1.5" PointX="15.375" PointY="11.125" />
+        <AssociationConnector Association="MethodImmoDb.TiersPersonne" />
+        <AssociationConnector Association="MethodImmoDb.PersonnePartenaire" />
+        <AssociationConnector Association="MethodImmoDb.PersonneCoordonneesDeContact" />
+        <AssociationConnector Association="MethodImmoDb.PersonneCoordonneesBancaires" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="MethodImmoDb.CompteBancaireDocumentation" ></AssociationConnector>
+        <AssociationConnector Association="MethodImmoDb.CompteBancaireAnomalie" />
+        <AssociationConnector Association="MethodImmoDb.ActionCompteBancaire" />
+        <AssociationConnector Association="MethodImmoDb.ContratCommentaire" />
+        <AssociationConnector Association="MethodImmoDb.ActionCommentaire" />
+        <AssociationConnector Association="MethodImmoDb.PersonneCommentaire" />
+        <AssociationConnector Association="MethodImmoDb.LotCommentaire" />
+        <AssociationConnector Association="MethodImmoDb.ImmeubleCommentaire" />
+        <AssociationConnector Association="MethodImmoDb.CommentaireIndividu" />
+        <AssociationConnector Association="MethodImmoDb.IndividuAccesUtilisateur" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

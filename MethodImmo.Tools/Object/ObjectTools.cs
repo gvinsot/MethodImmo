@@ -6,64 +6,238 @@ using System.Collections;
 
 namespace Mid.Tools
 {
+    public delegate void ForEachRecursiveDelegate(object currentMemberValue, object parent, MemberInfo memberInfo,object context);
+    public delegate bool ForEachRecursiveFilterDelegate(object currentMemberValue, object parent, MemberInfo memberInfo, object context);
+    public delegate object ForEachRecursiveConverterDelegate(object currentMemberValue, object parent, MemberInfo memberInfo, object context);
+
+    public delegate void ForEachExpandoRecursiveDelegate(object currentMemberValue, object parent, string parentMemberName, object context);
+    public delegate bool ForEachExpandoRecursiveFilterDelegate(object currentMemberValue, object parent, string parentMemberName, object context);
 
     public class ObjectTools:IObjectTools
     {
         #region object explorer tools
-        public delegate void ForEachRecursiveDelegate(object current);
-        
-        public static void ForEachRecursive(object root, Dictionary<Type,List<string>> allowedLinks, ForEachRecursiveDelegate todoAtBegin, ForEachRecursiveDelegate todoAtEnd)
+
+
+        public static void ForEachExpandoRecursive(dynamic root, Dictionary<string, HashSet<string>> includesLinks, Dictionary<string, HashSet<string>> excludesLinks, ForEachExpandoRecursiveDelegate todoAtBegin, ForEachExpandoRecursiveDelegate todoOnLeaf, ForEachExpandoRecursiveDelegate todoAtEnd, ForEachExpandoRecursiveFilterDelegate filter = null, object context = null, object parent = null, string parentMemberName = null)
         {
-            if (todoAtBegin!=null)
+            if (root == null || IsPrimitiveType(root.GetType()))
             {
-                todoAtBegin(root);
+                if (todoOnLeaf != null)
+                {
+                    todoOnLeaf(root, parent, parentMemberName, context);
+                }
+                return;
             }
-            Type rootType = root.GetType();
-            foreach (var member in GetPropertiesAndFields(rootType))
+
+            if (todoAtBegin != null)
             {
-                Type memberType = GetMemberType(member);
-                if (memberType == null)
+                todoAtBegin(root, parent, parentMemberName, context);
+            }
+
+            var membersKeyPairs = root as IDictionary<string, object>;
+
+            foreach (var memberKeyPair in membersKeyPairs)
+            {
+                object memberValue = memberKeyPair.Value;
+                Type memberType = memberValue.GetType();
+                string memberName = memberKeyPair.Key;
+
+                if (parentMemberName == null)
+                    parentMemberName = "*";
+
+                #region filters
+                if (includesLinks != null)
                 {
-                    continue;
-                }
-                if (allowedLinks != null && allowedLinks.ContainsKey(rootType) == false)
-                {
-                    continue;
-                }
-                if (allowedLinks[rootType].Contains("*") == false)
-                {
-                    if (allowedLinks[rootType].Contains(member.Name) == false)
+                    bool isTypeInLinks = includesLinks.ContainsKey(parentMemberName);
+                    bool isMemberInLinks = isTypeInLinks && includesLinks[parentMemberName].Contains(memberName);
+
+                    if (!isTypeInLinks)
+                    {
+                        continue;
+                    }
+
+                    if (!includesLinks[parentMemberName].Contains("*") && !isMemberInLinks)
                     {
                         continue;
                     }
                 }
-                if (memberType.IsGenericType == false)
+                if (excludesLinks != null)
                 {
-                    object value=ObjectTools.GetMemberValue(root, member);
-                    if (value != null)
+                    bool isTypeInLinks = excludesLinks.ContainsKey(parentMemberName);
+                    bool isMemberInLinks = isTypeInLinks && excludesLinks[parentMemberName].Contains(memberName);
+
+                    if (isTypeInLinks && isMemberInLinks)
                     {
-                        ForEachRecursive(value, allowedLinks, todoAtBegin, todoAtEnd);
+                        continue;
                     }
                 }
-                else if (memberType.IsGenericType)
+
+                if (filter != null && filter(memberValue, root, memberName, context))
                 {
-                    IEnumerable list = ObjectTools.GetMemberValue(root, member) as IEnumerable;
-                    if (list != null)
+                    continue;
+                }
+                #endregion filters
+
+                if (IsPrimitiveType(memberType))
+                {
+                    if (todoOnLeaf != null)
                     {
-                        foreach (object item in list)
-                        {
-                            if (item != null)
-                            {
-                                ForEachRecursive(item,  allowedLinks,  todoAtBegin,todoAtEnd);
-                            }
-                        }
+                        todoOnLeaf(memberValue, root, memberName, context);
+                    }
+                    continue;
+                }
+
+                if (!IsArrayType(memberType))
+                {
+                    ForEachExpandoRecursive(memberValue, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root, memberName);
+                }
+                else
+                {
+                    if (todoAtBegin != null)
+                    {
+                        todoAtBegin(memberValue, root, memberName, context);
+                    }
+                    IEnumerable list = memberValue as IEnumerable;
+
+                    foreach (object item in list)
+                    {
+                        ForEachExpandoRecursive(item, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root, null);
+                    }
+                    if (todoAtEnd != null)
+                    {
+                        todoAtEnd(memberValue, root, memberName, context);
+                    }
+                }
+            }
+            if (todoAtEnd != null)
+            {
+                todoAtEnd(root, parent, parentMemberName, context);
+            }
+        }
+
+        public static void ForEachMemberRecursive(object root, Dictionary<Type, HashSet<string>> includesLinks, Dictionary<Type, HashSet<string>> excludesLinks,  ForEachRecursiveDelegate todoAtBegin, ForEachRecursiveDelegate todoOnLeaf, ForEachRecursiveDelegate todoAtEnd, ForEachRecursiveFilterDelegate filter=null, object context = null, Dictionary<Type,List<MemberInfo>> cache= null, object parent =null, MemberInfo parentRootInfo =null )
+        {
+
+            if (root == null || IsPrimitiveType(root.GetType()))
+            {
+                if (todoOnLeaf != null)
+                {
+                    todoOnLeaf(root,parent, parentRootInfo, context);
+                }
+                return;
+            }
+            
+            if (todoAtBegin!=null)
+            {
+                todoAtBegin(root, parent, parentRootInfo, context);
+            }
+
+            if (cache == null)
+                cache = new Dictionary<Type, List<MemberInfo>>(); 
+
+            List<MemberInfo> members = null;
+
+            Type rootType = root.GetType();
+
+            if (cache.ContainsKey(rootType))
+                members = cache[rootType];
+            else
+            {
+                members = GetPropertiesAndFields(rootType);
+                cache.Add(rootType, members);
+            }
+
+            foreach (var member in members)
+            {
+                Type memberType = GetMemberType(member);
+
+                // neither a property or a field (method or other)
+                if (memberType == null)
+                {
+                    continue;
+                }
+                #region filters
+                if (includesLinks != null)
+                {
+                    bool isTypeInLinks = includesLinks.ContainsKey(rootType);
+                    bool isMemberInLinks = isTypeInLinks && includesLinks[rootType].Contains(member.Name);
+
+                    if (!isTypeInLinks)
+                    {
+                        continue;
+                    }
+
+                    if (!includesLinks[rootType].Contains("*") && !isMemberInLinks)
+                    {
+                        continue;
+                    }
+                }
+                if (excludesLinks != null)
+                {
+                    bool isTypeInLinks = excludesLinks.ContainsKey(rootType);
+                    bool isMemberInLinks = isTypeInLinks && excludesLinks[rootType].Contains(member.Name);
+
+                    if (isTypeInLinks && isMemberInLinks)
+                    {
+                        continue;
+                    }
+                }
+
+                object memberValue = GetMemberValue(root, member);
+
+                if (filter != null && filter(memberValue, root, member, context))
+                {
+                    continue;
+                }
+                #endregion filters
+
+                if (IsPrimitiveType(memberType))
+                {
+                    if (todoOnLeaf != null)
+                    {
+                        todoOnLeaf(memberValue, root, member, context);
+                    }
+                    continue;
+                }
+
+                //member is a complex type
+
+                if (!IsArrayType(memberType))
+                {
+                    ForEachMemberRecursive(memberValue, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, cache, root, member);
+                }
+                else
+                {
+                    if (todoAtBegin != null)
+                    {
+                        todoAtBegin(memberValue, root, member, context);
+                    }
+                    IEnumerable list = memberValue as IEnumerable;
+
+                    foreach (object item in list)
+                    {
+                        ForEachMemberRecursive(item, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, cache, root, null);
+                    }
+                    if (todoAtEnd != null)
+                    {
+                        todoAtEnd(memberValue, root, member, context);
                     }
                 }
             }
             if (todoAtEnd!=null)
             {
-                todoAtEnd(root);
+                todoAtEnd(root, parent,parentRootInfo, context);
             }
+        }
+
+
+        public static bool IsPrimitiveType(Type objType)
+        {
+            return objType.IsPrimitive || objType == typeof(Decimal) || objType == typeof(String) || objType == typeof(DateTime);
+        }
+        public static bool IsArrayType(Type objType)
+        {
+            return typeof(IEnumerable).IsAssignableFrom(objType);
         }
 
         public static List<T> RetrieveObjectsRecursively<T>(object root, List<Type> typesToGoThrough)

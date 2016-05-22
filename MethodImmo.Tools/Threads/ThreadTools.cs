@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity.Core;
 using System.Threading;
 
 namespace Mid.Tools

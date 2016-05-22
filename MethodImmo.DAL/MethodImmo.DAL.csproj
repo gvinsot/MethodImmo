@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99A6C1B0-7533-482C-BF28-C3CA5702869C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MethodImmo.DAL</RootNamespace>
+    <AssemblyName>MethodImmo.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccesUtilisateur.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Action.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdresseEmail.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AdressePostale.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Anomalie.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Commentaire.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompteBancaire.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ContextHelper.cs" />
+    <Compile Include="Contrat.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoordonneesBancaires.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CoordonneesDeContact.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Documentation.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DroitsGroupeUtilisateurs.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entreprise.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupeDePersonnes.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroupeDeRepartition.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Immeuble.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Individu.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Lot.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MethodImmoDb.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MethodImmoDb.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MethodImmoDb.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MethodImmoDb.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MethodImmoDb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Partenaire.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Personne.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telephone.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeAction.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeDeContrat.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TypeDeDocument.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VersionDeDocument.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="MethodImmoDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MethodImmoDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MethodImmoDb.edmx.diagram">
+      <DependentUpon>MethodImmoDb.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MethodImmoDb.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MethodImmoDb.Context.cs</LastGenOutput>
+      <DependentUpon>MethodImmoDb.edmx</DependentUpon>
+    </Content>
+    <Content Include="MethodImmoDb.edmx.sql" />
+    <Content Include="MethodImmoDb.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MethodImmoDb.cs</LastGenOutput>
+      <DependentUpon>MethodImmoDb.edmx</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MethodImmo.Tools\MethodImmo.Tools.csproj">
+      <Project>{2D63B715-9ABA-4946-BB1C-8D6B9C0FE508}</Project>
+      <Name>MethodImmo.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

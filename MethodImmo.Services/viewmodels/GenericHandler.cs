@@ -1,5 +1,4 @@
-﻿using MethodImmo.EntityJsonSerializer;
-using MethodImmo.Model;
+﻿using Mid.Tools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +14,7 @@ namespace MethodImmo.Services.ViewModels
     /// <summary>
     /// Summary description for Immeuble
     /// </summary>
-    public class GenericHandler<T> : IHttpHandler
+    public class GenericHandler<T> : IHttpHandler where T:class
     {
 
         public void ProcessRequest(HttpContext context)
@@ -58,9 +57,8 @@ namespace MethodImmo.Services.ViewModels
                             postSerialized = sr.ReadToEnd();
 
                         }
-                        var postSerializer = new JsonEntitySerializer();
-                        T resultTObject = postSerializer.ToObject<T>(postSerialized);
-                        result = postSerializer.ToJSON(Post(resultTObject));
+                        T resultTObject = JsonSerializationTool<T>.Deserialize(postSerialized);
+                        result = JsonSerializationTool<ResultObject>.Serialize(Post(resultTObject));
                         break;
 
                     case "PUT":
@@ -77,9 +75,7 @@ namespace MethodImmo.Services.ViewModels
                         }
                         var resultObject = Put(objectId, serialized);
 
-                        var serializer = new JsonEntitySerializer();
-
-                        result = serializer.ToJSON(resultObject);
+                        result = JsonSerializationTool<ResultObject>.Serialize(resultObject);
                         break;
 
 
@@ -89,10 +85,7 @@ namespace MethodImmo.Services.ViewModels
                             //ERROR
                         }
                         var deleteResultObject = Delete(objectId);
-
-                        var deleteSerializer = new JsonEntitySerializer();
-
-                        result = deleteSerializer.ToJSON(deleteResultObject);
+                        result = JsonSerializationTool<ResultObject>.Serialize(deleteResultObject);
                         break;
                 }
 
@@ -138,18 +131,7 @@ namespace MethodImmo.Services.ViewModels
         {
             var task = Task.Run(() =>
             {
-                var serializer = new JsonEntitySerializer();
-
-                string result = serializer.ToJSON(toSerialize, new JSONParameters()
-                {
-                    AllowedLinks = new Dictionary<Type, List<string>>
-                    {
-                        //{typeof(Media),new List<string>{"Name","Trigger","OwnerWorkgroup","File"}},
-                        //{typeof(Workgroup),new List<string>{"Id","Name"}},
-                        //{typeof(File),new List<string>{"Id","Path","OriginalDuration","Width","Height"}},
-                        //{typeof(Planning),new List<string>{"Id","StartDate","EndDate","IsOnMonday","IsOnTuesday"}}
-                    }
-                });
+            string result = null;// serializer.ToJSON(toSerialize, new JSONParameters()
                 return result;
             });
             task.Wait();
