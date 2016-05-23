@@ -14,7 +14,7 @@ namespace MethodImmo.Services.ViewModels
     /// <summary>
     /// Summary description for Immeuble
     /// </summary>
-    public class GenericHandler<T> : IHttpHandler where T:class
+    public abstract class GenericHandler<T> : IHttpHandler where T:class
     {
 
         public void ProcessRequest(HttpContext context)
@@ -99,15 +99,11 @@ namespace MethodImmo.Services.ViewModels
 
 
 
-        public virtual List<T> Get()
-        {
-            return null;
-        }
+        public abstract List<T> Get();
 
-        public virtual T Get(long id)
-        {
-            return default(T);
-        }
+
+        public abstract T Get(long id);
+
 
         // = CREATE / REPLACE
         public virtual ResultObject Post(T receivedObject)

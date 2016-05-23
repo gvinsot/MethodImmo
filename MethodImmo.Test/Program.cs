@@ -16,6 +16,9 @@ namespace MethodImmo.Test
 
             TestDeserialization(result);
 
+            TestFillAWithB();
+
+
             Console.ReadLine();
         }
 
@@ -27,7 +30,7 @@ namespace MethodImmo.Test
             public CompteEnBanque Compte = new CompteEnBanque();
             //public List<int> Values = new List<int>() { 1, 2, 3, 4, 5, 6 };
 
-            public List<object> AutresComptes = new List<object>() { new CompteEnBanque() , new CompteEnBanque() };
+            public List<CompteEnBanque> AutresComptes = new List<CompteEnBanque>() { new CompteEnBanque() , new CompteEnBanque() };
         }
 
 
@@ -39,7 +42,7 @@ namespace MethodImmo.Test
             public CompteEnBanque Compte = new CompteEnBanque() { BIC = "2132", IBAN = "231" };
             //public List<int> Values = new List<int>() { 1, 2, 3, 4, 5, 6 };
 
-            public List<object> AutresComptes = new List<object>() { new CompteEnBanque() { BIC = "2132", IBAN = "231" }, new CompteEnBanque() { BIC = "2132", IBAN = "231" } };
+            public List<CompteEnBanque> AutresComptes = new List<CompteEnBanque>() { new CompteEnBanque() { BIC = "2132", IBAN = "231" }, new CompteEnBanque() { BIC = "2132", IBAN = "231" } };
         }
 
         public class CompteEnBanque
@@ -55,7 +58,7 @@ namespace MethodImmo.Test
             Toto toSerialize = new Toto();
             var result = JsonSerializationTool<Toto>.Serialize(toSerialize);
             var comparatif = JsonConvert.SerializeObject(toSerialize);
-            Console.Write(result==comparatif);
+            Console.WriteLine(result==comparatif);
             return result;
         }
 
@@ -64,7 +67,21 @@ namespace MethodImmo.Test
         {
             var result = JsonSerializationTool<Toto>.Deserialize(serialized);
             
-            Console.Write(result);
+            Console.WriteLine(result.AutresComptes.Count()==2);
         }
+
+        public static void TestFillAWithB()
+        {
+            Toto toto1 = new Toto();
+            Toto2 toto2 = new Toto2();
+
+            string serializeToto2 = JsonSerializationTool<Toto2>.Serialize(toto2);
+
+            JsonSerializationTool<object>.FillObject(serializeToto2, toto1);
+
+            string serializedToto1 = JsonSerializationTool<Toto>.Serialize(toto1);
+            Console.WriteLine(serializeToto2 == serializedToto1);
+        }
+
     }
 }

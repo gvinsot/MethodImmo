@@ -67,6 +67,7 @@
         <AssociationConnector Association="MethodImmoDb.ImmeubleCommentaire" />
         <AssociationConnector Association="MethodImmoDb.CommentaireIndividu" />
         <AssociationConnector Association="MethodImmoDb.IndividuAccesUtilisateur" />
+        <AssociationConnector Association="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

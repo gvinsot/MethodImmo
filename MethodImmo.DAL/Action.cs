@@ -17,7 +17,7 @@ namespace MethodImmo.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Action()
         {
-            this.CompteBancaire1 = new HashSet<CompteBancaire>();
+            this.ComptesBancaires = new HashSet<CompteBancaire>();
             this.Commentaires = new HashSet<Commentaire>();
         }
     
@@ -32,7 +32,7 @@ namespace MethodImmo.DAL
         public virtual Action SousActions { get; set; }
         public virtual Action ActionParente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompteBancaire> CompteBancaire1 { get; set; }
+        public virtual ICollection<CompteBancaire> ComptesBancaires { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commentaire> Commentaires { get; set; }
     }

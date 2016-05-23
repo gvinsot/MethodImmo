@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/22/2016 22:25:11
+-- Date Created: 05/23/2016 16:24:30
 -- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,203 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_CoordonneesDeContactTelephone]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TelephoneSet] DROP CONSTRAINT [FK_CoordonneesDeContactTelephone];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CoordonneesDeContactAdresseEmail]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AdresseEmailSet] DROP CONSTRAINT [FK_CoordonneesDeContactAdresseEmail];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CoordonneesDeContactAdressePostale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AdressePostaleSet] DROP CONSTRAINT [FK_CoordonneesDeContactAdressePostale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImmeubleAdressePostale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AdressePostaleSet] DROP CONSTRAINT [FK_ImmeubleAdressePostale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImmeubleCompteBancaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CompteBancaireSet] DROP CONSTRAINT [FK_ImmeubleCompteBancaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CompteBancaireCoordonneesBancaires]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoordonneesBancairesSet] DROP CONSTRAINT [FK_CompteBancaireCoordonneesBancaires];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratGroupeDePersonnes_Contrat]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ContratGroupeDePersonnes] DROP CONSTRAINT [FK_ContratGroupeDePersonnes_Contrat];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratGroupeDePersonnes_GroupeDePersonnes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ContratGroupeDePersonnes] DROP CONSTRAINT [FK_ContratGroupeDePersonnes_GroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupeDePersonnesDroitsGroupeUtilisateurs]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DroitsGroupeUtilisateursSet] DROP CONSTRAINT [FK_GroupeDePersonnesDroitsGroupeUtilisateurs];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Groupes_GroupeDePersonnes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesPersonne] DROP CONSTRAINT [FK_Groupes_GroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Groupes_Personne]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesPersonne] DROP CONSTRAINT [FK_Groupes_Personne];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonneMoraleGroupeDePersonnes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesSet] DROP CONSTRAINT [FK_PersonneMoraleGroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratDocument]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentationSet] DROP CONSTRAINT [FK_ContratDocument];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentationVersionDeDocument]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[VersionDeDocumentSet] DROP CONSTRAINT [FK_DocumentationVersionDeDocument];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratAction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet] DROP CONSTRAINT [FK_ContratAction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionAction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet] DROP CONSTRAINT [FK_ActionAction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentationAnomalie]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet_Anomalie] DROP CONSTRAINT [FK_DocumentationAnomalie];
+GO
+IF OBJECT_ID(N'[dbo].[FK_VersionDeDocumentAnomalie]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet_Anomalie] DROP CONSTRAINT [FK_VersionDeDocumentAnomalie];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratAnomalie]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet_Anomalie] DROP CONSTRAINT [FK_ContratAnomalie];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImmeubleLot]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LotSet] DROP CONSTRAINT [FK_ImmeubleLot];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LotGroupeDeRepartition]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[LotSet] DROP CONSTRAINT [FK_LotGroupeDeRepartition];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LotGroupeDePersonnes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesSet] DROP CONSTRAINT [FK_LotGroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TiersPersonne]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PartenaireSet] DROP CONSTRAINT [FK_TiersPersonne];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonnePartenaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PartenaireSet] DROP CONSTRAINT [FK_PersonnePartenaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonneCoordonneesDeContact]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoordonneesDeContactSet] DROP CONSTRAINT [FK_PersonneCoordonneesDeContact];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonneCoordonneesBancaires]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CoordonneesBancairesSet] DROP CONSTRAINT [FK_PersonneCoordonneesBancaires];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CompteBancaireDocumentation]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentationSet] DROP CONSTRAINT [FK_CompteBancaireDocumentation];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CompteBancaireAnomalie]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet_Anomalie] DROP CONSTRAINT [FK_CompteBancaireAnomalie];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionCompteBancaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CompteBancaireSet] DROP CONSTRAINT [FK_ActionCompteBancaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ContratCommentaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_ContratCommentaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ActionCommentaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_ActionCommentaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PersonneCommentaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_PersonneCommentaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_LotCommentaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_LotCommentaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ImmeubleCommentaire]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_ImmeubleCommentaire];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CommentaireIndividu]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentaireSet] DROP CONSTRAINT [FK_CommentaireIndividu];
+GO
+IF OBJECT_ID(N'[dbo].[FK_IndividuAccesUtilisateur]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccesUtilisateurSet] DROP CONSTRAINT [FK_IndividuAccesUtilisateur];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Entreprise_inherits_Personne]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PersonneSet_Entreprise] DROP CONSTRAINT [FK_Entreprise_inherits_Personne];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Anomalie_inherits_Action]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ActionSet_Anomalie] DROP CONSTRAINT [FK_Anomalie_inherits_Action];
+GO
+IF OBJECT_ID(N'[dbo].[FK_GroupeDeRepartition_inherits_GroupeDePersonnes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesSet_GroupeDeRepartition] DROP CONSTRAINT [FK_GroupeDeRepartition_inherits_GroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Individu_inherits_Personne]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PersonneSet_Individu] DROP CONSTRAINT [FK_Individu_inherits_Personne];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[AccesUtilisateurSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccesUtilisateurSet];
+GO
+IF OBJECT_ID(N'[dbo].[ActionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionSet];
+GO
+IF OBJECT_ID(N'[dbo].[CommentaireSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CommentaireSet];
+GO
+IF OBJECT_ID(N'[dbo].[CompteBancaireSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CompteBancaireSet];
+GO
+IF OBJECT_ID(N'[dbo].[ContratSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ContratSet];
+GO
+IF OBJECT_ID(N'[dbo].[CoordonneesBancairesSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CoordonneesBancairesSet];
+GO
+IF OBJECT_ID(N'[dbo].[DocumentationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DocumentationSet];
+GO
+IF OBJECT_ID(N'[dbo].[DroitsGroupeUtilisateursSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DroitsGroupeUtilisateursSet];
+GO
+IF OBJECT_ID(N'[dbo].[GroupeDePersonnesSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GroupeDePersonnesSet];
+GO
+IF OBJECT_ID(N'[dbo].[ImmeubleSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ImmeubleSet];
+GO
+IF OBJECT_ID(N'[dbo].[PersonneSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PersonneSet];
+GO
+IF OBJECT_ID(N'[dbo].[CoordonneesDeContactSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CoordonneesDeContactSet];
+GO
+IF OBJECT_ID(N'[dbo].[AdressePostaleSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AdressePostaleSet];
+GO
+IF OBJECT_ID(N'[dbo].[AdresseEmailSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AdresseEmailSet];
+GO
+IF OBJECT_ID(N'[dbo].[TelephoneSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TelephoneSet];
+GO
+IF OBJECT_ID(N'[dbo].[VersionDeDocumentSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[VersionDeDocumentSet];
+GO
+IF OBJECT_ID(N'[dbo].[LotSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[LotSet];
+GO
+IF OBJECT_ID(N'[dbo].[PartenaireSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PartenaireSet];
+GO
+IF OBJECT_ID(N'[dbo].[PersonneSet_Entreprise]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PersonneSet_Entreprise];
+GO
+IF OBJECT_ID(N'[dbo].[ActionSet_Anomalie]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ActionSet_Anomalie];
+GO
+IF OBJECT_ID(N'[dbo].[GroupeDePersonnesSet_GroupeDeRepartition]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GroupeDePersonnesSet_GroupeDeRepartition];
+GO
+IF OBJECT_ID(N'[dbo].[PersonneSet_Individu]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PersonneSet_Individu];
+GO
+IF OBJECT_ID(N'[dbo].[ContratGroupeDePersonnes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ContratGroupeDePersonnes];
+GO
+IF OBJECT_ID(N'[dbo].[GroupeDePersonnesPersonne]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[GroupeDePersonnesPersonne];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -75,8 +267,8 @@ GO
 -- Creating table 'ContratSet'
 CREATE TABLE [dbo].[ContratSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [DateDeDebut] nvarchar(max)  NOT NULL,
-    [DateDeFin] nvarchar(max)  NOT NULL,
+    [DateDeDebut] datetime  NOT NULL,
+    [DateDeFin] datetime  NOT NULL,
     [TypeDeContrat] nvarchar(max)  NOT NULL
 );
 GO
@@ -103,6 +295,7 @@ GO
 -- Creating table 'DroitsGroupeUtilisateursSet'
 CREATE TABLE [dbo].[DroitsGroupeUtilisateursSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
+    [TypeDeDroit] int  NOT NULL,
     [GroupeDePersonnes_Id] bigint  NOT NULL
 );
 GO
@@ -173,6 +366,7 @@ GO
 CREATE TABLE [dbo].[VersionDeDocumentSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Date] datetime  NOT NULL,
+    [CheminDocument] nvarchar(max)  NOT NULL,
     [Documentation_Id] bigint  NOT NULL
 );
 GO
@@ -236,6 +430,13 @@ GO
 CREATE TABLE [dbo].[GroupeDePersonnesPersonne] (
     [Groupes_Personne_Id] bigint  NOT NULL,
     [Personnes_Id] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'DroitsGroupeUtilisateursImmeuble'
+CREATE TABLE [dbo].[DroitsGroupeUtilisateursImmeuble] (
+    [GroupesUtilisateursAvecAcces_Id] bigint  NOT NULL,
+    [Immeubles_Id] bigint  NOT NULL
 );
 GO
 
@@ -385,6 +586,12 @@ GO
 ALTER TABLE [dbo].[GroupeDePersonnesPersonne]
 ADD CONSTRAINT [PK_GroupeDePersonnesPersonne]
     PRIMARY KEY CLUSTERED ([Groupes_Personne_Id], [Personnes_Id] ASC);
+GO
+
+-- Creating primary key on [GroupesUtilisateursAvecAcces_Id], [Immeubles_Id] in table 'DroitsGroupeUtilisateursImmeuble'
+ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble]
+ADD CONSTRAINT [PK_DroitsGroupeUtilisateursImmeuble]
+    PRIMARY KEY CLUSTERED ([GroupesUtilisateursAvecAcces_Id], [Immeubles_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -917,6 +1124,30 @@ GO
 CREATE INDEX [IX_FK_IndividuAccesUtilisateur]
 ON [dbo].[AccesUtilisateurSet]
     ([Individu_Id]);
+GO
+
+-- Creating foreign key on [GroupesUtilisateursAvecAcces_Id] in table 'DroitsGroupeUtilisateursImmeuble'
+ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble]
+ADD CONSTRAINT [FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs]
+    FOREIGN KEY ([GroupesUtilisateursAvecAcces_Id])
+    REFERENCES [dbo].[DroitsGroupeUtilisateursSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Immeubles_Id] in table 'DroitsGroupeUtilisateursImmeuble'
+ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble]
+ADD CONSTRAINT [FK_DroitsGroupeUtilisateursImmeuble_Immeuble]
+    FOREIGN KEY ([Immeubles_Id])
+    REFERENCES [dbo].[ImmeubleSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DroitsGroupeUtilisateursImmeuble_Immeuble'
+CREATE INDEX [IX_FK_DroitsGroupeUtilisateursImmeuble_Immeuble]
+ON [dbo].[DroitsGroupeUtilisateursImmeuble]
+    ([Immeubles_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'PersonneSet_Entreprise'

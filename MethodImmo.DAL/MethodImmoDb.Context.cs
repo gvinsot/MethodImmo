@@ -13,10 +13,10 @@ namespace MethodImmo.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MethodImmoDb : DbContext
+    public partial class MethodImmoContext : DbContext
     {
-        public MethodImmoDb()
-            : base("name=MethodImmoDbContainer")
+        public MethodImmoContext()
+            : base("name=MethodImmoContext")
         {
         }
     

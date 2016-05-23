@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Collections;
+using System.Dynamic;
+using Newtonsoft.Json.Linq;
 
 namespace Mid.Tools
 {
@@ -18,13 +20,13 @@ namespace Mid.Tools
         #region object explorer tools
 
 
-        public static void ForEachExpandoRecursive(dynamic root, Dictionary<string, HashSet<string>> includesLinks, Dictionary<string, HashSet<string>> excludesLinks, ForEachExpandoRecursiveDelegate todoAtBegin, ForEachExpandoRecursiveDelegate todoOnLeaf, ForEachExpandoRecursiveDelegate todoAtEnd, ForEachExpandoRecursiveFilterDelegate filter = null, object context = null, object parent = null, string parentMemberName = null)
+        public static void ForEachExpandoRecursive(JToken root, Dictionary<string, HashSet<string>> includesLinks, Dictionary<string, HashSet<string>> excludesLinks, ForEachExpandoRecursiveDelegate todoAtBegin, ForEachExpandoRecursiveDelegate todoOnLeaf, ForEachExpandoRecursiveDelegate todoAtEnd, ForEachExpandoRecursiveFilterDelegate filter = null, object context = null, object parent = null, string parentMemberName = null)
         {
-            if (root == null || IsPrimitiveType(root.GetType()))
+            if (root is JValue)
             {
                 if (todoOnLeaf != null)
                 {
-                    todoOnLeaf(root, parent, parentMemberName, context);
+                    todoOnLeaf((root as JValue).Value, parent, parentMemberName, context);
                 }
                 return;
             }
@@ -34,13 +36,10 @@ namespace Mid.Tools
                 todoAtBegin(root, parent, parentMemberName, context);
             }
 
-            var membersKeyPairs = root as IDictionary<string, object>;
-
-            foreach (var memberKeyPair in membersKeyPairs)
+            foreach (JProperty memberKeyPair in root)
             {
                 object memberValue = memberKeyPair.Value;
-                Type memberType = memberValue.GetType();
-                string memberName = memberKeyPair.Key;
+                string memberName = memberKeyPair.Name;
 
                 if (parentMemberName == null)
                     parentMemberName = "*";
@@ -78,30 +77,31 @@ namespace Mid.Tools
                 }
                 #endregion filters
 
-                if (IsPrimitiveType(memberType))
+                if (memberValue is JValue)
                 {
                     if (todoOnLeaf != null)
                     {
-                        todoOnLeaf(memberValue, root, memberName, context);
+                        todoOnLeaf((memberValue as JValue).Value, root, memberName, context);
                     }
                     continue;
                 }
 
-                if (!IsArrayType(memberType))
+                if (memberValue is JObject)
                 {
-                    ForEachExpandoRecursive(memberValue, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root, memberName);
+                    ForEachExpandoRecursive(memberValue as JObject, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root, memberName);
                 }
-                else
+                else if (memberValue is JArray)
                 {
                     if (todoAtBegin != null)
                     {
                         todoAtBegin(memberValue, root, memberName, context);
                     }
                     IEnumerable list = memberValue as IEnumerable;
-
+                    int index = 0;
                     foreach (object item in list)
                     {
-                        ForEachExpandoRecursive(item, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root, null);
+                        ForEachExpandoRecursive(item as JObject, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, root,$"[{index}]");
+                        index++;
                     }
                     if (todoAtEnd != null)
                     {
@@ -382,12 +382,12 @@ namespace Mid.Tools
                 return prop.GetValue(sourceObject);
             }
         }
-        public static void SetMemberValue(object destinationObject, string memberName, object value)
+        public static void SetMemberValue(object destinationObject, string memberName, object value, bool tryConvert=false)
         {
             MemberInfo member = destinationObject.GetType().GetMember(memberName).FirstOrDefault();
-            SetMemberValue(destinationObject, member, value);
+            SetMemberValue(destinationObject, member, value, tryConvert);
         }
-        public static void SetMemberValue(object destinationObject, MemberInfo member, object value)
+        public static void SetMemberValue(object destinationObject, MemberInfo member, object value, bool tryConvert = false)
         {
             if (destinationObject == null)
                 return;
@@ -396,16 +396,58 @@ namespace Mid.Tools
                 PropertyInfo prop = member as PropertyInfo;
                 if (prop == null)
                     return;
-                if(prop.CanWrite)
+                if (prop.CanWrite)
+                {
+                    if (tryConvert && value.GetType() != prop.PropertyType)
+                    {
+                        value = Convert.ChangeType(value, prop.PropertyType);
+                    }
                     prop.SetValue(destinationObject, value, null);
+                }
             }
             else
             {
                 FieldInfo prop = member as FieldInfo;
                 if (prop == null)
                     return;
+                if(tryConvert && value.GetType()!= prop.FieldType)
+                {
+                    value = Convert.ChangeType(value, prop.FieldType);
+                }
                 prop.SetValue(destinationObject, value);
             }
+        }
+
+        public static void SetMemberValuePath(object sourceObject, string PropPath, object value)
+        {
+            var propertiesChain = PropPath.Split('.');
+            var currentObject = sourceObject;
+            for (int i=0;i<propertiesChain.Count()-1;i++)
+            {
+                var propertyString = propertiesChain[i];
+                int index = 0;
+                string propertyName = propertyString;
+                bool isArrayProperty = propertyName.EndsWith("]");
+                if (isArrayProperty)
+                {
+                    var values = propertyName.Split(new char[] { '[', ']' },StringSplitOptions.RemoveEmptyEntries);
+                    propertyName = values.First();
+                    index = int.Parse(values.Last());
+                }
+                currentObject = GetMemberValue(currentObject, propertyName);
+                if (currentObject == null)
+                {
+                    throw new Exception("property path " + PropPath + " not found");
+                }
+                if(isArrayProperty && currentObject as ICollection != null)
+                {
+                    var enumerator = (currentObject as ICollection).GetEnumerator();
+                    for (int j = 0; j <= index; j++)
+                        enumerator.MoveNext();
+                    currentObject = enumerator.Current;
+                }
+            }
+            SetMemberValue(currentObject, propertiesChain.Last(), value,true);
         }
         #endregion Field and Properties tools
     }

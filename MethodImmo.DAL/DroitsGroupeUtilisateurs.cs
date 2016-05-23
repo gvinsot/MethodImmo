@@ -14,8 +14,17 @@ namespace MethodImmo.DAL
     
     public partial class DroitsGroupeUtilisateurs
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DroitsGroupeUtilisateurs()
+        {
+            this.Immeubles = new HashSet<Immeuble>();
+        }
+    
         public long Id { get; set; }
+        public TypeDeDroit TypeDeDroit { get; set; }
     
         public virtual GroupeDePersonnes GroupeDePersonnes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Immeuble> Immeubles { get; set; }
     }
 }

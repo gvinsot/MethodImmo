@@ -145,6 +145,9 @@
     <Compile Include="TypeDeDocument.cs">
       <DependentUpon>MethodImmoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="TypeDeDroit.cs">
+      <DependentUpon>MethodImmoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="VersionDeDocument.cs">
       <DependentUpon>MethodImmoDb.tt</DependentUpon>
     </Compile>

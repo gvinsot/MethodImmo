@@ -22,6 +22,7 @@ namespace MethodImmo.DAL
     
         public long Id { get; set; }
         public System.DateTime Date { get; set; }
+        public string CheminDocument { get; set; }
     
         public virtual Documentation Documentation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

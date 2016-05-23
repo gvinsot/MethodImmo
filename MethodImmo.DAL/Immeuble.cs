@@ -18,9 +18,10 @@ namespace MethodImmo.DAL
         public Immeuble()
         {
             this.Adresses = new HashSet<AdressePostale>();
-            this.CompteBancaire = new HashSet<CompteBancaire>();
-            this.Lot = new HashSet<Lot>();
+            this.ComptesBancaires = new HashSet<CompteBancaire>();
+            this.Lots = new HashSet<Lot>();
             this.Commentaires = new HashSet<Commentaire>();
+            this.GroupesUtilisateursAvecAcces = new HashSet<DroitsGroupeUtilisateurs>();
         }
     
         public long Id { get; set; }
@@ -30,10 +31,12 @@ namespace MethodImmo.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdressePostale> Adresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompteBancaire> CompteBancaire { get; set; }
+        public virtual ICollection<CompteBancaire> ComptesBancaires { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lot> Lot { get; set; }
+        public virtual ICollection<Lot> Lots { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commentaire> Commentaires { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DroitsGroupeUtilisateurs> GroupesUtilisateursAvecAcces { get; set; }
     }
 }

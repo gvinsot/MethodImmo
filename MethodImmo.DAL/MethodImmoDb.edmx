@@ -30,6 +30,7 @@
     <EntitySet Name="PersonneSet_Individu" EntityType="MethodImmoDb.Store.PersonneSet_Individu" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ContratGroupeDePersonnes" EntityType="MethodImmoDb.Store.ContratGroupeDePersonnes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GroupeDePersonnesPersonne" EntityType="MethodImmoDb.Store.Groupes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DroitsGroupeUtilisateursImmeuble" EntityType="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CoordonneesDeContactTelephone" Association="MethodImmoDb.Store.CoordonneesDeContactTelephone">
       <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
       <End Role="Telephone" EntitySet="TelephoneSet" />
@@ -174,6 +175,14 @@
       <End Role="Individu" EntitySet="PersonneSet_Individu" />
       <End Role="AccesUtilisateur" EntitySet="AccesUtilisateurSet" />
     </AssociationSet>
+    <AssociationSet Name="FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs" Association="MethodImmoDb.Store.FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs">
+      <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+      <End Role="DroitsGroupeUtilisateursImmeuble" EntitySet="DroitsGroupeUtilisateursImmeuble" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DroitsGroupeUtilisateursImmeuble_Immeuble" Association="MethodImmoDb.Store.FK_DroitsGroupeUtilisateursImmeuble_Immeuble">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="DroitsGroupeUtilisateursImmeuble" EntitySet="DroitsGroupeUtilisateursImmeuble" />
+    </AssociationSet>
     <AssociationSet Name="FK_Entreprise_inherits_Personne" Association="MethodImmoDb.Store.FK_Entreprise_inherits_Personne">
       <End Role="Personne" EntitySet="PersonneSet" />
       <End Role="Entreprise" EntitySet="PersonneSet_Entreprise" />
@@ -241,8 +250,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="DateDeDebut" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateDeFin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDeDebut" Type="datetime" Nullable="false" />
+    <Property Name="DateDeFin" Type="datetime" Nullable="false" />
     <Property Name="TypeDeContrat" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="CoordonneesBancairesSet">
@@ -269,6 +278,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeDeDroit" Type="int" Nullable="false" />
     <Property Name="GroupeDePersonnes_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="GroupeDePersonnesSet">
@@ -339,6 +349,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="CheminDocument" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Documentation_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="LotSet">
@@ -404,6 +415,14 @@
     </Key>
     <Property Name="Groupes_Personne_Id" Type="bigint" Nullable="false" />
     <Property Name="Personnes_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DroitsGroupeUtilisateursImmeuble">
+    <Key>
+      <PropertyRef Name="GroupesUtilisateursAvecAcces_Id" />
+      <PropertyRef Name="Immeubles_Id" />
+    </Key>
+    <Property Name="GroupesUtilisateursAvecAcces_Id" Type="bigint" Nullable="false" />
+    <Property Name="Immeubles_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <Association Name="CoordonneesDeContactTelephone">
     <End Role="CoordonneesDeContact" Type="MethodImmoDb.Store.CoordonneesDeContactSet" Multiplicity="1" />
@@ -837,6 +856,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs">
+    <End Role="DroitsGroupeUtilisateurs" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursSet" Multiplicity="1" />
+    <End Role="DroitsGroupeUtilisateursImmeuble" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DroitsGroupeUtilisateurs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DroitsGroupeUtilisateursImmeuble">
+        <PropertyRef Name="GroupesUtilisateursAvecAcces_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DroitsGroupeUtilisateursImmeuble_Immeuble">
+    <End Role="DroitsGroupeUtilisateursImmeuble" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" Multiplicity="*" />
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DroitsGroupeUtilisateursImmeuble">
+        <PropertyRef Name="Immeubles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Entreprise_inherits_Personne">
     <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -897,7 +940,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MethodImmoDb" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="MethodImmoDbContainer" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MethodImmoContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccesUtilisateurSet" EntityType="MethodImmoDb.AccesUtilisateur" />
           <EntitySet Name="ActionSet" EntityType="MethodImmoDb.Action" />
           <EntitySet Name="CommentaireSet" EntityType="MethodImmoDb.Commentaire" />
@@ -1052,6 +1095,10 @@
             <End Role="Individu" EntitySet="PersonneSet" />
             <End Role="AccesUtilisateur" EntitySet="AccesUtilisateurSet" />
           </AssociationSet>
+          <AssociationSet Name="DroitsGroupeUtilisateursImmeuble" Association="MethodImmoDb.DroitsGroupeUtilisateursImmeuble">
+            <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccesUtilisateur">
           <Key>
@@ -1075,7 +1122,7 @@
           <NavigationProperty Name="SousActions" Relationship="MethodImmoDb.ActionAction" FromRole="Action" ToRole="Action1" />
           <NavigationProperty Name="ActionParente" Relationship="MethodImmoDb.ActionAction" FromRole="Action" ToRole="Action1" />
           <Property Name="TypeAction" Type="MethodImmoDb.TypeAction" Nullable="false" />
-          <NavigationProperty Name="CompteBancaire1" Relationship="MethodImmoDb.ActionCompteBancaire" FromRole="Action" ToRole="CompteBancaire" />
+          <NavigationProperty Name="ComptesBancaires" Relationship="MethodImmoDb.ActionCompteBancaire" FromRole="Action" ToRole="CompteBancaire" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ActionCommentaire" FromRole="Action" ToRole="Commentaire" />
         </EntityType>
         <EntityType Name="Commentaire">
@@ -1113,8 +1160,8 @@
           <NavigationProperty Name="Documentation" Relationship="MethodImmoDb.ContratDocument" FromRole="Contrat" ToRole="Document" />
           <NavigationProperty Name="Actions" Relationship="MethodImmoDb.ContratAction" FromRole="Contrat" ToRole="Action" />
           <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.ContratAnomalie" FromRole="Contrat" ToRole="Anomalie" />
-          <Property Name="DateDeDebut" Type="String" Nullable="false" />
-          <Property Name="DateDeFin" Type="String" Nullable="false" />
+          <Property Name="DateDeDebut" Type="DateTime" Nullable="false" />
+          <Property Name="DateDeFin" Type="DateTime" Nullable="false" />
           <Property Name="TypeDeContrat" Type="String" Nullable="false" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ContratCommentaire" FromRole="Contrat" ToRole="Commentaire" />
         </EntityType>
@@ -1145,6 +1192,8 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="GroupeDePersonnes" Relationship="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs" FromRole="DroitsGroupeUtilisateurs" ToRole="GroupeDePersonnes" />
+          <Property Name="TypeDeDroit" Type="MethodImmoDb.TypeDeDroit" Nullable="false" />
+          <NavigationProperty Name="Immeubles" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="DroitsGroupeUtilisateurs" ToRole="Immeuble" />
         </EntityType>
         <EntityType Name="GroupeDePersonnes">
           <Key>
@@ -1164,11 +1213,12 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Adresses" Relationship="MethodImmoDb.ImmeubleAdressePostale" FromRole="Immeuble" ToRole="AdressePostale" />
-          <NavigationProperty Name="CompteBancaire" Relationship="MethodImmoDb.ImmeubleCompteBancaire" FromRole="Immeuble" ToRole="CompteBancaire" />
-          <NavigationProperty Name="Lot" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Immeuble" ToRole="Lot" />
+          <NavigationProperty Name="ComptesBancaires" Relationship="MethodImmoDb.ImmeubleCompteBancaire" FromRole="Immeuble" ToRole="CompteBancaire" />
+          <NavigationProperty Name="Lots" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Immeuble" ToRole="Lot" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ImmeubleCommentaire" FromRole="Immeuble" ToRole="Commentaire" />
           <Property Name="Nom" Type="String" Nullable="false" />
           <Property Name="TotalTantiemes" Type="String" Nullable="false" />
+          <NavigationProperty Name="GroupesUtilisateursAvecAcces" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="Immeuble" ToRole="DroitsGroupeUtilisateurs" />
         </EntityType>
         <EntityType Name="Personne">
           <Key>
@@ -1282,6 +1332,7 @@
           <NavigationProperty Name="Documentation" Relationship="MethodImmoDb.DocumentationVersionDeDocument" FromRole="VersionDeDocument" ToRole="Documentation" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.VersionDeDocumentAnomalie" FromRole="VersionDeDocument" ToRole="Anomalie" />
+          <Property Name="CheminDocument" Type="String" Nullable="false" />
         </EntityType>
         <Association Name="DocumentationVersionDeDocument">
           <End Type="MethodImmoDb.Documentation" Role="Documentation" Multiplicity="1" />
@@ -1415,12 +1466,20 @@
           <End Type="MethodImmoDb.Individu" Role="Individu" Multiplicity="1" />
           <End Type="MethodImmoDb.AccesUtilisateur" Role="AccesUtilisateur" Multiplicity="0..1" />
         </Association>
+        <EnumType Name="TypeDeDroit">
+          <Member Name="Lecture" />
+          <Member Name="Modification" />
+        </EnumType>
+        <Association Name="DroitsGroupeUtilisateursImmeuble">
+          <End Type="MethodImmoDb.DroitsGroupeUtilisateurs" Role="DroitsGroupeUtilisateurs" Multiplicity="*" />
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="MethodImmoDbStoreContainer" CdmEntityContainer="MethodImmoDbContainer">
+  <EntityContainerMapping StorageEntityContainer="MethodImmoDbStoreContainer" CdmEntityContainer="MethodImmoContext">
     <EntitySetMapping Name="AccesUtilisateurSet">
       <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.AccesUtilisateur)">
         <MappingFragment StoreEntitySet="AccesUtilisateurSet">
@@ -1495,6 +1554,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.DroitsGroupeUtilisateurs)">
         <MappingFragment StoreEntitySet="DroitsGroupeUtilisateursSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeDeDroit" ColumnName="TypeDeDroit" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1581,6 +1641,7 @@
         <MappingFragment StoreEntitySet="VersionDeDocumentSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CheminDocument" ColumnName="CheminDocument" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1886,6 +1947,14 @@
       </EndProperty>
       <EndProperty Name="AccesUtilisateur">
         <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DroitsGroupeUtilisateursImmeuble" TypeName="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" StoreEntitySet="DroitsGroupeUtilisateursImmeuble">
+      <EndProperty Name="DroitsGroupeUtilisateurs">
+        <ScalarProperty Name="Id" ColumnName="GroupesUtilisateursAvecAcces_Id" />
+      </EndProperty>
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="Immeubles_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

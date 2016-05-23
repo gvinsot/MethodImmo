@@ -4,9 +4,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Dynamic;
 
 namespace Mid.Tools
 {
@@ -41,7 +43,10 @@ namespace Mid.Tools
                     string memberNamePrefix = memberInfo == null ? "" : "\"" + memberInfo.Name + "\":";
                     if (ObjectTools.IsPrimitiveType(valueType))
                     {
-                        result.Append(memberNamePrefix + "\"" + val.ToString() + "\",");
+                        if(IsNumber(val))
+                            result.Append(memberNamePrefix +  val.ToString() +",");
+                        else
+                            result.Append(memberNamePrefix + "\"" + val.ToString() + "\",");
                     }
                 },
                 (val, parent, memberInfo, context) =>
@@ -63,24 +68,46 @@ namespace Mid.Tools
             return result.ToString();
         }
 
+        public static bool IsNumber(object value)
+        {
+            return value is sbyte
+                    || value is byte
+                    || value is short
+                    || value is ushort
+                    || value is int
+                    || value is uint
+                    || value is long
+                    || value is ulong
+                    || value is float
+                    || value is double
+                    || value is decimal;
+        }
 
         public static void FillObject(string serialized, T toFill, Dictionary<Type, List<string>> inclusions=null, Dictionary<Type, List<string>> exclusions=null,ForEachRecursiveFilterDelegate filter=null)
         {
-            dynamic jsonDynamic = JObject.Parse(serialized);
+            JObject jsonDynamic = JObject.Parse(serialized);
 
             ObjectTools.ForEachExpandoRecursive(jsonDynamic, null, null,
-                (ForEachExpandoRecursiveDelegate)((val, parent, memberName, context) =>
+                (val, parent, memberName, context) =>
                 {
+                    if (memberName != null)
+                        ((List<string>)context).Add(memberName);
                     //update context
-                }),
-                (ForEachExpandoRecursiveDelegate)((val, parent, memberName, context) =>
+                },
+                (val, parent, memberName, context) =>
                 {
+                    ((List<string>)context).Add(memberName);
+                    string path = ((List<string>)context).Aggregate((a, b) => (a + (b.StartsWith("[") ? "" : ".") + b));
+                    ((List<string>)context).RemoveAt(((List<string>)context).Count - 1);
                     //set value
-                }),
-                (ForEachExpandoRecursiveDelegate)((val, parent, memberName, context) =>
+                    ObjectTools.SetMemberValuePath(toFill, path, val);
+                },
+                (val, parent, memberName, context) =>
                 {
                     //update context
-                })
+                    if (memberName != null && memberName != "*")
+                        ((List<string>)context).RemoveAt(((List<string>)context).Count - 1);
+                }, null,new List<string>() 
                );
         }
 

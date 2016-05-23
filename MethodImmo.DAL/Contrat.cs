@@ -25,8 +25,8 @@ namespace MethodImmo.DAL
         }
     
         public long Id { get; set; }
-        public string DateDeDebut { get; set; }
-        public string DateDeFin { get; set; }
+        public System.DateTime DateDeDebut { get; set; }
+        public System.DateTime DateDeFin { get; set; }
         public string TypeDeContrat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -16,7 +16,7 @@ namespace MethodImmo.Services.ViewModels
         public override List<Immeuble> Get()
         {
             List<Immeuble> result = null;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 result = context.ImmeubleSet.ToList();
             }
@@ -26,7 +26,7 @@ namespace MethodImmo.Services.ViewModels
         public override Immeuble Get(long id)
         {
             Immeuble result = null;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 result = context.ImmeubleSet.Find(id);
             }
@@ -36,7 +36,7 @@ namespace MethodImmo.Services.ViewModels
         public override ResultObject Post(Immeuble received)
         {
             long id = -1;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 context.ImmeubleSet.Add(received);
                 context.SaveChanges();
@@ -47,7 +47,7 @@ namespace MethodImmo.Services.ViewModels
 
         public override ResultObject Put(long id, string receivedJson)
         {
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 
                 var toUpdate = context.ImmeubleSet.Find(id);
@@ -64,7 +64,7 @@ namespace MethodImmo.Services.ViewModels
 
         public override ResultObject Delete(long id)
         {
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 var toDelete = new Immeuble() { Id = id };
                 context.ImmeubleSet.Attach(toDelete);
