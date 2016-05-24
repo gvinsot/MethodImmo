@@ -102,6 +102,7 @@
     <Compile Include="ViewModels\immeuble\ImmeubleService.ashx.cs">
       <DependentUpon>ImmeubleService.ashx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ResultObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -122,17 +123,9 @@
     <Folder Include="Views\Individu\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MethodImmo.DataAccessLayer\MethodImmo.DataAccessLayer.csproj">
-      <Project>{f0d31b05-bc19-4105-8b6d-4c52be0c7b66}</Project>
-      <Name>MethodImmo.DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MethodImmo.EntityJsonSerializer\MethodImmo.EntityJsonSerializer.csproj">
-      <Project>{207e91b1-c9f8-4913-88e1-3549ef5f3273}</Project>
-      <Name>MethodImmo.EntityJsonSerializer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MethodImmo.Model\MethodImmo.Model.csproj">
-      <Project>{8caec281-e35e-4d39-bfea-a1b73a52d8e4}</Project>
-      <Name>MethodImmo.Model</Name>
+    <ProjectReference Include="..\MethodImmo.DAL\MethodImmo.DAL.csproj">
+      <Project>{99a6c1b0-7533-482c-bf28-c3ca5702869c}</Project>
+      <Name>MethodImmo.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\MethodImmo.Tools\MethodImmo.Tools.csproj">
       <Project>{2d63b715-9aba-4946-bb1c-8d6b9c0fe508}</Project>

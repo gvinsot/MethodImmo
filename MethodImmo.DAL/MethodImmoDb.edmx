@@ -1,0 +1,1982 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MethodImmoDb.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MethodImmoDbStoreContainer">
+    <EntitySet Name="AccesUtilisateurSet" EntityType="MethodImmoDb.Store.AccesUtilisateurSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActionSet" EntityType="MethodImmoDb.Store.ActionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommentaireSet" EntityType="MethodImmoDb.Store.CommentaireSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CompteBancaireSet" EntityType="MethodImmoDb.Store.CompteBancaireSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ContratSet" EntityType="MethodImmoDb.Store.ContratSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoordonneesBancairesSet" EntityType="MethodImmoDb.Store.CoordonneesBancairesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocumentationSet" EntityType="MethodImmoDb.Store.DocumentationSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DroitsGroupeUtilisateursSet" EntityType="MethodImmoDb.Store.DroitsGroupeUtilisateursSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupeDePersonnesSet" EntityType="MethodImmoDb.Store.GroupeDePersonnesSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ImmeubleSet" EntityType="MethodImmoDb.Store.ImmeubleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonneSet" EntityType="MethodImmoDb.Store.PersonneSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CoordonneesDeContactSet" EntityType="MethodImmoDb.Store.CoordonneesDeContactSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdressePostaleSet" EntityType="MethodImmoDb.Store.AdressePostaleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AdresseEmailSet" EntityType="MethodImmoDb.Store.AdresseEmailSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TelephoneSet" EntityType="MethodImmoDb.Store.TelephoneSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VersionDeDocumentSet" EntityType="MethodImmoDb.Store.VersionDeDocumentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LotSet" EntityType="MethodImmoDb.Store.LotSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PartenaireSet" EntityType="MethodImmoDb.Store.PartenaireSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonneSet_Entreprise" EntityType="MethodImmoDb.Store.PersonneSet_Entreprise" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ActionSet_Anomalie" EntityType="MethodImmoDb.Store.ActionSet_Anomalie" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupeDePersonnesSet_GroupeDeRepartition" EntityType="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonneSet_Individu" EntityType="MethodImmoDb.Store.PersonneSet_Individu" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ContratGroupeDePersonnes" EntityType="MethodImmoDb.Store.ContratGroupeDePersonnes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupeDePersonnesPersonne" EntityType="MethodImmoDb.Store.Groupes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DroitsGroupeUtilisateursImmeuble" EntityType="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CoordonneesDeContactTelephone" Association="MethodImmoDb.Store.CoordonneesDeContactTelephone">
+      <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+      <End Role="Telephone" EntitySet="TelephoneSet" />
+    </AssociationSet>
+    <AssociationSet Name="CoordonneesDeContactAdresseEmail" Association="MethodImmoDb.Store.CoordonneesDeContactAdresseEmail">
+      <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+      <End Role="AdresseEmail" EntitySet="AdresseEmailSet" />
+    </AssociationSet>
+    <AssociationSet Name="CoordonneesDeContactAdressePostale" Association="MethodImmoDb.Store.CoordonneesDeContactAdressePostale">
+      <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+      <End Role="AdressePostale" EntitySet="AdressePostaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="ImmeubleAdressePostale" Association="MethodImmoDb.Store.ImmeubleAdressePostale">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="AdressePostale" EntitySet="AdressePostaleSet" />
+    </AssociationSet>
+    <AssociationSet Name="ImmeubleCompteBancaire" Association="MethodImmoDb.Store.ImmeubleCompteBancaire">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompteBancaireCoordonneesBancaires" Association="MethodImmoDb.Store.CompteBancaireCoordonneesBancaires">
+      <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+      <End Role="CoordonneesBancaires" EntitySet="CoordonneesBancairesSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratGroupeDePersonnes_Contrat" Association="MethodImmoDb.Store.FK_ContratGroupeDePersonnes_Contrat">
+      <End Role="Contrat" EntitySet="ContratSet" />
+      <End Role="ContratGroupeDePersonnes" EntitySet="ContratGroupeDePersonnes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContratGroupeDePersonnes_GroupeDePersonnes" Association="MethodImmoDb.Store.FK_ContratGroupeDePersonnes_GroupeDePersonnes">
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+      <End Role="ContratGroupeDePersonnes" EntitySet="ContratGroupeDePersonnes" />
+    </AssociationSet>
+    <AssociationSet Name="GroupeDePersonnesDroitsGroupeUtilisateurs" Association="MethodImmoDb.Store.GroupeDePersonnesDroitsGroupeUtilisateurs">
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+      <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupeDePersonnesPersonne_GroupeDePersonnes" Association="MethodImmoDb.Store.FK_Groupes_GroupeDePersonnes">
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+      <End Role="Groupes" EntitySet="GroupeDePersonnesPersonne" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupeDePersonnesPersonne_Personne" Association="MethodImmoDb.Store.FK_Groupes_Personne">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="Groupes" EntitySet="GroupeDePersonnesPersonne" />
+    </AssociationSet>
+    <AssociationSet Name="PersonneMoraleGroupeDePersonnes" Association="MethodImmoDb.Store.PersonneMoraleGroupeDePersonnes">
+      <End Role="PersonneMorale" EntitySet="PersonneSet_Entreprise" />
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+    </AssociationSet>
+    <AssociationSet Name="ContratDocument" Association="MethodImmoDb.Store.ContratDocument">
+      <End Role="Contrat" EntitySet="ContratSet" />
+      <End Role="Document" EntitySet="DocumentationSet" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentationVersionDeDocument" Association="MethodImmoDb.Store.DocumentationVersionDeDocument">
+      <End Role="Documentation" EntitySet="DocumentationSet" />
+      <End Role="VersionDeDocument" EntitySet="VersionDeDocumentSet" />
+    </AssociationSet>
+    <AssociationSet Name="ContratAction" Association="MethodImmoDb.Store.ContratAction">
+      <End Role="Contrat" EntitySet="ContratSet" />
+      <End Role="Action" EntitySet="ActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ActionAction" Association="MethodImmoDb.Store.ActionAction">
+      <End Role="Action" EntitySet="ActionSet" />
+      <End Role="Action1" EntitySet="ActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentationAnomalie" Association="MethodImmoDb.Store.DocumentationAnomalie">
+      <End Role="Documentation" EntitySet="DocumentationSet" />
+      <End Role="Anomalie" EntitySet="ActionSet_Anomalie" />
+    </AssociationSet>
+    <AssociationSet Name="VersionDeDocumentAnomalie" Association="MethodImmoDb.Store.VersionDeDocumentAnomalie">
+      <End Role="VersionDeDocument" EntitySet="VersionDeDocumentSet" />
+      <End Role="Anomalie" EntitySet="ActionSet_Anomalie" />
+    </AssociationSet>
+    <AssociationSet Name="ContratAnomalie" Association="MethodImmoDb.Store.ContratAnomalie">
+      <End Role="Contrat" EntitySet="ContratSet" />
+      <End Role="Anomalie" EntitySet="ActionSet_Anomalie" />
+    </AssociationSet>
+    <AssociationSet Name="ImmeubleLot" Association="MethodImmoDb.Store.ImmeubleLot">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="Lot" EntitySet="LotSet" />
+    </AssociationSet>
+    <AssociationSet Name="LotGroupeDeRepartition" Association="MethodImmoDb.Store.LotGroupeDeRepartition">
+      <End Role="Lot" EntitySet="LotSet" />
+      <End Role="GroupeDeRepartition" EntitySet="GroupeDePersonnesSet_GroupeDeRepartition" />
+    </AssociationSet>
+    <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.Store.LotGroupeDePersonnes">
+      <End Role="Lot" EntitySet="LotSet" />
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+    </AssociationSet>
+    <AssociationSet Name="TiersPersonne" Association="MethodImmoDb.Store.TiersPersonne">
+      <End Role="Tiers" EntitySet="PartenaireSet" />
+      <End Role="Personne" EntitySet="PersonneSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonnePartenaire" Association="MethodImmoDb.Store.PersonnePartenaire">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="Partenaire" EntitySet="PartenaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonneCoordonneesDeContact" Association="MethodImmoDb.Store.PersonneCoordonneesDeContact">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonneCoordonneesBancaires" Association="MethodImmoDb.Store.PersonneCoordonneesBancaires">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="CoordonneesBancaires" EntitySet="CoordonneesBancairesSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompteBancaireDocumentation" Association="MethodImmoDb.Store.CompteBancaireDocumentation">
+      <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+      <End Role="Documentation" EntitySet="DocumentationSet" />
+    </AssociationSet>
+    <AssociationSet Name="CompteBancaireAnomalie" Association="MethodImmoDb.Store.CompteBancaireAnomalie">
+      <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+      <End Role="Anomalie" EntitySet="ActionSet_Anomalie" />
+    </AssociationSet>
+    <AssociationSet Name="ActionCompteBancaire" Association="MethodImmoDb.Store.ActionCompteBancaire">
+      <End Role="Action" EntitySet="ActionSet" />
+      <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="ContratCommentaire" Association="MethodImmoDb.Store.ContratCommentaire">
+      <End Role="Contrat" EntitySet="ContratSet" />
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="ActionCommentaire" Association="MethodImmoDb.Store.ActionCommentaire">
+      <End Role="Action" EntitySet="ActionSet" />
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="PersonneCommentaire" Association="MethodImmoDb.Store.PersonneCommentaire">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="LotCommentaire" Association="MethodImmoDb.Store.LotCommentaire">
+      <End Role="Lot" EntitySet="LotSet" />
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="ImmeubleCommentaire" Association="MethodImmoDb.Store.ImmeubleCommentaire">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+    </AssociationSet>
+    <AssociationSet Name="CommentaireIndividu" Association="MethodImmoDb.Store.CommentaireIndividu">
+      <End Role="Commentaire" EntitySet="CommentaireSet" />
+      <End Role="Individu" EntitySet="PersonneSet_Individu" />
+    </AssociationSet>
+    <AssociationSet Name="IndividuAccesUtilisateur" Association="MethodImmoDb.Store.IndividuAccesUtilisateur">
+      <End Role="Individu" EntitySet="PersonneSet_Individu" />
+      <End Role="AccesUtilisateur" EntitySet="AccesUtilisateurSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs" Association="MethodImmoDb.Store.FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs">
+      <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+      <End Role="DroitsGroupeUtilisateursImmeuble" EntitySet="DroitsGroupeUtilisateursImmeuble" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DroitsGroupeUtilisateursImmeuble_Immeuble" Association="MethodImmoDb.Store.FK_DroitsGroupeUtilisateursImmeuble_Immeuble">
+      <End Role="Immeuble" EntitySet="ImmeubleSet" />
+      <End Role="DroitsGroupeUtilisateursImmeuble" EntitySet="DroitsGroupeUtilisateursImmeuble" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Entreprise_inherits_Personne" Association="MethodImmoDb.Store.FK_Entreprise_inherits_Personne">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="Entreprise" EntitySet="PersonneSet_Entreprise" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Anomalie_inherits_Action" Association="MethodImmoDb.Store.FK_Anomalie_inherits_Action">
+      <End Role="Action" EntitySet="ActionSet" />
+      <End Role="Anomalie" EntitySet="ActionSet_Anomalie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupeDeRepartition_inherits_GroupeDePersonnes" Association="MethodImmoDb.Store.FK_GroupeDeRepartition_inherits_GroupeDePersonnes">
+      <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+      <End Role="GroupeDeRepartition" EntitySet="GroupeDePersonnesSet_GroupeDeRepartition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Individu_inherits_Personne" Association="MethodImmoDb.Store.FK_Individu_inherits_Personne">
+      <End Role="Personne" EntitySet="PersonneSet" />
+      <End Role="Individu" EntitySet="PersonneSet_Individu" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AccesUtilisateurSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MotDePasse" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Utilisateur" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Individu_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateDeCreation" Type="datetime" Nullable="false" />
+    <Property Name="DateDeDebutDeRealisation" Type="datetime" Nullable="false" />
+    <Property Name="DateDeFinDeRealisationConstate" Type="datetime" Nullable="false" />
+    <Property Name="DateDeFinDeRealisationPrevisionnelle" Type="datetime" Nullable="false" />
+    <Property Name="TypeAction" Type="bigint" Nullable="false" />
+    <Property Name="OrigineContrat_Id" Type="bigint" Nullable="true" />
+    <Property Name="ActionAction_Action1_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommentaireSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contenu" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDeCreation" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CommentaireDeContrat_Id" Type="bigint" Nullable="true" />
+    <Property Name="CommentaireDAction_Id" Type="bigint" Nullable="true" />
+    <Property Name="CommentaireDePersonne_Id" Type="bigint" Nullable="true" />
+    <Property Name="CommentaireDeLot_Id" Type="bigint" Nullable="true" />
+    <Property Name="CommentaireDeImmeuble_Id" Type="bigint" Nullable="true" />
+    <Property Name="Auteur_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CompteBancaireSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Immeuble_Id" Type="bigint" Nullable="true" />
+    <Property Name="Action_Id" Type="bigint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ContratSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateDeDebut" Type="datetime" Nullable="false" />
+    <Property Name="DateDeFin" Type="datetime" Nullable="false" />
+    <Property Name="TypeDeContrat" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CoordonneesBancairesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BIC" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IBAN" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Proprietaire" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="false" />
+    <Property Name="Personne_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentationSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Contrat_Id" Type="bigint" Nullable="true" />
+    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DroitsGroupeUtilisateursSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeDeDroit" Type="int" Nullable="false" />
+    <Property Name="GroupeDePersonnes_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupeDePersonnesSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EntrepriseDAppartenance_Id" Type="bigint" Nullable="false" />
+    <Property Name="Lot1_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ImmeubleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TotalTantiemes" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonneSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDebut" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateFin" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CoordonneesDeContactSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Personne_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AdressePostaleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rue" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CodePostal" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ville" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pays" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Acces" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoordonneesDeContact_Id" Type="bigint" Nullable="true" />
+    <Property Name="Immeuble_Id" Type="bigint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AdresseEmailSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoordonneesDeContact_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TelephoneSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Numero" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CoordonneesDeContact_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VersionDeDocumentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="CheminDocument" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Documentation_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LotSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tantiemes" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Immeuble_Id" Type="bigint" Nullable="false" />
+    <Property Name="Proprietaire_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PartenaireSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FonctionDuPartenaire" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Personne_Id" Type="bigint" Nullable="false" />
+    <Property Name="PartenaireDe_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonneSet_Entreprise">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ActionSet_Anomalie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="AnomalieDeDocumentation_Id" Type="bigint" Nullable="true" />
+    <Property Name="AnomalieDeVersionDeDocument_Id" Type="bigint" Nullable="true" />
+    <Property Name="AnomalieDeContrat_Id" Type="bigint" Nullable="true" />
+    <Property Name="AnomalieDeCompteBancaire_Id" Type="bigint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="GroupeDePersonnesSet_GroupeDeRepartition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonneSet_Individu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Prenom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContratGroupeDePersonnes">
+    <Key>
+      <PropertyRef Name="Contrats_Id" />
+      <PropertyRef Name="GroupesContractants_Id" />
+    </Key>
+    <Property Name="Contrats_Id" Type="bigint" Nullable="false" />
+    <Property Name="GroupesContractants_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Groupes">
+    <Key>
+      <PropertyRef Name="Groupes_Personne_Id" />
+      <PropertyRef Name="Personnes_Id" />
+    </Key>
+    <Property Name="Groupes_Personne_Id" Type="bigint" Nullable="false" />
+    <Property Name="Personnes_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DroitsGroupeUtilisateursImmeuble">
+    <Key>
+      <PropertyRef Name="GroupesUtilisateursAvecAcces_Id" />
+      <PropertyRef Name="Immeubles_Id" />
+    </Key>
+    <Property Name="GroupesUtilisateursAvecAcces_Id" Type="bigint" Nullable="false" />
+    <Property Name="Immeubles_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="CoordonneesDeContactTelephone">
+    <End Role="CoordonneesDeContact" Type="MethodImmoDb.Store.CoordonneesDeContactSet" Multiplicity="1" />
+    <End Role="Telephone" Type="MethodImmoDb.Store.TelephoneSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoordonneesDeContact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Telephone">
+        <PropertyRef Name="CoordonneesDeContact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoordonneesDeContactAdresseEmail">
+    <End Role="CoordonneesDeContact" Type="MethodImmoDb.Store.CoordonneesDeContactSet" Multiplicity="1" />
+    <End Role="AdresseEmail" Type="MethodImmoDb.Store.AdresseEmailSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoordonneesDeContact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdresseEmail">
+        <PropertyRef Name="CoordonneesDeContact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoordonneesDeContactAdressePostale">
+    <End Role="CoordonneesDeContact" Type="MethodImmoDb.Store.CoordonneesDeContactSet" Multiplicity="0..1" />
+    <End Role="AdressePostale" Type="MethodImmoDb.Store.AdressePostaleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CoordonneesDeContact">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdressePostale">
+        <PropertyRef Name="CoordonneesDeContact_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImmeubleAdressePostale">
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="0..1" />
+    <End Role="AdressePostale" Type="MethodImmoDb.Store.AdressePostaleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AdressePostale">
+        <PropertyRef Name="Immeuble_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImmeubleCompteBancaire">
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="0..1" />
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompteBancaire">
+        <PropertyRef Name="Immeuble_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompteBancaireCoordonneesBancaires">
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="1" />
+    <End Role="CoordonneesBancaires" Type="MethodImmoDb.Store.CoordonneesBancairesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompteBancaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoordonneesBancaires">
+        <PropertyRef Name="CompteBancaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupeDePersonnesDroitsGroupeUtilisateurs">
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="1" />
+    <End Role="DroitsGroupeUtilisateurs" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDePersonnes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DroitsGroupeUtilisateurs">
+        <PropertyRef Name="GroupeDePersonnes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonneMoraleGroupeDePersonnes">
+    <End Role="PersonneMorale" Type="MethodImmoDb.Store.PersonneSet_Entreprise" Multiplicity="1" />
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonneMorale">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupeDePersonnes">
+        <PropertyRef Name="EntrepriseDAppartenance_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContratDocument">
+    <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="0..1" />
+    <End Role="Document" Type="MethodImmoDb.Store.DocumentationSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="Contrat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentationVersionDeDocument">
+    <End Role="Documentation" Type="MethodImmoDb.Store.DocumentationSet" Multiplicity="1" />
+    <End Role="VersionDeDocument" Type="MethodImmoDb.Store.VersionDeDocumentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documentation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VersionDeDocument">
+        <PropertyRef Name="Documentation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContratAction">
+    <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="0..1" />
+    <End Role="Action" Type="MethodImmoDb.Store.ActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Action">
+        <PropertyRef Name="OrigineContrat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ActionAction">
+    <End Role="Action" Type="MethodImmoDb.Store.ActionSet" Multiplicity="1" />
+    <End Role="Action1" Type="MethodImmoDb.Store.ActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Action1">
+        <PropertyRef Name="ActionAction_Action1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentationAnomalie">
+    <End Role="Documentation" Type="MethodImmoDb.Store.DocumentationSet" Multiplicity="0..1" />
+    <End Role="Anomalie" Type="MethodImmoDb.Store.ActionSet_Anomalie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documentation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anomalie">
+        <PropertyRef Name="AnomalieDeDocumentation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="VersionDeDocumentAnomalie">
+    <End Role="VersionDeDocument" Type="MethodImmoDb.Store.VersionDeDocumentSet" Multiplicity="0..1" />
+    <End Role="Anomalie" Type="MethodImmoDb.Store.ActionSet_Anomalie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VersionDeDocument">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anomalie">
+        <PropertyRef Name="AnomalieDeVersionDeDocument_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContratAnomalie">
+    <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="0..1" />
+    <End Role="Anomalie" Type="MethodImmoDb.Store.ActionSet_Anomalie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anomalie">
+        <PropertyRef Name="AnomalieDeContrat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImmeubleLot">
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="1" />
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lot">
+        <PropertyRef Name="Immeuble_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LotGroupeDeRepartition">
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="*" />
+    <End Role="GroupeDeRepartition" Type="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDeRepartition">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lot">
+        <PropertyRef Name="Proprietaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LotGroupeDePersonnes">
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="1" />
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lot">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupeDePersonnes">
+        <PropertyRef Name="Lot1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TiersPersonne">
+    <End Role="Tiers" Type="MethodImmoDb.Store.PartenaireSet" Multiplicity="*" />
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tiers">
+        <PropertyRef Name="Personne_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonnePartenaire">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1" />
+    <End Role="Partenaire" Type="MethodImmoDb.Store.PartenaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Partenaire">
+        <PropertyRef Name="PartenaireDe_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonneCoordonneesDeContact">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1" />
+    <End Role="CoordonneesDeContact" Type="MethodImmoDb.Store.CoordonneesDeContactSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoordonneesDeContact">
+        <PropertyRef Name="Personne_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonneCoordonneesBancaires">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1" />
+    <End Role="CoordonneesBancaires" Type="MethodImmoDb.Store.CoordonneesBancairesSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CoordonneesBancaires">
+        <PropertyRef Name="Personne_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompteBancaireDocumentation">
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="1" />
+    <End Role="Documentation" Type="MethodImmoDb.Store.DocumentationSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompteBancaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documentation">
+        <PropertyRef Name="CompteBancaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompteBancaireAnomalie">
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="0..1" />
+    <End Role="Anomalie" Type="MethodImmoDb.Store.ActionSet_Anomalie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CompteBancaire">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anomalie">
+        <PropertyRef Name="AnomalieDeCompteBancaire_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ActionCompteBancaire">
+    <End Role="Action" Type="MethodImmoDb.Store.ActionSet" Multiplicity="0..1" />
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompteBancaire">
+        <PropertyRef Name="Action_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ContratCommentaire">
+    <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="0..1" />
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="CommentaireDeContrat_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ActionCommentaire">
+    <End Role="Action" Type="MethodImmoDb.Store.ActionSet" Multiplicity="0..1" />
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="CommentaireDAction_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PersonneCommentaire">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="0..1" />
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="CommentaireDePersonne_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LotCommentaire">
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="0..1" />
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lot">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="CommentaireDeLot_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ImmeubleCommentaire">
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="0..1" />
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="CommentaireDeImmeuble_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CommentaireIndividu">
+    <End Role="Commentaire" Type="MethodImmoDb.Store.CommentaireSet" Multiplicity="*" />
+    <End Role="Individu" Type="MethodImmoDb.Store.PersonneSet_Individu" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Individu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Commentaire">
+        <PropertyRef Name="Auteur_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IndividuAccesUtilisateur">
+    <End Role="Individu" Type="MethodImmoDb.Store.PersonneSet_Individu" Multiplicity="1" />
+    <End Role="AccesUtilisateur" Type="MethodImmoDb.Store.AccesUtilisateurSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Individu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AccesUtilisateur">
+        <PropertyRef Name="Individu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratGroupeDePersonnes_Contrat">
+    <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="1" />
+    <End Role="ContratGroupeDePersonnes" Type="MethodImmoDb.Store.ContratGroupeDePersonnes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contrat">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContratGroupeDePersonnes">
+        <PropertyRef Name="Contrats_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContratGroupeDePersonnes_GroupeDePersonnes">
+    <End Role="ContratGroupeDePersonnes" Type="MethodImmoDb.Store.ContratGroupeDePersonnes" Multiplicity="*" />
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDePersonnes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ContratGroupeDePersonnes">
+        <PropertyRef Name="GroupesContractants_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Groupes_GroupeDePersonnes">
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="1" />
+    <End Role="Groupes" Type="MethodImmoDb.Store.Groupes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDePersonnes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Groupes">
+        <PropertyRef Name="Groupes_Personne_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Groupes_Personne">
+    <End Role="Groupes" Type="MethodImmoDb.Store.Groupes" Multiplicity="*" />
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Groupes">
+        <PropertyRef Name="Personnes_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs">
+    <End Role="DroitsGroupeUtilisateurs" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursSet" Multiplicity="1" />
+    <End Role="DroitsGroupeUtilisateursImmeuble" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DroitsGroupeUtilisateurs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DroitsGroupeUtilisateursImmeuble">
+        <PropertyRef Name="GroupesUtilisateursAvecAcces_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DroitsGroupeUtilisateursImmeuble_Immeuble">
+    <End Role="DroitsGroupeUtilisateursImmeuble" Type="MethodImmoDb.Store.DroitsGroupeUtilisateursImmeuble" Multiplicity="*" />
+    <End Role="Immeuble" Type="MethodImmoDb.Store.ImmeubleSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Immeuble">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DroitsGroupeUtilisateursImmeuble">
+        <PropertyRef Name="Immeubles_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Entreprise_inherits_Personne">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Entreprise" Type="MethodImmoDb.Store.PersonneSet_Entreprise" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entreprise">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Anomalie_inherits_Action">
+    <End Role="Action" Type="MethodImmoDb.Store.ActionSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Anomalie" Type="MethodImmoDb.Store.ActionSet_Anomalie" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Anomalie">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupeDeRepartition_inherits_GroupeDePersonnes">
+    <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupeDeRepartition" Type="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GroupeDePersonnes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupeDeRepartition">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Individu_inherits_Personne">
+    <End Role="Personne" Type="MethodImmoDb.Store.PersonneSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Individu" Type="MethodImmoDb.Store.PersonneSet_Individu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Personne">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Individu">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MethodImmoDb" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MethodImmoContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccesUtilisateurSet" EntityType="MethodImmoDb.AccesUtilisateur" />
+          <EntitySet Name="ActionSet" EntityType="MethodImmoDb.Action" />
+          <EntitySet Name="CommentaireSet" EntityType="MethodImmoDb.Commentaire" />
+          <EntitySet Name="CompteBancaireSet" EntityType="MethodImmoDb.CompteBancaire" />
+          <EntitySet Name="ContratSet" EntityType="MethodImmoDb.Contrat" />
+          <EntitySet Name="CoordonneesBancairesSet" EntityType="MethodImmoDb.CoordonneesBancaires" />
+          <EntitySet Name="DocumentationSet" EntityType="MethodImmoDb.Documentation" />
+          <EntitySet Name="DroitsGroupeUtilisateursSet" EntityType="MethodImmoDb.DroitsGroupeUtilisateurs" />
+          <EntitySet Name="GroupeDePersonnesSet" EntityType="MethodImmoDb.GroupeDePersonnes" />
+          <EntitySet Name="ImmeubleSet" EntityType="MethodImmoDb.Immeuble" />
+          <EntitySet Name="PersonneSet" EntityType="MethodImmoDb.Personne" />
+          <EntitySet Name="CoordonneesDeContactSet" EntityType="MethodImmoDb.CoordonneesDeContact" />
+          <EntitySet Name="AdressePostaleSet" EntityType="MethodImmoDb.AdressePostale" />
+          <EntitySet Name="AdresseEmailSet" EntityType="MethodImmoDb.AdresseEmail" />
+          <EntitySet Name="TelephoneSet" EntityType="MethodImmoDb.Telephone" />
+          <AssociationSet Name="CoordonneesDeContactTelephone" Association="MethodImmoDb.CoordonneesDeContactTelephone">
+            <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+            <End Role="Telephone" EntitySet="TelephoneSet" />
+          </AssociationSet>
+          <AssociationSet Name="CoordonneesDeContactAdresseEmail" Association="MethodImmoDb.CoordonneesDeContactAdresseEmail">
+            <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+            <End Role="AdresseEmail" EntitySet="AdresseEmailSet" />
+          </AssociationSet>
+          <AssociationSet Name="CoordonneesDeContactAdressePostale" Association="MethodImmoDb.CoordonneesDeContactAdressePostale">
+            <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+            <End Role="AdressePostale" EntitySet="AdressePostaleSet" />
+          </AssociationSet>
+          <AssociationSet Name="ImmeubleAdressePostale" Association="MethodImmoDb.ImmeubleAdressePostale">
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+            <End Role="AdressePostale" EntitySet="AdressePostaleSet" />
+          </AssociationSet>
+          <AssociationSet Name="ImmeubleCompteBancaire" Association="MethodImmoDb.ImmeubleCompteBancaire">
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+            <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="CompteBancaireCoordonneesBancaires" Association="MethodImmoDb.CompteBancaireCoordonneesBancaires">
+            <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+            <End Role="CoordonneesBancaires" EntitySet="CoordonneesBancairesSet" />
+          </AssociationSet>
+          <AssociationSet Name="ContratGroupeDePersonnes" Association="MethodImmoDb.ContratGroupeDePersonnes">
+            <End Role="Contrat" EntitySet="ContratSet" />
+            <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+          </AssociationSet>
+          <AssociationSet Name="GroupeDePersonnesDroitsGroupeUtilisateurs" Association="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs">
+            <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+            <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+          </AssociationSet>
+          <AssociationSet Name="GroupeDePersonnesPersonne" Association="MethodImmoDb.Groupes">
+            <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+            <End Role="Personne" EntitySet="PersonneSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonneMoraleGroupeDePersonnes" Association="MethodImmoDb.PersonneMoraleGroupeDePersonnes">
+            <End Role="PersonneMorale" EntitySet="PersonneSet" />
+            <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+          </AssociationSet>
+          <AssociationSet Name="ContratDocument" Association="MethodImmoDb.ContratDocument">
+            <End Role="Contrat" EntitySet="ContratSet" />
+            <End Role="Document" EntitySet="DocumentationSet" />
+          </AssociationSet>
+          <EntitySet Name="VersionDeDocumentSet" EntityType="MethodImmoDb.VersionDeDocument" />
+          <AssociationSet Name="DocumentationVersionDeDocument" Association="MethodImmoDb.DocumentationVersionDeDocument">
+            <End Role="Documentation" EntitySet="DocumentationSet" />
+            <End Role="VersionDeDocument" EntitySet="VersionDeDocumentSet" />
+          </AssociationSet>
+          <AssociationSet Name="ContratAction" Association="MethodImmoDb.ContratAction">
+            <End Role="Contrat" EntitySet="ContratSet" />
+            <End Role="Action" EntitySet="ActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ActionAction" Association="MethodImmoDb.ActionAction">
+            <End Role="Action" EntitySet="ActionSet" />
+            <End Role="Action1" EntitySet="ActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentationAnomalie" Association="MethodImmoDb.DocumentationAnomalie">
+            <End Role="Documentation" EntitySet="DocumentationSet" />
+            <End Role="Anomalie" EntitySet="ActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="VersionDeDocumentAnomalie" Association="MethodImmoDb.VersionDeDocumentAnomalie">
+            <End Role="VersionDeDocument" EntitySet="VersionDeDocumentSet" />
+            <End Role="Anomalie" EntitySet="ActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ContratAnomalie" Association="MethodImmoDb.ContratAnomalie">
+            <End Role="Contrat" EntitySet="ContratSet" />
+            <End Role="Anomalie" EntitySet="ActionSet" />
+          </AssociationSet>
+          <EntitySet Name="LotSet" EntityType="MethodImmoDb.Lot" />
+          <AssociationSet Name="ImmeubleLot" Association="MethodImmoDb.ImmeubleLot">
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+            <End Role="Lot" EntitySet="LotSet" />
+          </AssociationSet>
+          <AssociationSet Name="LotGroupeDeRepartition" Association="MethodImmoDb.LotGroupeDeRepartition">
+            <End Role="Lot" EntitySet="LotSet" />
+            <End Role="GroupeDeRepartition" EntitySet="GroupeDePersonnesSet" />
+          </AssociationSet>
+          <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.LotGroupeDePersonnes">
+            <End Role="Lot" EntitySet="LotSet" />
+            <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
+          </AssociationSet>
+          <EntitySet Name="PartenaireSet" EntityType="MethodImmoDb.Partenaire" />
+          <AssociationSet Name="TiersPersonne" Association="MethodImmoDb.TiersPersonne">
+            <End Role="Tiers" EntitySet="PartenaireSet" />
+            <End Role="Personne" EntitySet="PersonneSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonnePartenaire" Association="MethodImmoDb.PersonnePartenaire">
+            <End Role="Personne" EntitySet="PersonneSet" />
+            <End Role="Partenaire" EntitySet="PartenaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonneCoordonneesDeContact" Association="MethodImmoDb.PersonneCoordonneesDeContact">
+            <End Role="Personne" EntitySet="PersonneSet" />
+            <End Role="CoordonneesDeContact" EntitySet="CoordonneesDeContactSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonneCoordonneesBancaires" Association="MethodImmoDb.PersonneCoordonneesBancaires">
+            <End Role="Personne" EntitySet="PersonneSet" />
+            <End Role="CoordonneesBancaires" EntitySet="CoordonneesBancairesSet" />
+          </AssociationSet>
+          <AssociationSet Name="CompteBancaireDocumentation" Association="MethodImmoDb.CompteBancaireDocumentation">
+            <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+            <End Role="Documentation" EntitySet="DocumentationSet" />
+          </AssociationSet>
+          <AssociationSet Name="CompteBancaireAnomalie" Association="MethodImmoDb.CompteBancaireAnomalie">
+            <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+            <End Role="Anomalie" EntitySet="ActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ActionCompteBancaire" Association="MethodImmoDb.ActionCompteBancaire">
+            <End Role="Action" EntitySet="ActionSet" />
+            <End Role="CompteBancaire" EntitySet="CompteBancaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="ContratCommentaire" Association="MethodImmoDb.ContratCommentaire">
+            <End Role="Contrat" EntitySet="ContratSet" />
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="ActionCommentaire" Association="MethodImmoDb.ActionCommentaire">
+            <End Role="Action" EntitySet="ActionSet" />
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="PersonneCommentaire" Association="MethodImmoDb.PersonneCommentaire">
+            <End Role="Personne" EntitySet="PersonneSet" />
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="LotCommentaire" Association="MethodImmoDb.LotCommentaire">
+            <End Role="Lot" EntitySet="LotSet" />
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="ImmeubleCommentaire" Association="MethodImmoDb.ImmeubleCommentaire">
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+          </AssociationSet>
+          <AssociationSet Name="CommentaireIndividu" Association="MethodImmoDb.CommentaireIndividu">
+            <End Role="Commentaire" EntitySet="CommentaireSet" />
+            <End Role="Individu" EntitySet="PersonneSet" />
+          </AssociationSet>
+          <AssociationSet Name="IndividuAccesUtilisateur" Association="MethodImmoDb.IndividuAccesUtilisateur">
+            <End Role="Individu" EntitySet="PersonneSet" />
+            <End Role="AccesUtilisateur" EntitySet="AccesUtilisateurSet" />
+          </AssociationSet>
+          <AssociationSet Name="DroitsGroupeUtilisateursImmeuble" Association="MethodImmoDb.DroitsGroupeUtilisateursImmeuble">
+            <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
+            <End Role="Immeuble" EntitySet="ImmeubleSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccesUtilisateur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MotDePasse" Type="String" Nullable="false" />
+          <Property Name="Utilisateur" Type="String" Nullable="false" />
+          <NavigationProperty Name="Individu" Relationship="MethodImmoDb.IndividuAccesUtilisateur" FromRole="AccesUtilisateur" ToRole="Individu" />
+        </EntityType>
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="OrigineContrat" Relationship="MethodImmoDb.ContratAction" FromRole="Action" ToRole="Contrat" />
+          <Property Name="DateDeCreation" Type="DateTime" Nullable="false" />
+          <Property Name="DateDeDebutDeRealisation" Type="DateTime" Nullable="false" />
+          <Property Name="DateDeFinDeRealisationConstate" Type="DateTime" Nullable="false" />
+          <Property Name="DateDeFinDeRealisationPrevisionnelle" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="SousActions" Relationship="MethodImmoDb.ActionAction" FromRole="Action" ToRole="Action1" />
+          <NavigationProperty Name="ActionParente" Relationship="MethodImmoDb.ActionAction" FromRole="Action" ToRole="Action1" />
+          <Property Name="TypeAction" Type="MethodImmoDb.TypeAction" Nullable="false" />
+          <NavigationProperty Name="ComptesBancaires" Relationship="MethodImmoDb.ActionCompteBancaire" FromRole="Action" ToRole="CompteBancaire" />
+          <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ActionCommentaire" FromRole="Action" ToRole="Commentaire" />
+        </EntityType>
+        <EntityType Name="Commentaire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CommentaireDeContrat" Relationship="MethodImmoDb.ContratCommentaire" FromRole="Commentaire" ToRole="Contrat" />
+          <NavigationProperty Name="CommentaireDAction" Relationship="MethodImmoDb.ActionCommentaire" FromRole="Commentaire" ToRole="Action" />
+          <NavigationProperty Name="CommentaireDePersonne" Relationship="MethodImmoDb.PersonneCommentaire" FromRole="Commentaire" ToRole="Personne" />
+          <NavigationProperty Name="CommentaireDeLot" Relationship="MethodImmoDb.LotCommentaire" FromRole="Commentaire" ToRole="Lot" />
+          <NavigationProperty Name="CommentaireDeImmeuble" Relationship="MethodImmoDb.ImmeubleCommentaire" FromRole="Commentaire" ToRole="Immeuble" />
+          <Property Name="Contenu" Type="String" Nullable="false" />
+          <Property Name="DateDeCreation" Type="String" Nullable="false" />
+          <NavigationProperty Name="Auteur" Relationship="MethodImmoDb.CommentaireIndividu" FromRole="Commentaire" ToRole="Individu" />
+        </EntityType>
+        <EntityType Name="CompteBancaire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Immeuble" Relationship="MethodImmoDb.ImmeubleCompteBancaire" FromRole="CompteBancaire" ToRole="Immeuble" />
+          <NavigationProperty Name="CoordonneesBancaires" Relationship="MethodImmoDb.CompteBancaireCoordonneesBancaires" FromRole="CompteBancaire" ToRole="CoordonneesBancaires" />
+          <NavigationProperty Name="Documentation" Relationship="MethodImmoDb.CompteBancaireDocumentation" FromRole="CompteBancaire" ToRole="Documentation" />
+          <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.CompteBancaireAnomalie" FromRole="CompteBancaire" ToRole="Anomalie" />
+          <NavigationProperty Name="Action" Relationship="MethodImmoDb.ActionCompteBancaire" FromRole="CompteBancaire" ToRole="Action" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contrat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="GroupesContractants" Relationship="MethodImmoDb.ContratGroupeDePersonnes" FromRole="Contrat" ToRole="GroupeDePersonnes" />
+          <NavigationProperty Name="Documentation" Relationship="MethodImmoDb.ContratDocument" FromRole="Contrat" ToRole="Document" />
+          <NavigationProperty Name="Actions" Relationship="MethodImmoDb.ContratAction" FromRole="Contrat" ToRole="Action" />
+          <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.ContratAnomalie" FromRole="Contrat" ToRole="Anomalie" />
+          <Property Name="DateDeDebut" Type="DateTime" Nullable="false" />
+          <Property Name="DateDeFin" Type="DateTime" Nullable="false" />
+          <Property Name="TypeDeContrat" Type="String" Nullable="false" />
+          <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ContratCommentaire" FromRole="Contrat" ToRole="Commentaire" />
+        </EntityType>
+        <EntityType Name="CoordonneesBancaires">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CompteBancaire" Relationship="MethodImmoDb.CompteBancaireCoordonneesBancaires" FromRole="CoordonneesBancaires" ToRole="CompteBancaire" />
+          <NavigationProperty Name="Personne" Relationship="MethodImmoDb.PersonneCoordonneesBancaires" FromRole="CoordonneesBancaires" ToRole="Personne" />
+          <Property Name="BIC" Type="String" Nullable="false" />
+          <Property Name="IBAN" Type="String" Nullable="false" />
+          <Property Name="Proprietaire" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Documentation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Contrat" Relationship="MethodImmoDb.ContratDocument" FromRole="Document" ToRole="Contrat" />
+          <NavigationProperty Name="Versions" Relationship="MethodImmoDb.DocumentationVersionDeDocument" FromRole="Documentation" ToRole="VersionDeDocument" />
+          <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.DocumentationAnomalie" FromRole="Documentation" ToRole="Anomalie" />
+          <NavigationProperty Name="CompteBancaire" Relationship="MethodImmoDb.CompteBancaireDocumentation" FromRole="Documentation" ToRole="CompteBancaire" />
+        </EntityType>
+        <EntityType Name="DroitsGroupeUtilisateurs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="GroupeDePersonnes" Relationship="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs" FromRole="DroitsGroupeUtilisateurs" ToRole="GroupeDePersonnes" />
+          <Property Name="TypeDeDroit" Type="MethodImmoDb.TypeDeDroit" Nullable="false" />
+          <NavigationProperty Name="Immeubles" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="DroitsGroupeUtilisateurs" ToRole="Immeuble" />
+        </EntityType>
+        <EntityType Name="GroupeDePersonnes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Contrats" Relationship="MethodImmoDb.ContratGroupeDePersonnes" FromRole="GroupeDePersonnes" ToRole="Contrat" />
+          <NavigationProperty Name="DroitsGroupeUtilisateurs" Relationship="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs" FromRole="GroupeDePersonnes" ToRole="DroitsGroupeUtilisateurs" />
+          <NavigationProperty Name="Personnes" Relationship="MethodImmoDb.Groupes" FromRole="GroupeDePersonnes" ToRole="Personne" />
+          <NavigationProperty Name="EntrepriseDAppartenance" Relationship="MethodImmoDb.PersonneMoraleGroupeDePersonnes" FromRole="GroupeDePersonnes" ToRole="PersonneMorale" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <NavigationProperty Name="Lot1" Relationship="MethodImmoDb.LotGroupeDePersonnes" FromRole="GroupeDePersonnes" ToRole="Lot" />
+        </EntityType>
+        <EntityType Name="Immeuble">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Adresses" Relationship="MethodImmoDb.ImmeubleAdressePostale" FromRole="Immeuble" ToRole="AdressePostale" />
+          <NavigationProperty Name="ComptesBancaires" Relationship="MethodImmoDb.ImmeubleCompteBancaire" FromRole="Immeuble" ToRole="CompteBancaire" />
+          <NavigationProperty Name="Lots" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Immeuble" ToRole="Lot" />
+          <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ImmeubleCommentaire" FromRole="Immeuble" ToRole="Commentaire" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="TotalTantiemes" Type="String" Nullable="false" />
+          <NavigationProperty Name="GroupesUtilisateursAvecAcces" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="Immeuble" ToRole="DroitsGroupeUtilisateurs" />
+        </EntityType>
+        <EntityType Name="Personne">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <NavigationProperty Name="Partenaires" Relationship="MethodImmoDb.PersonnePartenaire" FromRole="Personne" ToRole="Partenaire" />
+          <NavigationProperty Name="CoordonneesDeContact" Relationship="MethodImmoDb.PersonneCoordonneesDeContact" FromRole="Personne" ToRole="CoordonneesDeContact" />
+          <NavigationProperty Name="CoordonneesBancaires" Relationship="MethodImmoDb.PersonneCoordonneesBancaires" FromRole="Personne" ToRole="CoordonneesBancaires" />
+          <NavigationProperty Name="CommentairesRecus" Relationship="MethodImmoDb.PersonneCommentaire" FromRole="Personne" ToRole="Commentaire" />
+          <Property Name="DateDebut" Type="String" Nullable="false" />
+          <Property Name="DateFin" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Individu" BaseType="MethodImmoDb.Personne" >
+          <Property Name="Prenom" Type="String" Nullable="false" />
+          <NavigationProperty Name="CommentairesEmis" Relationship="MethodImmoDb.CommentaireIndividu" FromRole="Individu" ToRole="Commentaire" />
+          <NavigationProperty Name="AccesUtilisateur" Relationship="MethodImmoDb.IndividuAccesUtilisateur" FromRole="Individu" ToRole="AccesUtilisateur" />
+        </EntityType>
+        <EntityType Name="Entreprise" BaseType="MethodImmoDb.Personne" >
+          <NavigationProperty Name="SousGroupes" Relationship="MethodImmoDb.PersonneMoraleGroupeDePersonnes" FromRole="PersonneMorale" ToRole="GroupeDePersonnes" />
+        </EntityType>
+        <EntityType Name="CoordonneesDeContact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Telephones" Relationship="MethodImmoDb.CoordonneesDeContactTelephone" FromRole="CoordonneesDeContact" ToRole="Telephone" />
+          <NavigationProperty Name="AdressesEmails" Relationship="MethodImmoDb.CoordonneesDeContactAdresseEmail" FromRole="CoordonneesDeContact" ToRole="AdresseEmail" />
+          <NavigationProperty Name="AdressesPostales" Relationship="MethodImmoDb.CoordonneesDeContactAdressePostale" FromRole="CoordonneesDeContact" ToRole="AdressePostale" />
+          <NavigationProperty Name="Personne" Relationship="MethodImmoDb.PersonneCoordonneesDeContact" FromRole="CoordonneesDeContact" ToRole="Personne" />
+        </EntityType>
+        <EntityType Name="AdressePostale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CoordonneesDeContact" Relationship="MethodImmoDb.CoordonneesDeContactAdressePostale" FromRole="AdressePostale" ToRole="CoordonneesDeContact" />
+          <NavigationProperty Name="Immeuble" Relationship="MethodImmoDb.ImmeubleAdressePostale" FromRole="AdressePostale" ToRole="Immeuble" />
+          <Property Name="Rue" Type="String" Nullable="false" />
+          <Property Name="CodePostal" Type="String" Nullable="false" />
+          <Property Name="Ville" Type="String" Nullable="false" />
+          <Property Name="Pays" Type="String" Nullable="false" />
+          <Property Name="Acces" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AdresseEmail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CoordonneesDeContact" Relationship="MethodImmoDb.CoordonneesDeContactAdresseEmail" FromRole="AdresseEmail" ToRole="CoordonneesDeContact" />
+          <Property Name="Email" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Telephone">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CoordonneesDeContact" Relationship="MethodImmoDb.CoordonneesDeContactTelephone" FromRole="Telephone" ToRole="CoordonneesDeContact" />
+          <Property Name="Numero" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="CoordonneesDeContactTelephone">
+          <End Type="MethodImmoDb.CoordonneesDeContact" Role="CoordonneesDeContact" Multiplicity="1" />
+          <End Type="MethodImmoDb.Telephone" Role="Telephone" Multiplicity="*" />
+        </Association>
+        <Association Name="CoordonneesDeContactAdresseEmail">
+          <End Type="MethodImmoDb.CoordonneesDeContact" Role="CoordonneesDeContact" Multiplicity="1" />
+          <End Type="MethodImmoDb.AdresseEmail" Role="AdresseEmail" Multiplicity="*" />
+        </Association>
+        <Association Name="CoordonneesDeContactAdressePostale">
+          <End Type="MethodImmoDb.CoordonneesDeContact" Role="CoordonneesDeContact" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.AdressePostale" Role="AdressePostale" Multiplicity="*" />
+        </Association>
+        <Association Name="ImmeubleAdressePostale">
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.AdressePostale" Role="AdressePostale" Multiplicity="*" />
+        </Association>
+        <Association Name="ImmeubleCompteBancaire">
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="*" />
+        </Association>
+        <Association Name="CompteBancaireCoordonneesBancaires">
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="1" />
+          <End Type="MethodImmoDb.CoordonneesBancaires" Role="CoordonneesBancaires" Multiplicity="*" />
+        </Association>
+        <Association Name="ContratGroupeDePersonnes">
+          <End Type="MethodImmoDb.Contrat" Role="Contrat" Multiplicity="*" />
+          <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="*" />
+        </Association>
+        <Association Name="GroupeDePersonnesDroitsGroupeUtilisateurs">
+          <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="1" />
+          <End Type="MethodImmoDb.DroitsGroupeUtilisateurs" Role="DroitsGroupeUtilisateurs" Multiplicity="*" />
+        </Association>
+        <Association Name="Groupes">
+          <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="*" />
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonneMoraleGroupeDePersonnes">
+          <End Type="MethodImmoDb.Entreprise" Role="PersonneMorale" Multiplicity="1" />
+          <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="*" />
+        </Association>
+        <Association Name="ContratDocument">
+          <End Type="MethodImmoDb.Contrat" Role="Contrat" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Documentation" Role="Document" Multiplicity="*" />
+        </Association>
+        <EntityType Name="VersionDeDocument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Documentation" Relationship="MethodImmoDb.DocumentationVersionDeDocument" FromRole="VersionDeDocument" ToRole="Documentation" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Anomalie" Relationship="MethodImmoDb.VersionDeDocumentAnomalie" FromRole="VersionDeDocument" ToRole="Anomalie" />
+          <Property Name="CheminDocument" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="DocumentationVersionDeDocument">
+          <End Type="MethodImmoDb.Documentation" Role="Documentation" Multiplicity="1" />
+          <End Type="MethodImmoDb.VersionDeDocument" Role="VersionDeDocument" Multiplicity="*" />
+        </Association>
+        <EnumType Name="TypeDeDocument" UnderlyingType="Int64">
+        <Member Name="ContratDeLocation" />
+          <Member Name="ContratDeGestion" />
+          <Member Name="ActeAchatVente" />
+        </EnumType>
+        <Association Name="ContratAction">
+          <End Type="MethodImmoDb.Contrat" Role="Contrat" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Action" Role="Action" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Anomalie" BaseType="MethodImmoDb.Action" >
+          <NavigationProperty Name="AnomalieDeDocumentation" Relationship="MethodImmoDb.DocumentationAnomalie" FromRole="Anomalie" ToRole="Documentation" />
+          <NavigationProperty Name="AnomalieDeVersionDeDocument" Relationship="MethodImmoDb.VersionDeDocumentAnomalie" FromRole="Anomalie" ToRole="VersionDeDocument" />
+          <NavigationProperty Name="AnomalieDeContrat" Relationship="MethodImmoDb.ContratAnomalie" FromRole="Anomalie" ToRole="Contrat" />
+          <NavigationProperty Name="AnomalieDeCompteBancaire" Relationship="MethodImmoDb.CompteBancaireAnomalie" FromRole="Anomalie" ToRole="CompteBancaire" />
+        </EntityType>
+        <Association Name="ActionAction">
+          <End Type="MethodImmoDb.Action" Role="Action" Multiplicity="1" />
+          <End Type="MethodImmoDb.Action" Role="Action1" Multiplicity="0..1" />
+        </Association>
+        <Association Name="DocumentationAnomalie">
+          <End Type="MethodImmoDb.Documentation" Role="Documentation" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Anomalie" Role="Anomalie" Multiplicity="*" />
+        </Association>
+        <Association Name="VersionDeDocumentAnomalie">
+          <End Type="MethodImmoDb.VersionDeDocument" Role="VersionDeDocument" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Anomalie" Role="Anomalie" Multiplicity="*" />
+        </Association>
+        <Association Name="ContratAnomalie">
+          <End Type="MethodImmoDb.Contrat" Role="Contrat" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Anomalie" Role="Anomalie" Multiplicity="*" />
+        </Association>
+        <EnumType Name="TypeAction" UnderlyingType="Int64" />
+        <EnumType Name="TypeDeContrat" UnderlyingType="Int64">
+          <Member Name="Service" />
+          <Member Name="Location" />
+        </EnumType>
+        <EntityType Name="Lot">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Immeuble" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Lot" ToRole="Immeuble" />
+          <NavigationProperty Name="Proprietaire" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
+          <NavigationProperty Name="Occupants" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
+          <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.LotCommentaire" FromRole="Lot" ToRole="Commentaire" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="Tantiemes" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="ImmeubleLot">
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="1" />
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="*" />
+        </Association>
+        <EntityType Name="GroupeDeRepartition" BaseType="MethodImmoDb.GroupeDePersonnes" >
+          <NavigationProperty Name="Lot" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="GroupeDeRepartition" ToRole="Lot" />
+        </EntityType>
+        <Association Name="LotGroupeDeRepartition">
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.GroupeDeRepartition" Role="GroupeDeRepartition" Multiplicity="1" />
+        </Association>
+        <Association Name="LotGroupeDePersonnes">
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="1" />
+          <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="Partenaire">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Personne" Relationship="MethodImmoDb.TiersPersonne" FromRole="Tiers" ToRole="Personne" />
+          <Property Name="FonctionDuPartenaire" Type="String" Nullable="false" />
+          <NavigationProperty Name="PartenaireDe" Relationship="MethodImmoDb.PersonnePartenaire" FromRole="Partenaire" ToRole="Personne" />
+        </EntityType>
+        <Association Name="TiersPersonne">
+          <End Type="MethodImmoDb.Partenaire" Role="Tiers" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="1" />
+        </Association>
+        <Association Name="PersonnePartenaire">
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="1" />
+          <End Type="MethodImmoDb.Partenaire" Role="Partenaire" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonneCoordonneesDeContact">
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="1" />
+          <End Type="MethodImmoDb.CoordonneesDeContact" Role="CoordonneesDeContact" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonneCoordonneesBancaires">
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="1" />
+          <End Type="MethodImmoDb.CoordonneesBancaires" Role="CoordonneesBancaires" Multiplicity="*" />
+        </Association>
+        <Association Name="CompteBancaireDocumentation">
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="1" />
+          <End Type="MethodImmoDb.Documentation" Role="Documentation" Multiplicity="*" />
+        </Association>
+        <Association Name="CompteBancaireAnomalie">
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Anomalie" Role="Anomalie" Multiplicity="*" />
+        </Association>
+        <Association Name="ActionCompteBancaire">
+          <End Type="MethodImmoDb.Action" Role="Action" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="*" />
+        </Association>
+        <Association Name="ContratCommentaire">
+          <End Type="MethodImmoDb.Contrat" Role="Contrat" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+        </Association>
+        <Association Name="ActionCommentaire">
+          <End Type="MethodImmoDb.Action" Role="Action" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+        </Association>
+        <Association Name="PersonneCommentaire">
+          <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+        </Association>
+        <Association Name="LotCommentaire">
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+        </Association>
+        <Association Name="ImmeubleCommentaire">
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="0..1" />
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+        </Association>
+        <Association Name="CommentaireIndividu">
+          <End Type="MethodImmoDb.Commentaire" Role="Commentaire" Multiplicity="*" />
+          <End Type="MethodImmoDb.Individu" Role="Individu" Multiplicity="1" />
+        </Association>
+        <Association Name="IndividuAccesUtilisateur">
+          <End Type="MethodImmoDb.Individu" Role="Individu" Multiplicity="1" />
+          <End Type="MethodImmoDb.AccesUtilisateur" Role="AccesUtilisateur" Multiplicity="0..1" />
+        </Association>
+        <EnumType Name="TypeDeDroit">
+          <Member Name="Lecture" />
+          <Member Name="Modification" />
+        </EnumType>
+        <Association Name="DroitsGroupeUtilisateursImmeuble">
+          <End Type="MethodImmoDb.DroitsGroupeUtilisateurs" Role="DroitsGroupeUtilisateurs" Multiplicity="*" />
+          <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MethodImmoDbStoreContainer" CdmEntityContainer="MethodImmoContext">
+    <EntitySetMapping Name="AccesUtilisateurSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.AccesUtilisateur)">
+        <MappingFragment StoreEntitySet="AccesUtilisateurSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MotDePasse" ColumnName="MotDePasse" />
+          <ScalarProperty Name="Utilisateur" ColumnName="Utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Action)">
+        <MappingFragment StoreEntitySet="ActionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateDeCreation" ColumnName="DateDeCreation" />
+          <ScalarProperty Name="DateDeDebutDeRealisation" ColumnName="DateDeDebutDeRealisation" />
+          <ScalarProperty Name="DateDeFinDeRealisationConstate" ColumnName="DateDeFinDeRealisationConstate" />
+          <ScalarProperty Name="DateDeFinDeRealisationPrevisionnelle" ColumnName="DateDeFinDeRealisationPrevisionnelle" />
+          <ScalarProperty Name="TypeAction" ColumnName="TypeAction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Anomalie)">
+        <MappingFragment StoreEntitySet="ActionSet_Anomalie">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommentaireSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Commentaire)">
+        <MappingFragment StoreEntitySet="CommentaireSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Contenu" ColumnName="Contenu" />
+          <ScalarProperty Name="DateDeCreation" ColumnName="DateDeCreation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompteBancaireSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.CompteBancaire)">
+        <MappingFragment StoreEntitySet="CompteBancaireSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContratSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Contrat)">
+        <MappingFragment StoreEntitySet="ContratSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DateDeDebut" ColumnName="DateDeDebut" />
+          <ScalarProperty Name="DateDeFin" ColumnName="DateDeFin" />
+          <ScalarProperty Name="TypeDeContrat" ColumnName="TypeDeContrat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoordonneesBancairesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.CoordonneesBancaires)">
+        <MappingFragment StoreEntitySet="CoordonneesBancairesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BIC" ColumnName="BIC" />
+          <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+          <ScalarProperty Name="Proprietaire" ColumnName="Proprietaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentationSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Documentation)">
+        <MappingFragment StoreEntitySet="DocumentationSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DroitsGroupeUtilisateursSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.DroitsGroupeUtilisateurs)">
+        <MappingFragment StoreEntitySet="DroitsGroupeUtilisateursSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TypeDeDroit" ColumnName="TypeDeDroit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupeDePersonnesSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.GroupeDePersonnes)">
+        <MappingFragment StoreEntitySet="GroupeDePersonnesSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.GroupeDeRepartition)">
+        <MappingFragment StoreEntitySet="GroupeDePersonnesSet_GroupeDeRepartition">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImmeubleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Immeuble)">
+        <MappingFragment StoreEntitySet="ImmeubleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="TotalTantiemes" ColumnName="TotalTantiemes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonneSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Personne)">
+        <MappingFragment StoreEntitySet="PersonneSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Entreprise)">
+        <MappingFragment StoreEntitySet="PersonneSet_Entreprise">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Individu)">
+        <MappingFragment StoreEntitySet="PersonneSet_Individu">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CoordonneesDeContactSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.CoordonneesDeContact)">
+        <MappingFragment StoreEntitySet="CoordonneesDeContactSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdressePostaleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.AdressePostale)">
+        <MappingFragment StoreEntitySet="AdressePostaleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Rue" ColumnName="Rue" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+          <ScalarProperty Name="Pays" ColumnName="Pays" />
+          <ScalarProperty Name="Acces" ColumnName="Acces" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdresseEmailSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.AdresseEmail)">
+        <MappingFragment StoreEntitySet="AdresseEmailSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TelephoneSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Telephone)">
+        <MappingFragment StoreEntitySet="TelephoneSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Numero" ColumnName="Numero" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VersionDeDocumentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.VersionDeDocument)">
+        <MappingFragment StoreEntitySet="VersionDeDocumentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="CheminDocument" ColumnName="CheminDocument" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LotSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Lot)">
+        <MappingFragment StoreEntitySet="LotSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Tantiemes" ColumnName="Tantiemes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartenaireSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.Partenaire)">
+        <MappingFragment StoreEntitySet="PartenaireSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FonctionDuPartenaire" ColumnName="FonctionDuPartenaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CoordonneesDeContactTelephone" TypeName="MethodImmoDb.CoordonneesDeContactTelephone" StoreEntitySet="TelephoneSet">
+      <EndProperty Name="CoordonneesDeContact">
+        <ScalarProperty Name="Id" ColumnName="CoordonneesDeContact_Id" />
+      </EndProperty>
+      <EndProperty Name="Telephone">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CoordonneesDeContactAdresseEmail" TypeName="MethodImmoDb.CoordonneesDeContactAdresseEmail" StoreEntitySet="AdresseEmailSet">
+      <EndProperty Name="CoordonneesDeContact">
+        <ScalarProperty Name="Id" ColumnName="CoordonneesDeContact_Id" />
+      </EndProperty>
+      <EndProperty Name="AdresseEmail">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CoordonneesDeContactAdressePostale" TypeName="MethodImmoDb.CoordonneesDeContactAdressePostale" StoreEntitySet="AdressePostaleSet">
+      <EndProperty Name="CoordonneesDeContact">
+        <ScalarProperty Name="Id" ColumnName="CoordonneesDeContact_Id" />
+      </EndProperty>
+      <EndProperty Name="AdressePostale">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CoordonneesDeContact_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ImmeubleAdressePostale" TypeName="MethodImmoDb.ImmeubleAdressePostale" StoreEntitySet="AdressePostaleSet">
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="Immeuble_Id" />
+      </EndProperty>
+      <EndProperty Name="AdressePostale">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Immeuble_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ImmeubleCompteBancaire" TypeName="MethodImmoDb.ImmeubleCompteBancaire" StoreEntitySet="CompteBancaireSet">
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="Immeuble_Id" />
+      </EndProperty>
+      <EndProperty Name="CompteBancaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Immeuble_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompteBancaireCoordonneesBancaires" TypeName="MethodImmoDb.CompteBancaireCoordonneesBancaires" StoreEntitySet="CoordonneesBancairesSet">
+      <EndProperty Name="CompteBancaire">
+        <ScalarProperty Name="Id" ColumnName="CompteBancaire_Id" />
+      </EndProperty>
+      <EndProperty Name="CoordonneesBancaires">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContratGroupeDePersonnes" TypeName="MethodImmoDb.ContratGroupeDePersonnes" StoreEntitySet="ContratGroupeDePersonnes">
+      <EndProperty Name="Contrat">
+        <ScalarProperty Name="Id" ColumnName="Contrats_Id" />
+      </EndProperty>
+      <EndProperty Name="GroupeDePersonnes">
+        <ScalarProperty Name="Id" ColumnName="GroupesContractants_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupeDePersonnesDroitsGroupeUtilisateurs" TypeName="MethodImmoDb.GroupeDePersonnesDroitsGroupeUtilisateurs" StoreEntitySet="DroitsGroupeUtilisateursSet">
+      <EndProperty Name="GroupeDePersonnes">
+        <ScalarProperty Name="Id" ColumnName="GroupeDePersonnes_Id" />
+      </EndProperty>
+      <EndProperty Name="DroitsGroupeUtilisateurs">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupeDePersonnesPersonne" TypeName="MethodImmoDb.Groupes" StoreEntitySet="GroupeDePersonnesPersonne">
+      <EndProperty Name="GroupeDePersonnes">
+        <ScalarProperty Name="Id" ColumnName="Groupes_Personne_Id" />
+      </EndProperty>
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="Personnes_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonneMoraleGroupeDePersonnes" TypeName="MethodImmoDb.PersonneMoraleGroupeDePersonnes" StoreEntitySet="GroupeDePersonnesSet">
+      <EndProperty Name="PersonneMorale">
+        <ScalarProperty Name="Id" ColumnName="EntrepriseDAppartenance_Id" />
+      </EndProperty>
+      <EndProperty Name="GroupeDePersonnes">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContratDocument" TypeName="MethodImmoDb.ContratDocument" StoreEntitySet="DocumentationSet">
+      <EndProperty Name="Contrat">
+        <ScalarProperty Name="Id" ColumnName="Contrat_Id" />
+      </EndProperty>
+      <EndProperty Name="Document">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Contrat_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DocumentationVersionDeDocument" TypeName="MethodImmoDb.DocumentationVersionDeDocument" StoreEntitySet="VersionDeDocumentSet">
+      <EndProperty Name="Documentation">
+        <ScalarProperty Name="Id" ColumnName="Documentation_Id" />
+      </EndProperty>
+      <EndProperty Name="VersionDeDocument">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContratAction" TypeName="MethodImmoDb.ContratAction" StoreEntitySet="ActionSet">
+      <EndProperty Name="Contrat">
+        <ScalarProperty Name="Id" ColumnName="OrigineContrat_Id" />
+      </EndProperty>
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="OrigineContrat_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ActionAction" TypeName="MethodImmoDb.ActionAction" StoreEntitySet="ActionSet">
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="ActionAction_Action1_Id" />
+      </EndProperty>
+      <EndProperty Name="Action1">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DocumentationAnomalie" TypeName="MethodImmoDb.DocumentationAnomalie" StoreEntitySet="ActionSet_Anomalie">
+      <EndProperty Name="Documentation">
+        <ScalarProperty Name="Id" ColumnName="AnomalieDeDocumentation_Id" />
+      </EndProperty>
+      <EndProperty Name="Anomalie">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="AnomalieDeDocumentation_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="VersionDeDocumentAnomalie" TypeName="MethodImmoDb.VersionDeDocumentAnomalie" StoreEntitySet="ActionSet_Anomalie">
+      <EndProperty Name="VersionDeDocument">
+        <ScalarProperty Name="Id" ColumnName="AnomalieDeVersionDeDocument_Id" />
+      </EndProperty>
+      <EndProperty Name="Anomalie">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="AnomalieDeVersionDeDocument_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContratAnomalie" TypeName="MethodImmoDb.ContratAnomalie" StoreEntitySet="ActionSet_Anomalie">
+      <EndProperty Name="Contrat">
+        <ScalarProperty Name="Id" ColumnName="AnomalieDeContrat_Id" />
+      </EndProperty>
+      <EndProperty Name="Anomalie">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="AnomalieDeContrat_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ImmeubleLot" TypeName="MethodImmoDb.ImmeubleLot" StoreEntitySet="LotSet">
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="Immeuble_Id" />
+      </EndProperty>
+      <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LotGroupeDeRepartition" TypeName="MethodImmoDb.LotGroupeDeRepartition" StoreEntitySet="LotSet">
+      <EndProperty Name="GroupeDeRepartition">
+        <ScalarProperty Name="Id" ColumnName="Proprietaire_Id" />
+      </EndProperty>
+      <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OccupantsLot" TypeName="MethodImmoDb.LotGroupeDePersonnes" StoreEntitySet="GroupeDePersonnesSet">
+      <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="Lot1_Id" />
+      </EndProperty>
+      <EndProperty Name="GroupeDePersonnes">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TiersPersonne" TypeName="MethodImmoDb.TiersPersonne" StoreEntitySet="PartenaireSet">
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="Personne_Id" />
+      </EndProperty>
+      <EndProperty Name="Tiers">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonnePartenaire" TypeName="MethodImmoDb.PersonnePartenaire" StoreEntitySet="PartenaireSet">
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="PartenaireDe_Id" />
+      </EndProperty>
+      <EndProperty Name="Partenaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonneCoordonneesDeContact" TypeName="MethodImmoDb.PersonneCoordonneesDeContact" StoreEntitySet="CoordonneesDeContactSet">
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="Personne_Id" />
+      </EndProperty>
+      <EndProperty Name="CoordonneesDeContact">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonneCoordonneesBancaires" TypeName="MethodImmoDb.PersonneCoordonneesBancaires" StoreEntitySet="CoordonneesBancairesSet">
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="Personne_Id" />
+      </EndProperty>
+      <EndProperty Name="CoordonneesBancaires">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompteBancaireDocumentation" TypeName="MethodImmoDb.CompteBancaireDocumentation" StoreEntitySet="DocumentationSet">
+      <EndProperty Name="CompteBancaire">
+        <ScalarProperty Name="Id" ColumnName="CompteBancaire_Id" />
+      </EndProperty>
+      <EndProperty Name="Documentation">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CompteBancaireAnomalie" TypeName="MethodImmoDb.CompteBancaireAnomalie" StoreEntitySet="ActionSet_Anomalie">
+      <EndProperty Name="CompteBancaire">
+        <ScalarProperty Name="Id" ColumnName="AnomalieDeCompteBancaire_Id" />
+      </EndProperty>
+      <EndProperty Name="Anomalie">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="AnomalieDeCompteBancaire_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ActionCompteBancaire" TypeName="MethodImmoDb.ActionCompteBancaire" StoreEntitySet="CompteBancaireSet">
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="Action_Id" />
+      </EndProperty>
+      <EndProperty Name="CompteBancaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Action_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ContratCommentaire" TypeName="MethodImmoDb.ContratCommentaire" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Contrat">
+        <ScalarProperty Name="Id" ColumnName="CommentaireDeContrat_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CommentaireDeContrat_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ActionCommentaire" TypeName="MethodImmoDb.ActionCommentaire" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Action">
+        <ScalarProperty Name="Id" ColumnName="CommentaireDAction_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CommentaireDAction_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PersonneCommentaire" TypeName="MethodImmoDb.PersonneCommentaire" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Personne">
+        <ScalarProperty Name="Id" ColumnName="CommentaireDePersonne_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CommentaireDePersonne_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LotCommentaire" TypeName="MethodImmoDb.LotCommentaire" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="CommentaireDeLot_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CommentaireDeLot_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ImmeubleCommentaire" TypeName="MethodImmoDb.ImmeubleCommentaire" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="CommentaireDeImmeuble_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="CommentaireDeImmeuble_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CommentaireIndividu" TypeName="MethodImmoDb.CommentaireIndividu" StoreEntitySet="CommentaireSet">
+      <EndProperty Name="Individu">
+        <ScalarProperty Name="Id" ColumnName="Auteur_Id" />
+      </EndProperty>
+      <EndProperty Name="Commentaire">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="IndividuAccesUtilisateur" TypeName="MethodImmoDb.IndividuAccesUtilisateur" StoreEntitySet="AccesUtilisateurSet">
+      <EndProperty Name="Individu">
+        <ScalarProperty Name="Id" ColumnName="Individu_Id" />
+      </EndProperty>
+      <EndProperty Name="AccesUtilisateur">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DroitsGroupeUtilisateursImmeuble" TypeName="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" StoreEntitySet="DroitsGroupeUtilisateursImmeuble">
+      <EndProperty Name="DroitsGroupeUtilisateurs">
+        <ScalarProperty Name="Id" ColumnName="GroupesUtilisateursAvecAcces_Id" />
+      </EndProperty>
+      <EndProperty Name="Immeuble">
+        <ScalarProperty Name="Id" ColumnName="Immeubles_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

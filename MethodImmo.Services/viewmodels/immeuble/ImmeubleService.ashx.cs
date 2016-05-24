@@ -1,6 +1,5 @@
-﻿using MethodImmo.DataAccessLayer;
-using MethodImmo.EntityJsonSerializer;
-using MethodImmo.Model;
+﻿using MethodImmo.DAL;
+using Mid.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,9 @@ namespace MethodImmo.Services.ViewModels
         public override List<Immeuble> Get()
         {
             List<Immeuble> result = null;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
-                result = context.Immeubles.ToList();
+                result = context.ImmeubleSet.ToList();
             }
             return result;  
         }
@@ -27,9 +26,9 @@ namespace MethodImmo.Services.ViewModels
         public override Immeuble Get(long id)
         {
             Immeuble result = null;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
-                result = context.Immeubles.Find(id);
+                result = context.ImmeubleSet.Find(id);
             }
             return result;
         }
@@ -37,9 +36,9 @@ namespace MethodImmo.Services.ViewModels
         public override ResultObject Post(Immeuble received)
         {
             long id = -1;
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
-                context.Immeubles.Add(received);
+                context.ImmeubleSet.Add(received);
                 context.SaveChanges();
                 id = received.Id;
             }
@@ -48,13 +47,15 @@ namespace MethodImmo.Services.ViewModels
 
         public override ResultObject Put(long id, string receivedJson)
         {
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 
-                var toUpdate = context.Immeubles.Find(id);
+                var toUpdate = context.ImmeubleSet.Find(id);
 
-                var serializer = new JsonEntitySerializer();
-                serializer.FillObject(toUpdate, receivedJson);
+                JsonSerializationTool<object>.FillObject(receivedJson,toUpdate);
+
+
+
 
                 context.SaveChanges();
             }
@@ -63,11 +64,11 @@ namespace MethodImmo.Services.ViewModels
 
         public override ResultObject Delete(long id)
         {
-            using (var context = new MethodImmoDb())
+            using (var context = new MethodImmoContext())
             {
                 var toDelete = new Immeuble() { Id = id };
-                context.Immeubles.Attach(toDelete);
-                context.Immeubles.Remove(toDelete);
+                context.ImmeubleSet.Attach(toDelete);
+                context.ImmeubleSet.Remove(toDelete);
                 context.SaveChanges();
             }
             return new ResultObject(HttpStatusCode.OK, "Immeuble supprimé", "id = " + id);
