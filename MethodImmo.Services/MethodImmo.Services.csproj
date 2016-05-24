@@ -117,6 +117,9 @@
     <Folder Include="Resources\" />
     <Folder Include="Scripts\" />
     <Folder Include="Styles\" />
+    <Folder Include="Views\Action\" />
+    <Folder Include="Views\Entreprise\" />
+    <Folder Include="Views\Individu\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MethodImmo.DataAccessLayer\MethodImmo.DataAccessLayer.csproj">

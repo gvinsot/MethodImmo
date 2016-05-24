@@ -1,5 +1,5 @@
 ﻿<div class="col-sm-12">
-    <div class="col-sm-3" style="margin-top:20px">
+    <div class="col-sm-3" style="margin-top:20px;background-color:aliceblue">
         <div class="input-group">
             <input type="text" class="form-control" placeholder="Search for...">
             <span class="input-group-btn">
@@ -8,7 +8,13 @@
         </div>
     </div>
     <div class="col-sm-9">
-        <ul class="list-group" data-template="views/immeuble/listItem.html" data-source="viewmodels/immeuble/immeubleservice.ashx"></ul>
+        <div class="row">
+            <h1>Immeubles</h1>
+            <button style="float:right">Créer</button>
+        </div>
+        <div class="row">
+            <ul class="list-group" data-template="views/immeuble/listItem.html" data-source="viewmodels/immeuble/immeubleservice.ashx"></ul>
+        </div>
     </div>
 
 </div>

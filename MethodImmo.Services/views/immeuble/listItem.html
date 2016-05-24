@@ -1,1 +1,5 @@
-﻿<li class="list-group-item" data-binding="{Path=Label,Destination=Content}">Label</li>
+﻿<li class="list-group-item">
+    <div class="col-sm-3" data-binding="{Path=Nom,Destination=Content}">Label</div>
+    <div class="col-sm-1">(<span  data-binding="{Path=NbAnomalies,Destination=Content}">0</span> anomalies)</div>
+    <div class="col-sm-3" style="float:right">Mis à jour il y a <span style="margin-right:70px" data-binding="{Path=DateDerniereModification,Destination=Content}">1 jour</span> Modifier | Supprimer</div> 
+</li>
