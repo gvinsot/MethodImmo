@@ -115,7 +115,7 @@
       <End Role="Lot" EntitySet="LotSet" />
       <End Role="GroupeDeRepartition" EntitySet="GroupeDePersonnesSet_GroupeDeRepartition" />
     </AssociationSet>
-    <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.Store.LotGroupeDePersonnes">
+    <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.Store.Occupants">
       <End Role="Lot" EntitySet="LotSet" />
       <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
     </AssociationSet>
@@ -262,7 +262,7 @@
     <Property Name="BIC" Type="nvarchar(max)" Nullable="false" />
     <Property Name="IBAN" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Proprietaire" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="false" />
+    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="true" />
     <Property Name="Personne_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="DocumentationSet">
@@ -271,7 +271,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Contrat_Id" Type="bigint" Nullable="true" />
-    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="false" />
+    <Property Name="CompteBancaire_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="DroitsGroupeUtilisateursSet">
     <Key>
@@ -287,8 +287,8 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="EntrepriseDAppartenance_Id" Type="bigint" Nullable="false" />
-    <Property Name="Lot1_Id" Type="bigint" Nullable="false" />
+    <Property Name="EntrepriseDAppartenance_Id" Type="bigint" Nullable="true" />
+    <Property Name="GroupeDOccupants_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="ImmeubleSet">
     <Key>
@@ -296,7 +296,7 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TotalTantiemes" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TotalTantiemes" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="PersonneSet">
     <Key>
@@ -304,8 +304,8 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateDebut" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateFin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDebut" Type="datetime" Nullable="true" />
+    <Property Name="DateFin" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="CoordonneesDeContactSet">
     <Key>
@@ -322,8 +322,8 @@
     <Property Name="Rue" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CodePostal" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Ville" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Pays" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Acces" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Pays" Type="nvarchar(max)" Nullable="true" DefaultValue="France" />
+    <Property Name="Acces" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CoordonneesDeContact_Id" Type="bigint" Nullable="true" />
     <Property Name="Immeuble_Id" Type="bigint" Nullable="true" />
   </EntityType>
@@ -358,9 +358,8 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Tantiemes" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tantiemes" Type="bigint" Nullable="true" />
     <Property Name="Immeuble_Id" Type="bigint" Nullable="false" />
-    <Property Name="Proprietaire_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="PartenaireSet">
     <Key>
@@ -392,6 +391,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="GroupeDeProprietaires_Id" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="PersonneSet_Individu">
     <Key>
@@ -485,7 +485,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="CompteBancaireCoordonneesBancaires">
-    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="1" />
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="0..1" />
     <End Role="CoordonneesBancaires" Type="MethodImmoDb.Store.CoordonneesBancairesSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CompteBancaire">
@@ -509,7 +509,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="PersonneMoraleGroupeDePersonnes">
-    <End Role="PersonneMorale" Type="MethodImmoDb.Store.PersonneSet_Entreprise" Multiplicity="1" />
+    <End Role="PersonneMorale" Type="MethodImmoDb.Store.PersonneSet_Entreprise" Multiplicity="0..1" />
     <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="PersonneMorale">
@@ -617,26 +617,26 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="LotGroupeDeRepartition">
-    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="*" />
-    <End Role="GroupeDeRepartition" Type="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" Multiplicity="1" />
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="0..1" />
+    <End Role="GroupeDeRepartition" Type="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="GroupeDeRepartition">
+      <Principal Role="Lot">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Lot">
-        <PropertyRef Name="Proprietaire_Id" />
+      <Dependent Role="GroupeDeRepartition">
+        <PropertyRef Name="GroupeDeProprietaires_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="LotGroupeDePersonnes">
-    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="1" />
+  <Association Name="Occupants">
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="0..1" />
     <End Role="GroupeDePersonnes" Type="MethodImmoDb.Store.GroupeDePersonnesSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Lot">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="GroupeDePersonnes">
-        <PropertyRef Name="Lot1_Id" />
+        <PropertyRef Name="GroupeDOccupants_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -689,7 +689,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="CompteBancaireDocumentation">
-    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="1" />
+    <End Role="CompteBancaire" Type="MethodImmoDb.Store.CompteBancaireSet" Multiplicity="0..1" />
     <End Role="Documentation" Type="MethodImmoDb.Store.DocumentationSet" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CompteBancaire">
@@ -1034,7 +1034,7 @@
             <End Role="Lot" EntitySet="LotSet" />
             <End Role="GroupeDeRepartition" EntitySet="GroupeDePersonnesSet" />
           </AssociationSet>
-          <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.LotGroupeDePersonnes">
+          <AssociationSet Name="OccupantsLot" Association="MethodImmoDb.Occupants">
             <End Role="Lot" EntitySet="LotSet" />
             <End Role="GroupeDePersonnes" EntitySet="GroupeDePersonnesSet" />
           </AssociationSet>
@@ -1205,7 +1205,7 @@
           <NavigationProperty Name="Personnes" Relationship="MethodImmoDb.Groupes" FromRole="GroupeDePersonnes" ToRole="Personne" />
           <NavigationProperty Name="EntrepriseDAppartenance" Relationship="MethodImmoDb.PersonneMoraleGroupeDePersonnes" FromRole="GroupeDePersonnes" ToRole="PersonneMorale" />
           <Property Name="Nom" Type="String" Nullable="false" />
-          <NavigationProperty Name="Lot1" Relationship="MethodImmoDb.LotGroupeDePersonnes" FromRole="GroupeDePersonnes" ToRole="Lot" />
+          <NavigationProperty Name="GroupeDOccupants" Relationship="MethodImmoDb.Occupants" FromRole="GroupeDePersonnes" ToRole="Lot" />
         </EntityType>
         <EntityType Name="Immeuble">
           <Key>
@@ -1217,7 +1217,7 @@
           <NavigationProperty Name="Lots" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Immeuble" ToRole="Lot" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ImmeubleCommentaire" FromRole="Immeuble" ToRole="Commentaire" />
           <Property Name="Nom" Type="String" Nullable="false" />
-          <Property Name="TotalTantiemes" Type="String" Nullable="false" />
+          <Property Name="TotalTantiemes" Type="Int64" Nullable="true" />
           <NavigationProperty Name="GroupesUtilisateursAvecAcces" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="Immeuble" ToRole="DroitsGroupeUtilisateurs" />
         </EntityType>
         <EntityType Name="Personne">
@@ -1230,8 +1230,8 @@
           <NavigationProperty Name="CoordonneesDeContact" Relationship="MethodImmoDb.PersonneCoordonneesDeContact" FromRole="Personne" ToRole="CoordonneesDeContact" />
           <NavigationProperty Name="CoordonneesBancaires" Relationship="MethodImmoDb.PersonneCoordonneesBancaires" FromRole="Personne" ToRole="CoordonneesBancaires" />
           <NavigationProperty Name="CommentairesRecus" Relationship="MethodImmoDb.PersonneCommentaire" FromRole="Personne" ToRole="Commentaire" />
-          <Property Name="DateDebut" Type="String" Nullable="false" />
-          <Property Name="DateFin" Type="String" Nullable="false" />
+          <Property Name="DateDebut" Type="DateTime" Nullable="true" />
+          <Property Name="DateFin" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="Individu" BaseType="MethodImmoDb.Personne" >
           <Property Name="Prenom" Type="String" Nullable="false" />
@@ -1261,8 +1261,8 @@
           <Property Name="Rue" Type="String" Nullable="false" />
           <Property Name="CodePostal" Type="String" Nullable="false" />
           <Property Name="Ville" Type="String" Nullable="false" />
-          <Property Name="Pays" Type="String" Nullable="false" />
-          <Property Name="Acces" Type="String" Nullable="false" />
+          <Property Name="Pays" Type="String" Nullable="true" DefaultValue="France" />
+          <Property Name="Acces" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="AdresseEmail">
           <Key>
@@ -1301,7 +1301,7 @@
           <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="*" />
         </Association>
         <Association Name="CompteBancaireCoordonneesBancaires">
-          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="1" />
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="0..1" />
           <End Type="MethodImmoDb.CoordonneesBancaires" Role="CoordonneesBancaires" Multiplicity="*" />
         </Association>
         <Association Name="ContratGroupeDePersonnes">
@@ -1317,7 +1317,7 @@
           <End Type="MethodImmoDb.Personne" Role="Personne" Multiplicity="*" />
         </Association>
         <Association Name="PersonneMoraleGroupeDePersonnes">
-          <End Type="MethodImmoDb.Entreprise" Role="PersonneMorale" Multiplicity="1" />
+          <End Type="MethodImmoDb.Entreprise" Role="PersonneMorale" Multiplicity="0..1" />
           <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="*" />
         </Association>
         <Association Name="ContratDocument">
@@ -1384,21 +1384,21 @@
           <NavigationProperty Name="Occupants" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.LotCommentaire" FromRole="Lot" ToRole="Commentaire" />
           <Property Name="Nom" Type="String" Nullable="false" />
-          <Property Name="Tantiemes" Type="String" Nullable="false" />
+          <Property Name="Tantiemes" Type="Int64" Nullable="true" />
         </EntityType>
         <Association Name="ImmeubleLot">
           <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="1" />
           <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="*" />
         </Association>
         <EntityType Name="GroupeDeRepartition" BaseType="MethodImmoDb.GroupeDePersonnes" >
-          <NavigationProperty Name="Lot" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="GroupeDeRepartition" ToRole="Lot" />
+          <NavigationProperty Name="GroupeDeProprietaires" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="GroupeDeRepartition" ToRole="Lot" />
         </EntityType>
         <Association Name="LotGroupeDeRepartition">
           <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="0..1" />
-          <End Type="MethodImmoDb.GroupeDeRepartition" Role="GroupeDeRepartition" Multiplicity="1" />
+          <End Type="MethodImmoDb.GroupeDeRepartition" Role="GroupeDeRepartition" Multiplicity="0..1" />
         </Association>
-        <Association Name="LotGroupeDePersonnes">
-          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="1" />
+        <Association Name="Occupants">
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="0..1" />
           <End Type="MethodImmoDb.GroupeDePersonnes" Role="GroupeDePersonnes" Multiplicity="0..1" />
         </Association>
         <EntityType Name="Partenaire">
@@ -1427,7 +1427,7 @@
           <End Type="MethodImmoDb.CoordonneesBancaires" Role="CoordonneesBancaires" Multiplicity="*" />
         </Association>
         <Association Name="CompteBancaireDocumentation">
-          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="1" />
+          <End Type="MethodImmoDb.CompteBancaire" Role="CompteBancaire" Multiplicity="0..1" />
           <End Type="MethodImmoDb.Documentation" Role="Documentation" Multiplicity="*" />
         </Association>
         <Association Name="CompteBancaireAnomalie">
@@ -1712,6 +1712,7 @@
       <EndProperty Name="CoordonneesBancaires">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="CompteBancaire_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="ContratGroupeDePersonnes" TypeName="MethodImmoDb.ContratGroupeDePersonnes" StoreEntitySet="ContratGroupeDePersonnes">
       <EndProperty Name="Contrat">
@@ -1744,6 +1745,7 @@
       <EndProperty Name="GroupeDePersonnes">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="EntrepriseDAppartenance_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="ContratDocument" TypeName="MethodImmoDb.ContratDocument" StoreEntitySet="DocumentationSet">
       <EndProperty Name="Contrat">
@@ -1814,21 +1816,23 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="LotGroupeDeRepartition" TypeName="MethodImmoDb.LotGroupeDeRepartition" StoreEntitySet="LotSet">
-      <EndProperty Name="GroupeDeRepartition">
-        <ScalarProperty Name="Id" ColumnName="Proprietaire_Id" />
-      </EndProperty>
+    <AssociationSetMapping Name="LotGroupeDeRepartition" TypeName="MethodImmoDb.LotGroupeDeRepartition" StoreEntitySet="GroupeDePersonnesSet_GroupeDeRepartition">
       <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="GroupeDeProprietaires_Id" />
+      </EndProperty>
+      <EndProperty Name="GroupeDeRepartition">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="GroupeDeProprietaires_Id" IsNull="false" />
     </AssociationSetMapping>
-    <AssociationSetMapping Name="OccupantsLot" TypeName="MethodImmoDb.LotGroupeDePersonnes" StoreEntitySet="GroupeDePersonnesSet">
+    <AssociationSetMapping Name="OccupantsLot" TypeName="MethodImmoDb.Occupants" StoreEntitySet="GroupeDePersonnesSet">
       <EndProperty Name="Lot">
-        <ScalarProperty Name="Id" ColumnName="Lot1_Id" />
+        <ScalarProperty Name="Id" ColumnName="GroupeDOccupants_Id" />
       </EndProperty>
       <EndProperty Name="GroupeDePersonnes">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="GroupeDOccupants_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="TiersPersonne" TypeName="MethodImmoDb.TiersPersonne" StoreEntitySet="PartenaireSet">
       <EndProperty Name="Personne">
@@ -1869,6 +1873,7 @@
       <EndProperty Name="Documentation">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
+      <Condition ColumnName="CompteBancaire_Id" IsNull="false" />
     </AssociationSetMapping>
     <AssociationSetMapping Name="CompteBancaireAnomalie" TypeName="MethodImmoDb.CompteBancaireAnomalie" StoreEntitySet="ActionSet_Anomalie">
       <EndProperty Name="CompteBancaire">

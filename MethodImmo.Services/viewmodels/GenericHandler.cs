@@ -1,10 +1,13 @@
-﻿using Mid.Tools;
+﻿using MethodImmo.DAL;
+using Mid.Tools;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -14,7 +17,7 @@ namespace MethodImmo.Services.ViewModels
     /// <summary>
     /// Summary description for Immeuble
     /// </summary>
-    public abstract class GenericHandler<T> : IHttpHandler where T:class
+    public abstract class GenericHandler : IHttpHandler
     {
 
         public void ProcessRequest(HttpContext context)
@@ -29,24 +32,11 @@ namespace MethodImmo.Services.ViewModels
                 switch (context.Request.HttpMethod)
                 {
                     case "GET": //Return list
-                        if (long.TryParse(context.Request.QueryString["id"], out objectId))
+                        using (var ctxt = new MethodImmoContext())
                         {
-                            result = Serialize(Get(objectId));
+                            result = Serialize(Get(ctxt, context.Request.QueryString));
                         }
-                        else
-                        {
-                            StringBuilder sb = new StringBuilder();
-                            var items = Get();
-                            sb.Append("[");
-                            foreach (var item in items)
-                            {
-                                sb.Append(Serialize(item));
-                                sb.Append(",");
-                            }
-                            sb.Remove(sb.Length - 1, 1);
-                            sb.Append("]");
-                            result = sb.ToString();
-                        }
+                        
                         break;
 
 
@@ -55,27 +45,20 @@ namespace MethodImmo.Services.ViewModels
                         using (var sr = new StreamReader(context.Request.InputStream))
                         {
                             postSerialized = sr.ReadToEnd();
-
                         }
-                        T resultTObject = JsonSerializationTool<T>.Deserialize(postSerialized);
-                        result = JsonSerializationTool<ResultObject>.Serialize(Post(resultTObject));
+                        result = JsonSerializationTool<ResultObject>.SerializeAllTree(Post(postSerialized, context.Request.QueryString));
                         break;
 
                     case "PUT":
-                        if (!long.TryParse(context.Request.QueryString["id"], out objectId))
-                        {
-                            //ERROR
-                        }
-
                         string serialized = "";
                         using (var sr = new StreamReader(context.Request.InputStream))
                         {
                             serialized = sr.ReadToEnd();
 
                         }
-                        var resultObject = Put(objectId, serialized);
+                        var resultObject = Put(serialized, context.Request.QueryString);
 
-                        result = JsonSerializationTool<ResultObject>.Serialize(resultObject);
+                        result = JsonSerializationTool<ResultObject>.SerializeAllTree(resultObject);
                         break;
 
 
@@ -84,8 +67,8 @@ namespace MethodImmo.Services.ViewModels
                         {
                             //ERROR
                         }
-                        var deleteResultObject = Delete(objectId);
-                        result = JsonSerializationTool<ResultObject>.Serialize(deleteResultObject);
+                        var deleteResultObject = Delete(context.Request.QueryString);
+                        result = JsonSerializationTool<ResultObject>.SerializeAllTree(deleteResultObject);
                         break;
                 }
 
@@ -97,41 +80,43 @@ namespace MethodImmo.Services.ViewModels
             }
         }
 
-
-
-        public abstract List<T> Get();
-
-
-        public abstract T Get(long id);
-
-
+        public abstract object Get(MethodImmoContext context,NameValueCollection parameters);
+        
         // = CREATE / REPLACE
-        public virtual ResultObject Post(T receivedObject)
+        public virtual ResultObject Post(string receivedJson, NameValueCollection parameters)
         {
             return new ResultObject(HttpStatusCode.NotImplemented, "Create feature not available for this object", (new StackTrace()).ToString());
         }
 
         // = UPDATE
-        public virtual ResultObject Put(long id, string receivedJson)
+        public virtual ResultObject Put(string receivedJson, NameValueCollection parameters)
         {
             return new ResultObject(HttpStatusCode.NotImplemented, "Update feature not available for this object", (new StackTrace()).ToString());
         }
 
-        public virtual ResultObject Delete(long id)
+        public virtual ResultObject Delete(NameValueCollection parameters)
         {
             return new ResultObject(HttpStatusCode.NotImplemented, "Delete feature not available for this object", (new StackTrace()).ToString());
         }
 
 
-        public virtual string Serialize(T toSerialize)
+        public virtual string Serialize(object toSerialize)
         {
-            var task = Task.Run(() =>
+            string result = JsonSerializationTool<object>.SerializeRootSinglesAndIds(toSerialize,null,null,(object val, object parent,MemberInfo info,object context)=>
             {
-            string result = null;// serializer.ToJSON(toSerialize, new JSONParameters()
-                return result;
+                PropertyInfo property = info as PropertyInfo;
+                FieldInfo field = info as FieldInfo;
+                if (property != null)
+                {
+                    return ObjectTools.IsPrimitiveType(property.PropertyType) || property.PropertyType.Namespace.StartsWith("System.Collection") || property.PropertyType.Namespace.StartsWith("System.Data.Entity.DynamicProxies");
+                }
+                else if (field != null)
+                {
+                    return ObjectTools.IsPrimitiveType(field.FieldType) ||  field.FieldType.Namespace.StartsWith("System.Data.Entity.DynamicProxies");
+                }
+                return false;
             });
-            task.Wait();
-            return task.Result;
+            return result;
         }
 
 

@@ -25,8 +25,8 @@ namespace MethodImmo.DAL
     
         public long Id { get; set; }
         public string Nom { get; set; }
-        public string DateDebut { get; set; }
-        public string DateFin { get; set; }
+        public Nullable<System.DateTime> DateDebut { get; set; }
+        public Nullable<System.DateTime> DateFin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Partenaire> Partenaires { get; set; }

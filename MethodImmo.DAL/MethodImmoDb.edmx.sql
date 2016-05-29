@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/23/2016 16:24:30
--- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
+-- Date Created: 05/25/2016 00:53:17
+-- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [test];
+USE [methodimmodb];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -78,10 +78,10 @@ IF OBJECT_ID(N'[dbo].[FK_ImmeubleLot]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[LotSet] DROP CONSTRAINT [FK_ImmeubleLot];
 GO
 IF OBJECT_ID(N'[dbo].[FK_LotGroupeDeRepartition]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[LotSet] DROP CONSTRAINT [FK_LotGroupeDeRepartition];
+    ALTER TABLE [dbo].[GroupeDePersonnesSet_GroupeDeRepartition] DROP CONSTRAINT [FK_LotGroupeDeRepartition];
 GO
-IF OBJECT_ID(N'[dbo].[FK_LotGroupeDePersonnes]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[GroupeDePersonnesSet] DROP CONSTRAINT [FK_LotGroupeDePersonnes];
+IF OBJECT_ID(N'[dbo].[FK_Occupants]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[GroupeDePersonnesSet] DROP CONSTRAINT [FK_Occupants];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TiersPersonne]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PartenaireSet] DROP CONSTRAINT [FK_TiersPersonne];
@@ -124,6 +124,12 @@ IF OBJECT_ID(N'[dbo].[FK_CommentaireIndividu]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_IndividuAccesUtilisateur]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccesUtilisateurSet] DROP CONSTRAINT [FK_IndividuAccesUtilisateur];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble] DROP CONSTRAINT [FK_DroitsGroupeUtilisateursImmeuble_DroitsGroupeUtilisateurs];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DroitsGroupeUtilisateursImmeuble_Immeuble]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble] DROP CONSTRAINT [FK_DroitsGroupeUtilisateursImmeuble_Immeuble];
 GO
 IF OBJECT_ID(N'[dbo].[FK_Entreprise_inherits_Personne]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PersonneSet_Entreprise] DROP CONSTRAINT [FK_Entreprise_inherits_Personne];
@@ -214,6 +220,9 @@ GO
 IF OBJECT_ID(N'[dbo].[GroupeDePersonnesPersonne]', 'U') IS NOT NULL
     DROP TABLE [dbo].[GroupeDePersonnesPersonne];
 GO
+IF OBJECT_ID(N'[dbo].[DroitsGroupeUtilisateursImmeuble]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DroitsGroupeUtilisateursImmeuble];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -279,7 +288,7 @@ CREATE TABLE [dbo].[CoordonneesBancairesSet] (
     [BIC] nvarchar(max)  NOT NULL,
     [IBAN] nvarchar(max)  NOT NULL,
     [Proprietaire] nvarchar(max)  NOT NULL,
-    [CompteBancaire_Id] bigint  NOT NULL,
+    [CompteBancaire_Id] bigint  NULL,
     [Personne_Id] bigint  NOT NULL
 );
 GO
@@ -288,7 +297,7 @@ GO
 CREATE TABLE [dbo].[DocumentationSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Contrat_Id] bigint  NULL,
-    [CompteBancaire_Id] bigint  NOT NULL
+    [CompteBancaire_Id] bigint  NULL
 );
 GO
 
@@ -304,8 +313,8 @@ GO
 CREATE TABLE [dbo].[GroupeDePersonnesSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
-    [EntrepriseDAppartenance_Id] bigint  NOT NULL,
-    [Lot1_Id] bigint  NOT NULL
+    [EntrepriseDAppartenance_Id] bigint  NULL,
+    [GroupeDOccupants_Id] bigint  NULL
 );
 GO
 
@@ -313,7 +322,7 @@ GO
 CREATE TABLE [dbo].[ImmeubleSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
-    [TotalTantiemes] nvarchar(max)  NOT NULL
+    [TotalTantiemes] bigint  NULL
 );
 GO
 
@@ -321,8 +330,8 @@ GO
 CREATE TABLE [dbo].[PersonneSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
-    [DateDebut] nvarchar(max)  NOT NULL,
-    [DateFin] nvarchar(max)  NOT NULL
+    [DateDebut] datetime  NULL,
+    [DateFin] datetime  NULL
 );
 GO
 
@@ -339,8 +348,8 @@ CREATE TABLE [dbo].[AdressePostaleSet] (
     [Rue] nvarchar(max)  NOT NULL,
     [CodePostal] nvarchar(max)  NOT NULL,
     [Ville] nvarchar(max)  NOT NULL,
-    [Pays] nvarchar(max)  NOT NULL,
-    [Acces] nvarchar(max)  NOT NULL,
+    [Pays] nvarchar(max)  NULL,
+    [Acces] nvarchar(max)  NULL,
     [CoordonneesDeContact_Id] bigint  NULL,
     [Immeuble_Id] bigint  NULL
 );
@@ -375,9 +384,8 @@ GO
 CREATE TABLE [dbo].[LotSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
-    [Tantiemes] nvarchar(max)  NOT NULL,
-    [Immeuble_Id] bigint  NOT NULL,
-    [Proprietaire_Id] bigint  NOT NULL
+    [Tantiemes] bigint  NULL,
+    [Immeuble_Id] bigint  NOT NULL
 );
 GO
 
@@ -408,7 +416,8 @@ GO
 
 -- Creating table 'GroupeDePersonnesSet_GroupeDeRepartition'
 CREATE TABLE [dbo].[GroupeDePersonnesSet_GroupeDeRepartition] (
-    [Id] bigint  NOT NULL
+    [Id] bigint  NOT NULL,
+    [GroupeDeProprietaires_Id] bigint  NULL
 );
 GO
 
@@ -886,34 +895,34 @@ ON [dbo].[LotSet]
     ([Immeuble_Id]);
 GO
 
--- Creating foreign key on [Proprietaire_Id] in table 'LotSet'
-ALTER TABLE [dbo].[LotSet]
+-- Creating foreign key on [GroupeDeProprietaires_Id] in table 'GroupeDePersonnesSet_GroupeDeRepartition'
+ALTER TABLE [dbo].[GroupeDePersonnesSet_GroupeDeRepartition]
 ADD CONSTRAINT [FK_LotGroupeDeRepartition]
-    FOREIGN KEY ([Proprietaire_Id])
-    REFERENCES [dbo].[GroupeDePersonnesSet_GroupeDeRepartition]
+    FOREIGN KEY ([GroupeDeProprietaires_Id])
+    REFERENCES [dbo].[LotSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_LotGroupeDeRepartition'
 CREATE INDEX [IX_FK_LotGroupeDeRepartition]
-ON [dbo].[LotSet]
-    ([Proprietaire_Id]);
+ON [dbo].[GroupeDePersonnesSet_GroupeDeRepartition]
+    ([GroupeDeProprietaires_Id]);
 GO
 
--- Creating foreign key on [Lot1_Id] in table 'GroupeDePersonnesSet'
+-- Creating foreign key on [GroupeDOccupants_Id] in table 'GroupeDePersonnesSet'
 ALTER TABLE [dbo].[GroupeDePersonnesSet]
-ADD CONSTRAINT [FK_LotGroupeDePersonnes]
-    FOREIGN KEY ([Lot1_Id])
+ADD CONSTRAINT [FK_Occupants]
+    FOREIGN KEY ([GroupeDOccupants_Id])
     REFERENCES [dbo].[LotSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_LotGroupeDePersonnes'
-CREATE INDEX [IX_FK_LotGroupeDePersonnes]
+-- Creating non-clustered index for FOREIGN KEY 'FK_Occupants'
+CREATE INDEX [IX_FK_Occupants]
 ON [dbo].[GroupeDePersonnesSet]
-    ([Lot1_Id]);
+    ([GroupeDOccupants_Id]);
 GO
 
 -- Creating foreign key on [Personne_Id] in table 'PartenaireSet'

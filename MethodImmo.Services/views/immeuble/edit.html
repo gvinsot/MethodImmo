@@ -1,1 +1,29 @@
 ﻿
+<div>  
+    <h1>Immeuble - <span data-binding="{Path=Nom,Mode=TwoWay,Destination=Content,Mode=OneWay}"></span></h1>
+    <div class="row">
+        Désignation :<input type="text" data-binding="{Path=Nom,Mode=TwoWay,Destination=value}" value=""/> <br />
+        <br />
+        Adresse : <input type="text" data-binding="{Path=Adresses[0].Rue,Mode=TwoWay,Destination=value}"/> <br/>
+        <br />
+        Adresse suite : <input type="text" /><br />
+        <br />
+        Code postal : <input type="text" data-binding="{Path=Adresses[0].CodePostal,Mode=TwoWay,Destination=value}"/>
+    </div>  
+    <div class="row">
+        <div class="col-sm-2"> Ville : <input type="text" data-binding="{Path=Adresses[0].Ville,Mode=TwoWay,Destination=value}"/></div>    
+        <div class="col-sm-2"> Pays : <input type="text" data-binding="{Path=Adresses[0].Pays,Mode=TwoWay,Destination=value}" /></div>
+    </div>  
+
+    <div class="row">
+        Administrateur : <input type="button" /><br/>       
+        <br />
+        Nombre de lots : <input type="text" /> <br />
+        <br />
+        Total tantièmes : <input type="text" /> <br />
+        <br />
+        Lots :<br />
+        <div data-context="{Lots}" data-template="views/lot/SmallEditList.html">
+        </div>
+    </div>
+</div>

@@ -22,7 +22,7 @@ namespace MethodImmo.DAL
     
         public long Id { get; set; }
         public string Nom { get; set; }
-        public string Tantiemes { get; set; }
+        public Nullable<long> Tantiemes { get; set; }
     
         public virtual Immeuble Immeuble { get; set; }
         public virtual GroupeDeRepartition Proprietaire { get; set; }

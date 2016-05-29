@@ -8,19 +8,19 @@ using Newtonsoft.Json.Linq;
 
 namespace Mid.Tools
 {
-    public delegate void ForEachRecursiveDelegate(object currentMemberValue, object parent, MemberInfo memberInfo,object context);
-    public delegate bool ForEachRecursiveFilterDelegate(object currentMemberValue, object parent, MemberInfo memberInfo, object context);
+    public delegate void ForEachRecursiveDelegate(object currentMemberValue, object parent, MemberInfo memberInfo, object context);
+    public delegate bool ForEachRecursiveBoolDelegate(object currentMemberValue, object parent, MemberInfo memberInfo,object context);
     public delegate object ForEachRecursiveConverterDelegate(object currentMemberValue, object parent, MemberInfo memberInfo, object context);
 
     public delegate void ForEachExpandoRecursiveDelegate(object currentMemberValue, object parent, string parentMemberName, object context);
-    public delegate bool ForEachExpandoRecursiveFilterDelegate(object currentMemberValue, object parent, string parentMemberName, object context);
+    public delegate bool ForEachExpandoRecursiveBoolDelegate(object currentMemberValue, object parent, string parentMemberName, object context);
 
     public class ObjectTools:IObjectTools
     {
         #region object explorer tools
 
 
-        public static void ForEachExpandoRecursive(JToken root, Dictionary<string, HashSet<string>> includesLinks, Dictionary<string, HashSet<string>> excludesLinks, ForEachExpandoRecursiveDelegate todoAtBegin, ForEachExpandoRecursiveDelegate todoOnLeaf, ForEachExpandoRecursiveDelegate todoAtEnd, ForEachExpandoRecursiveFilterDelegate filter = null, object context = null, object parent = null, string parentMemberName = null)
+        public static void ForEachExpandoRecursive(JToken root, Dictionary<string, HashSet<string>> includesLinks, Dictionary<string, HashSet<string>> excludesLinks, ForEachExpandoRecursiveDelegate todoAtBegin, ForEachExpandoRecursiveDelegate todoOnLeaf, ForEachExpandoRecursiveDelegate todoAtEnd, ForEachExpandoRecursiveBoolDelegate filter = null, object context = null, object parent = null, string parentMemberName = null)
         {
             if (root is JValue)
             {
@@ -115,21 +115,41 @@ namespace Mid.Tools
             }
         }
 
-        public static void ForEachMemberRecursive(object root, Dictionary<Type, HashSet<string>> includesLinks, Dictionary<Type, HashSet<string>> excludesLinks,  ForEachRecursiveDelegate todoAtBegin, ForEachRecursiveDelegate todoOnLeaf, ForEachRecursiveDelegate todoAtEnd, ForEachRecursiveFilterDelegate filter=null, object context = null, Dictionary<Type,List<MemberInfo>> cache= null, object parent =null, MemberInfo parentRootInfo =null )
-        {
+        public static void ForEachMemberRecursive(object root, Dictionary<Type, HashSet<string>> includesLinks, Dictionary<Type, HashSet<string>> excludesLinks,  ForEachRecursiveBoolDelegate todoAtBegin, ForEachRecursiveDelegate todoOnLeaf, ForEachRecursiveDelegate todoAtEnd, ForEachRecursiveBoolDelegate keep=null, object context = null, Dictionary<Type,List<MemberInfo>> cache= null, object parent =null, MemberInfo parentRootInfo =null, HashSet<int> loopAvoider=null )
+        {                       
+            bool goDeeper = true;
+            if (todoAtBegin!=null)
+            {
+                goDeeper=todoAtBegin(root, parent, parentRootInfo, context);
+            }
 
-            if (root == null || IsPrimitiveType(root.GetType()))
+
+            if (root == null || IsPrimitiveType(root.GetType()) || !goDeeper)
             {
                 if (todoOnLeaf != null)
                 {
-                    todoOnLeaf(root,parent, parentRootInfo, context);
+                    todoOnLeaf(root, parent, parentRootInfo, context);
+                }
+
+                if (todoAtEnd != null)
+                {
+                    todoAtEnd(root, parent, parentRootInfo, context);
                 }
                 return;
             }
-            
-            if (todoAtBegin!=null)
+
+            IEnumerable list = root as IEnumerable;
+            if (list != null)
             {
-                todoAtBegin(root, parent, parentRootInfo, context);
+                foreach (object item in list)
+                {
+                    ForEachMemberRecursive(item, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, keep, context, cache, root, null, loopAvoider);
+                }
+                if (todoAtEnd != null)
+                {
+                    todoAtEnd(root, parent, parentRootInfo, context);
+                }
+                return;
             }
 
             if (cache == null)
@@ -156,6 +176,8 @@ namespace Mid.Tools
                 {
                     continue;
                 }
+                object memberValue = GetMemberValue(root, member);
+
                 #region filters
                 if (includesLinks != null)
                 {
@@ -183,46 +205,13 @@ namespace Mid.Tools
                     }
                 }
 
-                object memberValue = GetMemberValue(root, member);
-
-                if (filter != null && filter(memberValue, root, member, context))
+                if (keep != null && !keep(memberValue, root, member, context))
                 {
                     continue;
                 }
                 #endregion filters
-
-                if (IsPrimitiveType(memberType))
-                {
-                    if (todoOnLeaf != null)
-                    {
-                        todoOnLeaf(memberValue, root, member, context);
-                    }
-                    continue;
-                }
-
-                //member is a complex type
-
-                if (!IsArrayType(memberType))
-                {
-                    ForEachMemberRecursive(memberValue, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, cache, root, member);
-                }
-                else
-                {
-                    if (todoAtBegin != null)
-                    {
-                        todoAtBegin(memberValue, root, member, context);
-                    }
-                    IEnumerable list = memberValue as IEnumerable;
-
-                    foreach (object item in list)
-                    {
-                        ForEachMemberRecursive(item, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, filter, context, cache, root, null);
-                    }
-                    if (todoAtEnd != null)
-                    {
-                        todoAtEnd(memberValue, root, member, context);
-                    }
-                }
+                
+                ForEachMemberRecursive(memberValue, includesLinks, excludesLinks, todoAtBegin, todoOnLeaf, todoAtEnd, keep, context, cache, root, member,loopAvoider);                
             }
             if (todoAtEnd!=null)
             {

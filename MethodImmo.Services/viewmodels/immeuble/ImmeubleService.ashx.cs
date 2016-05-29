@@ -1,7 +1,9 @@
-﻿using MethodImmo.DAL;
+﻿using MethodImmo.Business;
+using MethodImmo.DAL;
 using Mid.Tools;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -11,42 +13,35 @@ namespace MethodImmo.Services.ViewModels
     /// <summary>
     /// Summary description for Immeuble
     /// </summary>
-    public class ImmeubleService : GenericHandler<Immeuble>
+    public class ImmeubleService : GenericHandler
     {
-        public override List<Immeuble> Get()
+        public override object Get(MethodImmoContext context, NameValueCollection queryString)
         {
-            List<Immeuble> result = null;
-            using (var context = new MethodImmoContext())
-            {
-                result = context.ImmeubleSet.ToList();
-            }
+            ImmeubleManager manager = new ImmeubleManager();
+            IQueryable<Immeuble> query = context.ImmeubleSet;
+            if (queryString["search"] != null)
+                query = manager.Search(queryString["search"], query);
+
+            var result = query.ToList();
+
             return result;  
         }
-
-        public override Immeuble Get(long id)
-        {
-            Immeuble result = null;
-            using (var context = new MethodImmoContext())
-            {
-                result = context.ImmeubleSet.Find(id);
-            }
-            return result;
-        }
-
-        public override ResultObject Post(Immeuble received)
+        
+        public override ResultObject Post(string receivedJson, NameValueCollection queryString)
         {
             long id = -1;
             using (var context = new MethodImmoContext())
             {
-                context.ImmeubleSet.Add(received);
-                context.SaveChanges();
-                id = received.Id;
+                //context.ImmeubleSet.Add(received);
+                //context.SaveChanges();
+                //id = received.Id;
             }
             return new ResultObject(HttpStatusCode.OK, "Immeuble créé", id.ToString());
         }
 
-        public override ResultObject Put(long id, string receivedJson)
+        public override ResultObject Put(string receivedJson, NameValueCollection queryString)
         {
+            Int64 id = Int64.Parse(queryString["id"]);
             using (var context = new MethodImmoContext())
             {
                 
@@ -54,16 +49,14 @@ namespace MethodImmo.Services.ViewModels
 
                 JsonSerializationTool<object>.FillObject(receivedJson,toUpdate);
 
-
-
-
                 context.SaveChanges();
             }
             return new ResultObject(HttpStatusCode.OK, "Immeuble mis à jour","id = "+id);
         }
 
-        public override ResultObject Delete(long id)
+        public override ResultObject Delete(NameValueCollection queryString)
         {
+            Int64 id = Int64.Parse(queryString["id"]);
             using (var context = new MethodImmoContext())
             {
                 var toDelete = new Immeuble() { Id = id };
@@ -74,9 +67,7 @@ namespace MethodImmo.Services.ViewModels
             return new ResultObject(HttpStatusCode.OK, "Immeuble supprimé", "id = " + id);
         }
 
-
-
-        public override string Serialize(Immeuble toSerialize)
+        public override string Serialize(object toSerialize)
         {
             return base.Serialize(toSerialize);
         }

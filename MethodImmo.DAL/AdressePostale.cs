@@ -14,6 +14,12 @@ namespace MethodImmo.DAL
     
     public partial class AdressePostale
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AdressePostale()
+        {
+            this.Pays = "France";
+        }
+    
         public long Id { get; set; }
         public string Rue { get; set; }
         public string CodePostal { get; set; }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -25,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <TypeScriptToolsVersion>1.9</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +36,21 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>
+    </TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile>
+    </TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -85,12 +102,37 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="Scripts\libs\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\libs\bootstrap.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\libs\jquery-2.2.3.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\libs\silverscript.js" />
+    <Content Include="Scripts\libs\tether.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Styles\MethodImmoStyles.css" />
+    <Content Include="Styles\simple-sidebar.css" />
+    <Content Include="Views\Immeuble\BreadItem.html" />
     <Content Include="Views\home.html" />
     <Content Include="Views\Immeuble\Delete.html" />
-    <Content Include="Views\Immeuble\ListItem.html" />
-    <Content Include="Views\Immeuble\List.html" />
+    <Content Include="Views\Immeuble\SmallEditListItem.html" />
+    <Content Include="Views\Immeuble\SmallEditList.html" />
+    <Content Include="Views\Immeuble\SearchItem.html" />
+    <Content Include="Views\Immeuble\SearchBreadAndView.html" />
+    <Content Include="Views\Immeuble\BreadAndView.html" />
     <Content Include="Views\Immeuble\Edit.html" />
-    <Content Include="Views\Immeuble\Create.html" />
+    <Content Include="Views\Individu\Edit.html" />
+    <Content Include="Views\Individu\SmallEditList.html" />
+    <Content Include="Views\Individu\SmallEditListItem.html" />
+    <Content Include="Views\Lot\Edit.html" />
+    <Content Include="Views\Lot\SmallEditList.html" />
+    <Content Include="Views\Lot\SmallEditListItem.html" />
+    <Content Include="Views\Wait.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -99,14 +141,27 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\immeuble\ImmeubleService.ashx.cs">
+    <Compile Include="ViewModels\Immeuble\ImmeubleService.ashx.cs">
       <DependentUpon>ImmeubleService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Individu\IndividuService.ashx.cs">
+      <DependentUpon>IndividuService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Info.ashx.cs">
+      <DependentUpon>Info.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Lot\LotService.ashx.cs">
+      <DependentUpon>LotService.ashx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ResultObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="ViewModels\immeuble\ImmeubleService.ashx" />
+    <Content Include="ViewModels\Immeuble\ImmeubleService.ashx" />
+    <Content Include="ViewModels\Info.ashx" />
+    <Content Include="ViewModels\Individu\IndividuService.ashx" />
+    <Content Include="Scripts\libs\silverscript.js.map" />
+    <Content Include="ViewModels\Lot\LotService.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -116,13 +171,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Scripts\" />
-    <Folder Include="Styles\" />
     <Folder Include="Views\Action\" />
     <Folder Include="Views\Entreprise\" />
-    <Folder Include="Views\Individu\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MethodImmo.Business\MethodImmo.Business.csproj">
+      <Project>{2fa93895-db10-490a-ad28-0e502791358a}</Project>
+      <Name>MethodImmo.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MethodImmo.DAL\MethodImmo.DAL.csproj">
       <Project>{99a6c1b0-7533-482c-bf28-c3ca5702869c}</Project>
       <Name>MethodImmo.DAL</Name>
@@ -132,11 +188,29 @@
       <Name>MethodImmo.Tools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Binding.ts" />
+    <TypeScriptCompile Include="Scripts\BindingGlobalContext.ts" />
+    <TypeScriptCompile Include="Scripts\BindingTools.ts" />
+    <TypeScriptCompile Include="Scripts\EventHandler.ts" />
+    <TypeScriptCompile Include="Scripts\FileTools.ts" />
+    <TypeScriptCompile Include="Scripts\Interfaces.ts" />
+    <TypeScriptCompile Include="Scripts\libs\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\ObjectTools.ts" />
+    <TypeScriptCompile Include="Scripts\QueryStringTools.ts" />
+    <TypeScriptCompile Include="Scripts\StringTools.ts" />
+    <TypeScriptCompile Include="Scripts\UiTools.ts" />
+    <TypeScriptCompile Include="ViewModels\BreadCrumbViewModel.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ProjectExtensions>

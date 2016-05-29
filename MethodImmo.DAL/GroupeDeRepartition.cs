@@ -15,6 +15,6 @@ namespace MethodImmo.DAL
     public partial class GroupeDeRepartition : GroupeDePersonnes
     {
     
-        public virtual Lot Lot { get; set; }
+        public virtual Lot GroupeDeProprietaires { get; set; }
     }
 }

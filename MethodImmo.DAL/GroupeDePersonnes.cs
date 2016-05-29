@@ -32,6 +32,6 @@ namespace MethodImmo.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personne> Personnes { get; set; }
         public virtual Entreprise EntrepriseDAppartenance { get; set; }
-        public virtual Lot Lot1 { get; set; }
+        public virtual Lot GroupeDOccupants { get; set; }
     }
 }

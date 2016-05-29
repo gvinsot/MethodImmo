@@ -1,0 +1,20 @@
+﻿<div id="wrapper" class="row-fluid">
+    <div id="sidebar-wrapper" style="background-color:aliceblue">
+        <div class="input-group" style="padding:15px">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary">></button>
+                <button style="margin-left:10px" class="btn btn-secondary">+</button>
+            </span>
+        </div>
+        <nav class="navbar">
+            <ul class="nav nav-pills" data-template="views/immeuble/SearchItem.html" data-source="viewmodels/immeuble/immeubleservice.ashx">
+            </ul>
+        </nav>
+    </div>
+
+    <div id="page-content-wrapper" data-context="{x:Null}" data-template="views/Wait.html"> <!--Bread + View-->
+    </div>
+</div>
+
+

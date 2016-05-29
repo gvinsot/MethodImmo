@@ -49,7 +49,7 @@
         <EntityTypeShape EntityType="MethodImmoDb.GroupeDeRepartition" Width="1.875" PointX="8" PointY="7.875" />
         <InheritanceConnector EntityType="MethodImmoDb.GroupeDeRepartition" />
         <AssociationConnector Association="MethodImmoDb.LotGroupeDeRepartition" />
-        <AssociationConnector Association="MethodImmoDb.LotGroupeDePersonnes" ManuallyRouted="false" >
+        <AssociationConnector Association="MethodImmoDb.Occupants" ManuallyRouted="false" >
         </AssociationConnector>
         <EntityTypeShape EntityType="MethodImmoDb.Partenaire" Width="1.5" PointX="15.375" PointY="11.125" />
         <AssociationConnector Association="MethodImmoDb.TiersPersonne" />

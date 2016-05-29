@@ -2,31 +2,38 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">-->
+    <link rel="stylesheet" href="Scripts/libs/bootstrap.css">
+    <link rel="stylesheet" href="Styles/MethodImmoStyles.css">
+    <link rel="stylesheet" href="Styles/simple-sidebar.css">
     
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script><!-- Tether for Bootstrap -->
-    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>-->
+    <!--<script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script>-->
+
+    <script type = "text/javascript" src="Scripts/libs/jquery-2.2.3.min.js"></script>
+    <script src="Scripts/libs/tether.min.js"></script>
+    <script src="Scripts/libs/bootstrap.js"></script>
+    <!--<script src="Scripts/libs/silverscript.js"></script>-->
     <script src="http://silverscript.azurewebsites.net/scripts/silverscript.js"></script>
+
+    <script src="ViewModels/BreadCrumbViewModel.js"></script>
 </head>
 
 <body>
-    
-
-    <div class="container">
-        <div class="row">
-
-            <nav class="navbar navbar-light bg-faded">
+    <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#" onclick="$(this).tab('show');SS.SetTemplate('MainPage','views/home.html')">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link active" href="#" onclick="$(this).tab('show'); SS.SetTemplate('MainPage', 'views/home.html')">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="$(this).tab('show');SS.SetTemplate('MainPage', 'views/action/list.html')">Mes Tâches</a>
+                        <a class="nav-link" href="#" onclick="$(this).tab('show'); SS.SetTemplate('MainPage', 'views/action/View.html')">Mes Tâches</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="$(this).tab('show'); SS.SetTemplate('MainPage', 'views/immeuble/list.html')">Immeubles</a>
+                        <a class="nav-link" href="#" onclick="$(this).tab('show'); SS.SetTemplate('MainPage', 'views/immeuble/SearchBreadAndView.html')">Immeubles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Individus</a>
@@ -35,12 +42,13 @@
                         <a class="nav-link" href="#">Entreprises</a>
                     </li>
                 </ul>
-            </nav>
-
+            </div>
         </div>
-        <div class="row" id="MainPage" data-template="views/home.html">
+    </nav>
 
-        </div>
-      </div>
+
+    <div class="container-fluid" style="margin-top:56px" id="MainPage" data-template="views/home.html">
+
+    </div>
 </body>
 </html>

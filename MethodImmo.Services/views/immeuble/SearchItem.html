@@ -1,0 +1,12 @@
+﻿<li class="nav-item" style="width:100%">
+
+    <a href="#" class="nav-link" style="width:100%"  onclick="$(this).tab('show'); OpenImmeuble(this);" data-binding="{Path=Nom,Destination=Content}">
+        Label
+    </a>
+    <button class="btn btn-secondary" style="float:right;font-size:10px;position:relative;margin-top:-34px;margin-right:6px">
+        <span data-binding="{Path=NbAnomalies,Destination=Content}">0</span> anomalies
+    </button>
+    <button class="btn btn-secondary" style="float:right;font-size:10px;position:relative;margin-top:-34px;margin-right:150px">
+        Mis à jour il y a <span data-binding="{Path=DateDerniereModification,Destination=Content}">1 jour</span>
+    </button>
+</li>
