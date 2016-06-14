@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MethodImmo.Test")]
+[assembly: AssemblyTitle("MethodImmo.DatabaseReset")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MethodImmo.Test")]
+[assembly: AssemblyProduct("MethodImmo.DatabaseReset")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("87ae7098-d088-4bcf-bac3-5fb1f6b58da8")]
+[assembly: Guid("08fbecd3-ab0a-43f0-8a41-d0dbd7f8ef94")]
 
 // Version information for an assembly consists of the following four values:
 //
