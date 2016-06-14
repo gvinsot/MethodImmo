@@ -32,8 +32,8 @@ namespace Mid.Tools
                     Type valueType = prop != null ? prop.PropertyType : field != null ? field.FieldType : val == null ? null : val.GetType();
 
                     string memberNamePrefix = memberInfo == null ? "" : "\"" + memberInfo.Name + "\":";
-
-                    if (valueType == null)
+                 
+                    if (valueType == null || valueType.Namespace.Contains("System.Reflection"))
                     {
                         return false;
                     }

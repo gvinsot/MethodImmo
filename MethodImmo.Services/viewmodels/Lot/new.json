@@ -1,1 +1,1 @@
-{"Id":0,"Nom":null,"Tantiemes":{null},"Immeuble":{null},"Proprietaires":{null},"Occupants":{null},"Commentaires":[]}
+{"Id":0,"Nom":null,"BatimentEscalier":null,"Etage":null,"TypeDeLot":"Appartement","Superficie":{null},"Usage":"Habitation","Immeuble":{null},"Proprietaires":{null},"Occupants":{null},"Commentaires":[],"ClesDeRepartition":[]}

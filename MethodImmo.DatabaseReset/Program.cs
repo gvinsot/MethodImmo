@@ -2,9 +2,13 @@
 using Mid.Tools;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MethodImmo.DatabaseReset
@@ -13,9 +17,84 @@ namespace MethodImmo.DatabaseReset
     {
         static void Main(string[] args)
         {
-            CreateEmptyViewModels();
-            CreateDataSet();
+            try
+            {
+                Console.WriteLine("Dropping database...");
+                DropAndRecreateDatabase("methodimmodb");
+                Console.WriteLine("done.");
+                Console.WriteLine("Running creation script...");
+                string script = File.ReadAllText("MethodImmoDb.edmx.sql");
+                RunScript("methodimmodb", script);
+                Console.WriteLine("done.");
+                Console.WriteLine("Creating Dataset...");
+                CreateDataSet();
+                Console.WriteLine("done.");
+                Console.WriteLine("Creating Viewmodels...");
+                CreateEmptyViewModels();
+                Console.WriteLine("done.");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            Console.WriteLine("Press enter to exit.");
             Console.ReadLine();
+        }
+
+        public static void DropAndRecreateDatabase(string DbName)
+        {
+            string Connectionstring = ConfigurationManager.ConnectionStrings["MethodImmoContext"].ConnectionString.Split(new string[] { "connection string=", "\"" },StringSplitOptions.RemoveEmptyEntries).Last();
+
+            using (SqlConnection con = new SqlConnection(Connectionstring))
+            {
+                string sqlCommandText = @"
+ALTER DATABASE " + DbName + @" SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE [" + DbName + @"];
+CREATE DATABASE " + DbName;
+                con.Open();
+                SqlConnection.ClearPool(con);
+                con.ChangeDatabase("master");
+                SqlCommand sqlCommand = new SqlCommand(sqlCommandText, con);
+                sqlCommand.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+        public static void RunScript(string dbName, string script)
+        {
+            string Connectionstring = ConfigurationManager.ConnectionStrings["MethodImmoContext"].ConnectionString.Split(new string[] { "connection string=", "\"" }, StringSplitOptions.RemoveEmptyEntries).Last();
+
+            var statements = SplitSqlStatements(script);
+
+
+            using (SqlConnection conn = new SqlConnection(Connectionstring))
+            {
+                conn.Open();
+                conn.ChangeDatabase(dbName);
+                foreach (var statement in statements)
+                {
+                    SqlCommand sqlCommand = new SqlCommand(statement, conn);
+                    sqlCommand.ExecuteNonQuery();
+                }
+                
+                conn.Close();
+            }
+        }
+
+        private static IEnumerable<string> SplitSqlStatements(string sqlScript)
+        {
+            // Split by "GO" statements
+            var statements = Regex.Split(
+                    sqlScript,
+                    @"^\s*GO\s* ($ | \-\- .*$)",
+                    RegexOptions.Multiline |
+                    RegexOptions.IgnorePatternWhitespace |
+                    RegexOptions.IgnoreCase);
+
+            // Remove empties, trim, and return
+            return statements
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x.Trim(' ', '\r', '\n'));
         }
 
         public static void CreateEmptyViewModels()

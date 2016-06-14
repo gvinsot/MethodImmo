@@ -222,7 +222,7 @@ namespace Mid.Tools
 
         public static bool IsPrimitiveType(Type objType)
         {
-            return objType.IsPrimitive || objType == typeof(Decimal) || objType == typeof(String) || objType == typeof(DateTime);
+            return objType.IsPrimitive|| objType.IsEnum || objType == typeof(Decimal) || objType == typeof(String) || objType == typeof(DateTime);
         }
         public static bool IsArrayType(Type objType)
         {
