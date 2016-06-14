@@ -39,8 +39,8 @@ function AddBreadCrumbItem(templateUrl, context) {
 function OpenImmeuble(element) {
     var context = SS.GetDataContext(element);
     var viewModel = new MI.BreadCrumbViewModel();
-    var item = new MI.BreadCrumbItemViewModel('views/immeuble/edit.html', context);
+    var item = new MI.BreadCrumbItemViewModel('views/immeuble/view.html', context);
     viewModel.Values[0] = item;
-    SS.SetTemplate('page-content-wrapper', 'views/Immeuble/BreadAndView.html', viewModel);
+    SS.SetTemplate('breadAndView', 'views/Immeuble/BreadAndView.html', viewModel);
 }
 //# sourceMappingURL=BreadCrumbViewModel.js.map

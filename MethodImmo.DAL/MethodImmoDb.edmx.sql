@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/25/2016 00:53:17
+-- Date Created: 06/13/2016 19:55:10
 -- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
 -- --------------------------------------------------
 
@@ -131,6 +131,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_DroitsGroupeUtilisateursImmeuble_Immeuble]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DroitsGroupeUtilisateursImmeuble] DROP CONSTRAINT [FK_DroitsGroupeUtilisateursImmeuble_Immeuble];
 GO
+IF OBJECT_ID(N'[dbo].[FK_LotCleDeRepartition]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CleDeRepartitionSet] DROP CONSTRAINT [FK_LotCleDeRepartition];
+GO
 IF OBJECT_ID(N'[dbo].[FK_Entreprise_inherits_Personne]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PersonneSet_Entreprise] DROP CONSTRAINT [FK_Entreprise_inherits_Personne];
 GO
@@ -201,6 +204,9 @@ IF OBJECT_ID(N'[dbo].[LotSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PartenaireSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PartenaireSet];
+GO
+IF OBJECT_ID(N'[dbo].[CleDeRepartitionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CleDeRepartitionSet];
 GO
 IF OBJECT_ID(N'[dbo].[PersonneSet_Entreprise]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PersonneSet_Entreprise];
@@ -321,8 +327,7 @@ GO
 -- Creating table 'ImmeubleSet'
 CREATE TABLE [dbo].[ImmeubleSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
-    [Nom] nvarchar(max)  NOT NULL,
-    [TotalTantiemes] bigint  NULL
+    [Nom] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -349,7 +354,9 @@ CREATE TABLE [dbo].[AdressePostaleSet] (
     [CodePostal] nvarchar(max)  NOT NULL,
     [Ville] nvarchar(max)  NOT NULL,
     [Pays] nvarchar(max)  NULL,
-    [Acces] nvarchar(max)  NULL,
+    [CodeAcces] nvarchar(max)  NULL,
+    [InfoAcces] nvarchar(max)  NULL,
+    [RueL2] nvarchar(max)  NULL,
     [CoordonneesDeContact_Id] bigint  NULL,
     [Immeuble_Id] bigint  NULL
 );
@@ -384,7 +391,11 @@ GO
 CREATE TABLE [dbo].[LotSet] (
     [Id] bigint IDENTITY(1,1) NOT NULL,
     [Nom] nvarchar(max)  NOT NULL,
-    [Tantiemes] bigint  NULL,
+    [BatimentEscalier] nvarchar(max)  NULL,
+    [Etage] nvarchar(max)  NULL,
+    [TypeDeLot] int  NOT NULL,
+    [Superficie] float  NULL,
+    [Usage] int  NOT NULL,
     [Immeuble_Id] bigint  NOT NULL
 );
 GO
@@ -395,6 +406,15 @@ CREATE TABLE [dbo].[PartenaireSet] (
     [FonctionDuPartenaire] nvarchar(max)  NOT NULL,
     [Personne_Id] bigint  NOT NULL,
     [PartenaireDe_Id] bigint  NOT NULL
+);
+GO
+
+-- Creating table 'CleDeRepartitionSet'
+CREATE TABLE [dbo].[CleDeRepartitionSet] (
+    [Id] bigint IDENTITY(1,1) NOT NULL,
+    [Nom] nvarchar(max)  NOT NULL,
+    [Tantiemes] bigint  NOT NULL,
+    [Lot_Id] bigint  NOT NULL
 );
 GO
 
@@ -558,6 +578,12 @@ GO
 -- Creating primary key on [Id] in table 'PartenaireSet'
 ALTER TABLE [dbo].[PartenaireSet]
 ADD CONSTRAINT [PK_PartenaireSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CleDeRepartitionSet'
+ALTER TABLE [dbo].[CleDeRepartitionSet]
+ADD CONSTRAINT [PK_CleDeRepartitionSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -1157,6 +1183,21 @@ GO
 CREATE INDEX [IX_FK_DroitsGroupeUtilisateursImmeuble_Immeuble]
 ON [dbo].[DroitsGroupeUtilisateursImmeuble]
     ([Immeubles_Id]);
+GO
+
+-- Creating foreign key on [Lot_Id] in table 'CleDeRepartitionSet'
+ALTER TABLE [dbo].[CleDeRepartitionSet]
+ADD CONSTRAINT [FK_LotCleDeRepartition]
+    FOREIGN KEY ([Lot_Id])
+    REFERENCES [dbo].[LotSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_LotCleDeRepartition'
+CREATE INDEX [IX_FK_LotCleDeRepartition]
+ON [dbo].[CleDeRepartitionSet]
+    ([Lot_Id]);
 GO
 
 -- Creating foreign key on [Id] in table 'PersonneSet_Entreprise'

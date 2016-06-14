@@ -1,5 +1,8 @@
-﻿using System;
+﻿using MethodImmo.DAL;
+using Mid.Tools;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -12,9 +15,7 @@ namespace MethodImmo.Services.ViewModels
     {
 
         public void ProcessRequest(HttpContext context)
-        {
-            context.Response.ContentType = "text/plain";
-            context.Response.Write("Hello World");
+        { 
         }
 
         public bool IsReusable

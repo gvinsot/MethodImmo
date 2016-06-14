@@ -25,7 +25,9 @@ namespace MethodImmo.DAL
         public string CodePostal { get; set; }
         public string Ville { get; set; }
         public string Pays { get; set; }
-        public string Acces { get; set; }
+        public string CodeAcces { get; set; }
+        public string InfoAcces { get; set; }
+        public string RueL2 { get; set; }
     
         public virtual CoordonneesDeContact CoordonneesDeContact { get; set; }
         public virtual Immeuble Immeuble { get; set; }

@@ -19,7 +19,7 @@ namespace MethodImmo.Services.ViewModels
         {
             ImmeubleManager manager = new ImmeubleManager();
             IQueryable<Immeuble> query = context.ImmeubleSet;
-            if (queryString["search"] != null)
+            if (!String.IsNullOrWhiteSpace(queryString["search"]) && queryString["search"]!="null")
                 query = manager.Search(queryString["search"], query);
 
             var result = query.ToList();

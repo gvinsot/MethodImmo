@@ -1,3 +1,4 @@
-﻿<tr>
-    <td data-binding="{Path=Nom,Destination=Content}">Nom</td>
+﻿<tr style="width: 100%">
+    <td style="width:200px" data-binding="{Path=Nom,Destination=Content}">Nom</td>
+    <td data-context="viewmodels/Individu/IndividuService.ashx?id={Id}"><button onclick="AddBreadCrumbItem('views/Individu/view.html',this)">Open</button></td>
 </tr>

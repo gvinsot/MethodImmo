@@ -9,3 +9,17 @@ position: absolute;
 bottom: 80px;
 right: 10px;
 }*/
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+
+.graylink:link {
+   color: lightgray
+}
+.graylink:hover {
+   color: lightgray
+}

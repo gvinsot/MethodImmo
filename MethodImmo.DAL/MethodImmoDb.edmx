@@ -24,6 +24,7 @@
     <EntitySet Name="VersionDeDocumentSet" EntityType="MethodImmoDb.Store.VersionDeDocumentSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LotSet" EntityType="MethodImmoDb.Store.LotSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PartenaireSet" EntityType="MethodImmoDb.Store.PartenaireSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CleDeRepartitionSet" EntityType="MethodImmoDb.Store.CleDeRepartitionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="PersonneSet_Entreprise" EntityType="MethodImmoDb.Store.PersonneSet_Entreprise" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ActionSet_Anomalie" EntityType="MethodImmoDb.Store.ActionSet_Anomalie" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="GroupeDePersonnesSet_GroupeDeRepartition" EntityType="MethodImmoDb.Store.GroupeDePersonnesSet_GroupeDeRepartition" store:Type="Tables" Schema="dbo" />
@@ -183,6 +184,10 @@
       <End Role="Immeuble" EntitySet="ImmeubleSet" />
       <End Role="DroitsGroupeUtilisateursImmeuble" EntitySet="DroitsGroupeUtilisateursImmeuble" />
     </AssociationSet>
+    <AssociationSet Name="LotCleDeRepartition" Association="MethodImmoDb.Store.LotCleDeRepartition">
+      <End Role="Lot" EntitySet="LotSet" />
+      <End Role="CleDeRepartition" EntitySet="CleDeRepartitionSet" />
+    </AssociationSet>
     <AssociationSet Name="FK_Entreprise_inherits_Personne" Association="MethodImmoDb.Store.FK_Entreprise_inherits_Personne">
       <End Role="Personne" EntitySet="PersonneSet" />
       <End Role="Entreprise" EntitySet="PersonneSet_Entreprise" />
@@ -296,7 +301,6 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="TotalTantiemes" Type="bigint" Nullable="true" />
   </EntityType>
   <EntityType Name="PersonneSet">
     <Key>
@@ -323,7 +327,9 @@
     <Property Name="CodePostal" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Ville" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Pays" Type="nvarchar(max)" Nullable="true" DefaultValue="France" />
-    <Property Name="Acces" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CodeAcces" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="InfoAcces" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="RueL2" Type="nvarchar(max)" Nullable="true" />
     <Property Name="CoordonneesDeContact_Id" Type="bigint" Nullable="true" />
     <Property Name="Immeuble_Id" Type="bigint" Nullable="true" />
   </EntityType>
@@ -358,7 +364,11 @@
     </Key>
     <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Tantiemes" Type="bigint" Nullable="true" />
+    <Property Name="BatimentEscalier" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Etage" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TypeDeLot" Type="int" Nullable="false" />
+    <Property Name="Superficie" Type="float" Nullable="true" />
+    <Property Name="Usage" Type="int" Nullable="false" />
     <Property Name="Immeuble_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="PartenaireSet">
@@ -369,6 +379,15 @@
     <Property Name="FonctionDuPartenaire" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Personne_Id" Type="bigint" Nullable="false" />
     <Property Name="PartenaireDe_Id" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CleDeRepartitionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tantiemes" Type="bigint" Nullable="false" />
+    <Property Name="Lot_Id" Type="bigint" Nullable="false" />
   </EntityType>
   <EntityType Name="PersonneSet_Entreprise">
     <Key>
@@ -808,6 +827,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="LotCleDeRepartition">
+    <End Role="Lot" Type="MethodImmoDb.Store.LotSet" Multiplicity="1" />
+    <End Role="CleDeRepartition" Type="MethodImmoDb.Store.CleDeRepartitionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lot">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CleDeRepartition">
+        <PropertyRef Name="Lot_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContratGroupeDePersonnes_Contrat">
     <End Role="Contrat" Type="MethodImmoDb.Store.ContratSet" Multiplicity="1" />
     <End Role="ContratGroupeDePersonnes" Type="MethodImmoDb.Store.ContratGroupeDePersonnes" Multiplicity="*" />
@@ -1099,6 +1130,11 @@
             <End Role="DroitsGroupeUtilisateurs" EntitySet="DroitsGroupeUtilisateursSet" />
             <End Role="Immeuble" EntitySet="ImmeubleSet" />
           </AssociationSet>
+          <EntitySet Name="CleDeRepartitionSet" EntityType="MethodImmoDb.CleDeRepartition" />
+          <AssociationSet Name="LotCleDeRepartition" Association="MethodImmoDb.LotCleDeRepartition">
+            <End Role="Lot" EntitySet="LotSet" />
+            <End Role="CleDeRepartition" EntitySet="CleDeRepartitionSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AccesUtilisateur">
           <Key>
@@ -1217,7 +1253,6 @@
           <NavigationProperty Name="Lots" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Immeuble" ToRole="Lot" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.ImmeubleCommentaire" FromRole="Immeuble" ToRole="Commentaire" />
           <Property Name="Nom" Type="String" Nullable="false" />
-          <Property Name="TotalTantiemes" Type="Int64" Nullable="true" />
           <NavigationProperty Name="GroupesUtilisateursAvecAcces" Relationship="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" FromRole="Immeuble" ToRole="DroitsGroupeUtilisateurs" />
         </EntityType>
         <EntityType Name="Personne">
@@ -1262,7 +1297,9 @@
           <Property Name="CodePostal" Type="String" Nullable="false" />
           <Property Name="Ville" Type="String" Nullable="false" />
           <Property Name="Pays" Type="String" Nullable="true" DefaultValue="France" />
-          <Property Name="Acces" Type="String" Nullable="true" />
+          <Property Name="CodeAcces" Type="String" Nullable="true" />
+          <Property Name="InfoAcces" Type="String" Nullable="true" />
+          <Property Name="RueL2" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="AdresseEmail">
           <Key>
@@ -1380,11 +1417,16 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Immeuble" Relationship="MethodImmoDb.ImmeubleLot" FromRole="Lot" ToRole="Immeuble" />
-          <NavigationProperty Name="Proprietaire" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
+          <NavigationProperty Name="Proprietaires" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
           <NavigationProperty Name="Occupants" Relationship="MethodImmoDb.LotGroupeDeRepartition" FromRole="Lot" ToRole="GroupeDeRepartition" />
           <NavigationProperty Name="Commentaires" Relationship="MethodImmoDb.LotCommentaire" FromRole="Lot" ToRole="Commentaire" />
           <Property Name="Nom" Type="String" Nullable="false" />
-          <Property Name="Tantiemes" Type="Int64" Nullable="true" />
+          <Property Name="BatimentEscalier" Type="String" Nullable="true" />
+          <Property Name="Etage" Type="String" Nullable="true" />
+          <Property Name="TypeDeLot" Type="MethodImmoDb.TypeDeLot" Nullable="false" />
+          <Property Name="Superficie" Type="Double" Nullable="true" />
+          <Property Name="Usage" Type="MethodImmoDb.TypeDUsage" Nullable="false" />
+          <NavigationProperty Name="ClesDeRepartition" Relationship="MethodImmoDb.LotCleDeRepartition" FromRole="Lot" ToRole="CleDeRepartition" />
         </EntityType>
         <Association Name="ImmeubleLot">
           <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="1" />
@@ -1473,6 +1515,33 @@
         <Association Name="DroitsGroupeUtilisateursImmeuble">
           <End Type="MethodImmoDb.DroitsGroupeUtilisateurs" Role="DroitsGroupeUtilisateurs" Multiplicity="*" />
           <End Type="MethodImmoDb.Immeuble" Role="Immeuble" Multiplicity="*" />
+        </Association>
+        <EnumType Name="TypeDeLot">
+          <Member Name="Appartement" />
+          <Member Name="Parking" />
+          <Member Name="Cave" />
+          <Member Name="Chambre" />
+          <Member Name="Debarras" />
+          <Member Name="Maison" />
+          <Member Name="Immeuble" />
+        </EnumType>
+        <EnumType Name="TypeDUsage">
+          <Member Name="Habitation" />
+          <Member Name="Bureau" />
+          <Member Name="Commerce" />
+        </EnumType>
+        <EntityType Name="CleDeRepartition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Lot" Relationship="MethodImmoDb.LotCleDeRepartition" FromRole="CleDeRepartition" ToRole="Lot" />
+          <Property Name="Nom" Type="String" Nullable="false" />
+          <Property Name="Tantiemes" Type="Int64" Nullable="false" />
+        </EntityType>
+        <Association Name="LotCleDeRepartition">
+          <End Type="MethodImmoDb.Lot" Role="Lot" Multiplicity="1" />
+          <End Type="MethodImmoDb.CleDeRepartition" Role="CleDeRepartition" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1576,7 +1645,6 @@
         <MappingFragment StoreEntitySet="ImmeubleSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="TotalTantiemes" ColumnName="TotalTantiemes" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1616,7 +1684,9 @@
           <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
           <ScalarProperty Name="Ville" ColumnName="Ville" />
           <ScalarProperty Name="Pays" ColumnName="Pays" />
-          <ScalarProperty Name="Acces" ColumnName="Acces" />
+          <ScalarProperty Name="CodeAcces" ColumnName="CodeAcces" />
+          <ScalarProperty Name="InfoAcces" ColumnName="InfoAcces" />
+          <ScalarProperty Name="RueL2" ColumnName="RueL2" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1650,7 +1720,11 @@
         <MappingFragment StoreEntitySet="LotSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="Tantiemes" ColumnName="Tantiemes" />
+          <ScalarProperty Name="BatimentEscalier" ColumnName="BatimentEscalier" />
+          <ScalarProperty Name="Etage" ColumnName="Etage" />
+          <ScalarProperty Name="TypeDeLot" ColumnName="TypeDeLot" />
+          <ScalarProperty Name="Superficie" ColumnName="Superficie" />
+          <ScalarProperty Name="Usage" ColumnName="Usage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1659,6 +1733,15 @@
         <MappingFragment StoreEntitySet="PartenaireSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FonctionDuPartenaire" ColumnName="FonctionDuPartenaire" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CleDeRepartitionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MethodImmoDb.CleDeRepartition)">
+        <MappingFragment StoreEntitySet="CleDeRepartitionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Tantiemes" ColumnName="Tantiemes" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1960,6 +2043,14 @@
       </EndProperty>
       <EndProperty Name="Immeuble">
         <ScalarProperty Name="Id" ColumnName="Immeubles_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="LotCleDeRepartition" TypeName="MethodImmoDb.LotCleDeRepartition" StoreEntitySet="CleDeRepartitionSet">
+      <EndProperty Name="Lot">
+        <ScalarProperty Name="Id" ColumnName="Lot_Id" />
+      </EndProperty>
+      <EndProperty Name="CleDeRepartition">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

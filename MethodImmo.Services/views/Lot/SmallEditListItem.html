@@ -1,5 +1,9 @@
-﻿<tr>
-    <td data-binding="{Path=Nom,Destination=Content}">Nom</td> 
-    &nbsp;
-    <td data-context="viewmodels/Lot/LotService.ashx?id={Id}"><button onclick="AddBreadCrumbItem('views/Lot/Edit.html',this)">Open</button></td> 
+﻿<tr style="width: 100%">
+    <td  data-binding="{Path=TypeDeLot,Destination=Content}">TypeDeLot</td> 
+    <td data-binding="{Path=BatimentEscalier,Destination=Content}">Batiment & Escalier</td> 
+    <td data-binding="{Path=Nom,Destination=Content}">Etage :<span data-binding="{Path=Superficie,Destination=Content}"></span></td>
+    <td data-binding="{Path=Proprietaires.length,Destination=Content}"><span data-binding="{Path=Superficie,Destination=Content}"></span> propriétaires</td>
+    <td><span  data-binding="{Path=Superficie,Destination=Content}"></span> m²</td> 
+    <td data-binding="{Path=Nom,Destination=Content}">Description</td> 
+    <td data-context="viewmodels/Lot/LotService.ashx?id={Id}"><button onclick="AddBreadCrumbItem('views/Lot/view.html',this)">Open</button></td> 
 </tr>

@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -43,8 +41,7 @@
     <TypeScriptModuleKind>
     </TypeScriptModuleKind>
     <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-    <TypeScriptOutFile>
-    </TypeScriptOutFile>
+    <TypeScriptOutFile>viewmodels/methodimmo.js</TypeScriptOutFile>
     <TypeScriptOutDir />
     <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
     <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
@@ -67,10 +64,6 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -111,12 +104,14 @@
     <Content Include="Scripts\libs\jquery-2.2.3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\libs\silverscript.js" />
     <Content Include="Scripts\libs\tether.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\silverscript.js" />
+    <Content Include="Styles\dashboard.css" />
     <Content Include="Styles\MethodImmoStyles.css" />
-    <Content Include="Styles\simple-sidebar.css" />
+    <Content Include="Views\AdressePostale\SmallEditList.html" />
+    <Content Include="Views\AdressePostale\SmallEditListItem.html" />
     <Content Include="Views\Immeuble\BreadItem.html" />
     <Content Include="Views\home.html" />
     <Content Include="Views\Immeuble\Delete.html" />
@@ -125,11 +120,11 @@
     <Content Include="Views\Immeuble\SearchItem.html" />
     <Content Include="Views\Immeuble\SearchBreadAndView.html" />
     <Content Include="Views\Immeuble\BreadAndView.html" />
-    <Content Include="Views\Immeuble\Edit.html" />
-    <Content Include="Views\Individu\Edit.html" />
+    <Content Include="Views\Immeuble\View.html" />
+    <Content Include="Views\Individu\View.html" />
     <Content Include="Views\Individu\SmallEditList.html" />
     <Content Include="Views\Individu\SmallEditListItem.html" />
-    <Content Include="Views\Lot\Edit.html" />
+    <Content Include="Views\Lot\View.html" />
     <Content Include="Views\Lot\SmallEditList.html" />
     <Content Include="Views\Lot\SmallEditListItem.html" />
     <Content Include="Views\Wait.html" />
@@ -154,14 +149,21 @@
       <DependentUpon>LotService.ashx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ResultObject.cs" />
+    <Compile Include="Views\GenericEditionForm.ashx.cs">
+      <DependentUpon>GenericEditionForm.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="ViewModels\Immeuble\ImmeubleService.ashx" />
     <Content Include="ViewModels\Info.ashx" />
     <Content Include="ViewModels\Individu\IndividuService.ashx" />
-    <Content Include="Scripts\libs\silverscript.js.map" />
     <Content Include="ViewModels\Lot\LotService.ashx" />
+    <Content Include="ViewModels\Immeuble\new.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\silverscript.js.map" />
+    <Content Include="Views\GenericEditionForm.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -171,6 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="ViewModels\AdressePostale\" />
+    <Folder Include="ViewModels\CoordonneesDeContact\" />
     <Folder Include="Views\Action\" />
     <Folder Include="Views\Entreprise\" />
   </ItemGroup>
@@ -201,6 +205,7 @@
     <TypeScriptCompile Include="Scripts\StringTools.ts" />
     <TypeScriptCompile Include="Scripts\UiTools.ts" />
     <TypeScriptCompile Include="ViewModels\BreadCrumbViewModel.ts" />
+    <TypeScriptCompile Include="ViewModels\SearchViewModel.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -231,13 +236,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

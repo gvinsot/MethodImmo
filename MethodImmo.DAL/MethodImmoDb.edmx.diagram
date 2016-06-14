@@ -44,7 +44,7 @@
         <AssociationConnector Association="MethodImmoDb.DocumentationAnomalie" />
         <AssociationConnector Association="MethodImmoDb.VersionDeDocumentAnomalie" />
         <AssociationConnector Association="MethodImmoDb.ContratAnomalie" />
-        <EntityTypeShape EntityType="MethodImmoDb.Lot" Width="1.5" PointX="7" PointY="5" />
+        <EntityTypeShape EntityType="MethodImmoDb.Lot" Width="1.5" PointX="7" PointY="4.875" />
         <AssociationConnector Association="MethodImmoDb.ImmeubleLot" />
         <EntityTypeShape EntityType="MethodImmoDb.GroupeDeRepartition" Width="1.875" PointX="8" PointY="7.875" />
         <InheritanceConnector EntityType="MethodImmoDb.GroupeDeRepartition" />
@@ -68,6 +68,8 @@
         <AssociationConnector Association="MethodImmoDb.CommentaireIndividu" />
         <AssociationConnector Association="MethodImmoDb.IndividuAccesUtilisateur" />
         <AssociationConnector Association="MethodImmoDb.DroitsGroupeUtilisateursImmeuble" />
+        <EntityTypeShape EntityType="MethodImmoDb.CleDeRepartition" Width="1.5" PointX="9.375" PointY="5.875" />
+        <AssociationConnector Association="MethodImmoDb.LotCleDeRepartition" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

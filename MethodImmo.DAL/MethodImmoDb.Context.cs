@@ -43,5 +43,6 @@ namespace MethodImmo.DAL
         public virtual DbSet<VersionDeDocument> VersionDeDocumentSet { get; set; }
         public virtual DbSet<Lot> LotSet { get; set; }
         public virtual DbSet<Partenaire> PartenaireSet { get; set; }
+        public virtual DbSet<CleDeRepartition> CleDeRepartitionSet { get; set; }
     }
 }

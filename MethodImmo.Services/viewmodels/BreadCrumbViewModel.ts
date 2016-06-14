@@ -14,15 +14,19 @@ module MI
         public Selected: BreadCrumbItemViewModel = null;
         public Values: BreadCrumbItemViewModel[];
         public PropertyChanged: SS.EventHandler;
+        
     }
 
     export class BreadCrumbItemViewModel {
         public DataTemplateUri: string;
         public BreadDataContext: any;
-        constructor(dataTemplateUri: string, breadCrumbContext: any) {
+        public Label: String;
+        constructor(dataTemplateUri: string, breadCrumbContext: any, title:string=null) {
             this.DataTemplateUri = dataTemplateUri;
             this.BreadDataContext = breadCrumbContext;
+            this.Label = title != null ? title : breadCrumbContext.Nom;
         }
+
         public OnClick = function () {
             SS.SetTemplate('view', this.DataTemplateUri, this.BreadDataContext);
             var vm: BreadCrumbViewModel = SS.GetDataContext('breadcrumb');
@@ -32,9 +36,9 @@ module MI
     }
 }
 
-function AddBreadCrumbItem(templateUrl: string, context: any) {
+function AddBreadCrumbItem(templateUrl: string, context: any, title:string=null) {
     SS.BindingTools.EvaluateDataContext(context, (ctxt, dataContextObject) => {
-        var item = new MI.BreadCrumbItemViewModel(templateUrl, dataContextObject);
+        var item = new MI.BreadCrumbItemViewModel(templateUrl, dataContextObject,title);
         var breadCrumbVM = SS.GetDataContext('breadcrumb');
         breadCrumbVM.Values[breadCrumbVM.Values.length] = item;
         breadCrumbVM.PropertyChanged.FireEvent(item);
@@ -44,7 +48,7 @@ function AddBreadCrumbItem(templateUrl: string, context: any) {
 function OpenImmeuble(element: HTMLElement) {
     var context = SS.GetDataContext(element);
     var viewModel = new MI.BreadCrumbViewModel();
-    var item = new MI.BreadCrumbItemViewModel('views/immeuble/edit.html', context);
+    var item = new MI.BreadCrumbItemViewModel('views/immeuble/view.html', context);
     viewModel.Values[0] = item;
-    SS.SetTemplate('page-content-wrapper', 'views/Immeuble/BreadAndView.html', viewModel);    
+    SS.SetTemplate('breadAndView', 'views/Immeuble/BreadAndView.html', viewModel);    
 }

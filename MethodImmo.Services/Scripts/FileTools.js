@@ -32,7 +32,7 @@ var SS;
             return absolteUrl + relativeUrl;
         };
         FileTools.ReadJsonFile = function (path, callbackctxt, callback) {
-            var queryResult;
+            var queryResult = null;
             jQuery.ajax({
                 type: "GET",
                 url: path,
@@ -51,7 +51,7 @@ var SS;
         };
         FileTools.PostJsonFile = function (path, postdata, callbackctxt, callback, errorCallback) {
             if (errorCallback === void 0) { errorCallback = null; }
-            var queryResult;
+            var queryResult = null;
             jQuery.ajax({
                 type: "POST",
                 url: path,
@@ -72,7 +72,7 @@ var SS;
         FileTools.ReadHtmlFile = function (path, delegate, delegateParameters) {
             if (delegate === void 0) { delegate = null; }
             if (delegateParameters === void 0) { delegateParameters = null; }
-            var queryResult;
+            var queryResult = null;
             jQuery.ajax({
                 type: "GET",
                 url: path,

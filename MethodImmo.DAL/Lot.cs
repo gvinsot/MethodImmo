@@ -18,16 +18,23 @@ namespace MethodImmo.DAL
         public Lot()
         {
             this.Commentaires = new HashSet<Commentaire>();
+            this.ClesDeRepartition = new HashSet<CleDeRepartition>();
         }
     
         public long Id { get; set; }
         public string Nom { get; set; }
-        public Nullable<long> Tantiemes { get; set; }
+        public string BatimentEscalier { get; set; }
+        public string Etage { get; set; }
+        public TypeDeLot TypeDeLot { get; set; }
+        public Nullable<double> Superficie { get; set; }
+        public TypeDUsage Usage { get; set; }
     
         public virtual Immeuble Immeuble { get; set; }
-        public virtual GroupeDeRepartition Proprietaire { get; set; }
+        public virtual GroupeDeRepartition Proprietaires { get; set; }
         public virtual GroupeDeRepartition Occupants { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Commentaire> Commentaires { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CleDeRepartition> ClesDeRepartition { get; set; }
     }
 }

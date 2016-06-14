@@ -44,16 +44,18 @@ module SS {
             SS.BindingTools.SetDataContext(destinationNode, dataContextObject);
 
             var context = SS.BindingTools.GetParentContext(SS.BindingTools.GetItemsSourceContext(sourceNode));
-            var onDataContextChanged = <EventHandler>context["DataContextChanged"];
-            if (onDataContextChanged == undefined) {
-                onDataContextChanged = new EventHandler();
-                context["DataContextChanged"] = onDataContextChanged;
-            }
-            if (sourceNode["IsPropagationAttached"] == undefined) {
-                onDataContextChanged.Attach((ctx, args) => {
-                    SS.BindingTools.SetDataContext(ctx, "{x:Null}");
-                }, destinationNode);
-                sourceNode["IsPropagationAttached"] = true;
+            if (context != null) {
+                var onDataContextChanged = <EventHandler>context["DataContextChanged"];
+                if (onDataContextChanged == undefined) {
+                    onDataContextChanged = new EventHandler();
+                    context["DataContextChanged"] = onDataContextChanged;
+                }
+                if (sourceNode["IsPropagationAttached"] == undefined) {
+                    onDataContextChanged.Attach((ctx, args) => {
+                        SS.BindingTools.SetDataContext(ctx, "{x:Null}");
+                    }, destinationNode);
+                    sourceNode["IsPropagationAttached"] = true;
+                }
             }
         });
     }
@@ -85,9 +87,9 @@ module SS {
             var node: HTMLElement;
             node = (typeof targetNode) == "string" ? document.getElementById(targetNode) : targetNode;
 
-            if (node["data-template-value"] == undefined) {
-                node["data-template-value"] = new Object();
-            }
+            //if (node["data-template-value"] == undefined) {
+            //    node["data-template-value"] = new Object();
+            //}
         }
 
         public static SetTemplate(targetNode: any, uri: string, datacontextvalue: any = null): void {
@@ -152,13 +154,13 @@ module SS {
             }
         }
 
-        public static SetDataContext(nodeForContext: any, value: any) {
+        public static SetDataContext(nodeForContext: any, value: any, applyBindings: boolean = true) {
             var node: HTMLElement;
             node = (typeof nodeForContext) == "string" ? document.getElementById(nodeForContext) : nodeForContext;
 
             node["data-context-value"] = value;
-
-            BindingTools.SetBindingsRecursively(node);
+            if (applyBindings)
+                BindingTools.SetBindingsRecursively(node);
 
             var eventHandler = <EventHandler>node["DataContextChanged"];
             if (eventHandler != undefined) {
@@ -214,7 +216,7 @@ module SS {
 
         public static GetItemsSourceContext(node: Node): Node {
             var parentNode = node;
-            while (parentNode != null && parentNode.attributes != null && parentNode.attributes["data-source"] == undefined && parentNode["data-source-value"] == undefined) {
+            while (parentNode != null && parentNode.attributes != null && parentNode.attributes["data-source"] == undefined) {
                 parentNode = parentNode.parentNode;
             }
             if (parentNode == null || parentNode.attributes == null)
@@ -223,17 +225,24 @@ module SS {
             return parentNode;
         }
 
-        // private static knownTemplates = new Array();
+        private static knownTemplates = new Object();
 
         private static EvaluateTemplate(bindingExpression: string, node: Node): void {
 
             var dataTemplateAttribute = node.attributes["data-template"];
             if (dataTemplateAttribute == undefined)
                 return;
+            
             var dataTemplateAttributreValue = dataTemplateAttribute.value == undefined ? dataTemplateAttribute : dataTemplateAttribute.value;
             BindingTools.EvaluateDataContext(node, (ctxt, dataContextObject) => {
                 BindingTools.EvaluateExpression(dataTemplateAttributreValue, dataContextObject, node, (ctxt2, templateExpression) => {
-                    FileTools.ReadHtmlFile(templateExpression, BindingTools.EvaluateTemplatePart2, [node, dataContextObject]);
+                    // uncomments to deactivate template caching
+                    //if (BindingTools.knownTemplates[templateExpression] != undefined) {
+                    //    BindingTools.EvaluateTemplatePart2(BindingTools.knownTemplates[templateExpression], [node, dataContextObject, templateExpression]);
+                    //    return;
+                    //}
+                    //
+                    FileTools.ReadHtmlFile(templateExpression, BindingTools.EvaluateTemplatePart2, [node, dataContextObject, templateExpression]);
                 }, false);
             });
         }
@@ -244,7 +253,10 @@ module SS {
             templateString = templateString.TrimStart(" ");
             templateString = templateString.TrimEnd(" ");
             templateString = templateString.TrimEnd("\r\n");
-            node["data-template-value"] = templateString;
+            //node["data-template-value"] = templateString;
+            // uncomments to deactivate template caching
+            //BindingTools.knownTemplates[args[2]] = templateString;
+            //
             var dataSourceAttribute = node.attributes["data-source"];
             var htmlnode = <HTMLElement>node;
 
@@ -252,8 +264,33 @@ module SS {
 
                 var dataContextObject: Object = args[1];
                 var startTime = (new Date()).getTime();
-                BindingTools.EvaluateExpression(dataSourceAttribute.value, dataContextObject, node, (ctxt, items) => {
-                    node["data-source-value"] = items;
+                var items;
+
+                //if (node["data-source-value"] != undefined && node["data-source-value"] != null) {
+                //    items = node["data-source-value"];
+                //    callback(node, items);
+                //}
+                //else {
+
+                var datacontextloading = node["data-source-value-loading"] as EventHandler;
+                if (datacontextloading != null) {
+                    //To solve: we should not get here (evaluating data-source multiple times)
+                    return;
+                }
+
+                node["data-source-value-loading"] = new EventHandler();
+
+                var callback = (ctxt, items) => {
+
+                    //node["data-source-value"] = items;
+
+                    var contextloading = <EventHandler>ctxt["data-source-value-loading"];
+                    if (contextloading != undefined) {
+                        //contextloading.FireEvent(items);
+                        //contextloading.Dispose();
+                        delete ctxt["data-source-value-loading"];
+                    }
+
                     if (items == null || items.length == undefined) {
                         var jhtmlnode = $(htmlnode);
                         jhtmlnode.empty();
@@ -262,7 +299,7 @@ module SS {
                     }
                     var itemsLength = items.length;
                     var resultString = "";
-                
+
                     //lets loop through context items
                     for (var i = 0; i < itemsLength; i++) {
                         resultString = resultString.concat(templateString);
@@ -277,23 +314,24 @@ module SS {
                         BindingTools.SetDataContext(subnode, items[i]);
                     }
 
-                    for (var i = 0; i < htmlnode.children.length; i++) {
-                        var subhnode = htmlnode.children[i];
-                        subhnode["data-context-value"] = null;
-                        var dataContextChangedEvent = <EventHandler>subhnode["DataContextChanged"];
-                        if (dataContextChangedEvent != undefined)
-                            dataContextChangedEvent.FireEvent(null);
-                    }
+                    //for (var i = 0; i < htmlnode.children.length; i++) {
+                    //    var subhnode = htmlnode.children[i];
+                    //    subhnode["data-context-value"] = null;
+                    //    var dataContextChangedEvent = <EventHandler>subhnode["DataContextChanged"];
+                    //    if (dataContextChangedEvent != undefined)
+                    //        dataContextChangedEvent.FireEvent(null);
+                    //}
 
                     var jhtmlnode = $(htmlnode);
-
                     jhtmlnode.empty();
-                    
                     jhtmlnode.append(result);
 
                     var nbMilliseconds = (new Date()).getTime() - startTime;
                     console.log("Apply templates: " + nbMilliseconds + "ms");
-                });
+                };
+
+                BindingTools.EvaluateExpression(dataSourceAttribute.value, dataContextObject, node, callback);
+                //}
             }
             else {
                 htmlnode.innerHTML = templateString;
@@ -332,13 +370,12 @@ module SS {
 
                 BindingTools.EvaluateExpression(contextExpression, datacontext, contextNode, (ctxt, datacontextvalue) => {
 
-                    BindingTools.SetDataContext(ctxt, datacontextvalue);
+                    BindingTools.SetDataContext(ctxt, datacontextvalue, false);
 
                     var contextloading = <EventHandler>ctxt["data-context-value-loading"];
                     contextloading.FireEvent(datacontextvalue);
                     contextloading.Dispose();
                     delete ctxt["data-context-value-loading"];
-
 
                     callback(node, datacontextvalue);                    
                 });
@@ -521,23 +558,30 @@ module SS {
                     console.log("Error on converter " + converter);                    
                 }
             }
-
-            if (mode == "OneWay" && dataContextObject!=null) {
-                BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+            
+            if (mode == "OneWay" && dataContextObject != null) {
+                if (htmlElement["SS-HasBindingCallBack"] == undefined) {
+                    BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+                    htmlElement["SS-HasBindingCallBack"] = true;
+                }
             } else if (mode == "TwoWay" && dataContextObject != null) {
-                var binding = BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
-                htmlElement.onchange = () => {
-                    if (!sourceIsArray) {
-                        var evalString = "dataContextObject." + path + "=htmlElement.value; if (dataContextObject.PropertyChanged != undefined) dataContextObject.PropertyChanged.FireEvent(path);";
-                        try {
-                            eval(evalString);
+                if (htmlElement["SS-HasBindingCallBack"] == undefined) {
+                    var binding = BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+                    var callback = () => {
+                        if (!sourceIsArray) {
+                            var evalString = "dataContextObject." + path + "=htmlElement.value; if (dataContextObject.PropertyChanged != undefined) dataContextObject.PropertyChanged.FireEvent(path);";
+                            try {
+                                eval(evalString);
+                            }
+                            catch (ex) {
+                                console.log("Exception applying binding : " + evalString);
+                            }
                         }
-                        catch (ex)
-                        {
-                            console.log("Exception applying binding : " + evalString);
-                        }
-                    }
-                };
+                    };
+                    //htmlElement.onchange = callback;
+                    htmlElement.onkeyup = callback;
+                    htmlElement["SS-HasBindingCallBack"] = true;
+                }
             }
             else if (mode == "Eval") {
                 try {

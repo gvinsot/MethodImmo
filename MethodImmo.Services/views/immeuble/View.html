@@ -1,0 +1,43 @@
+﻿<div>
+    <h1>Immeuble - <span data-binding="{Path=Nom,Mode=TwoWay,Destination=Content,Mode=OneWay}"></span></h1>
+    <br/>
+    <div class="row">
+        <div class="row">
+            <label class="col-md-2 control-label vcenter" for="">Description</label>
+
+            <div class="col-md-3 vcenter">
+                <input type="text" data-binding="{Path=Nom,Mode=TwoWay,Destination=value}" class="form-control input-md vcenter" />
+            </div>
+
+        </div>
+        <div class="row">
+            <span class="col-md-2 vcenter">Adresses (<span data-binding="{Path=Adresses.length,Destination=Content}"></span>)</span>
+            <div class="col-md-8 vcenter">
+
+                <span class="vcenter" data-binding="{Path=Adresses[0].Rue,Mode=TwoWay,Destination=Content}"> </span>
+                <span class="vcenter" data-binding="{Path=Adresses[0].CodePostal,Mode=TwoWay,Destination=Content}"> </span>
+                <span class="vcenter" data-binding="{Path=Adresses[0].Ville,Mode=TwoWay,Destination=Content}"> </span>
+                <button class="btn btn-link" data-context="{Adresses}" onclick="AddBreadCrumbItem('views/AdressePostale/SmallEditList.html', this, 'Adresse')" style="margin-left:30px">détails</button>
+            </div>
+            
+        </div>
+       
+       
+        <div class="row">
+
+            <label class="col-md-2 control-label" for="">Total tantièmes</label>
+            <span class="col-md-1" type="text" data-binding="{Path=Tantiemes,Destination=Content}"></span>
+
+            <label class="col-md-2 control-label vcenter" style="margin-left:30px" for="">Nombre de lots</label>
+            <span class="col-md-1" type="text" data-binding="{Path=Lots.length,Destination=Content}"></span>
+
+        </div>
+        <div class="row">
+            <label class="col-md-2 control-label" for="">Lots</label>
+
+            <div  data-context="{Lots}" data-template="views/lot/SmallEditList.html">
+            </div>
+        </div>
+        
+    </div>
+</div>
