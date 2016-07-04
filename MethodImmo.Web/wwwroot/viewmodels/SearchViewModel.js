@@ -8,4 +8,3 @@ var MI;
     }());
     MI.SearchViewModel = SearchViewModel;
 })(MI || (MI = {}));
-//# sourceMappingURL=SearchViewModel.js.map

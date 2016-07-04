@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MethodImmo.Business;
+using MethodImmo.Models;
+using MethodImmo.DataAccessLayer;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,9 +16,20 @@ namespace MethodImmo.Web.Controllers
     {
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Immeuble> Get([FromBody] string search=null)
         {
-            return new string[] { "value1", "value2" };
+            List<Immeuble> result = null;
+            using (MethodImmoContext context = new MethodImmoContext(null))
+            {
+                ImmeubleManager manager = new ImmeubleManager();
+                IQueryable<Immeuble> query = context.ImmeubleSet;
+                if (!String.IsNullOrWhiteSpace(search))
+                    query = manager.Search(search, query);
+
+                result = query.ToList();
+            }
+            return result;
+            
         }
 
         // GET api/values/5

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "MethodImmo.DataAccessLayer": "1.0.0-*",
+    "MethodImmo.Models": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore.DynamicLinq": "1.0.1",
+    "NETStandard.Library": "1.6.0"
+  },
+"frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+  }
+}

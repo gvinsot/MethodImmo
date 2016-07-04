@@ -98,4 +98,3 @@ var SS;
     }());
     SS.FileTools = FileTools;
 })(SS || (SS = {}));
-//# sourceMappingURL=FileTools.js.map

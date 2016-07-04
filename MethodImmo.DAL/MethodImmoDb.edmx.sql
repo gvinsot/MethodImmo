@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 06/13/2016 19:55:10
--- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
+-- Date Created: 06/22/2016 23:24:17
+-- Generated from EDMX file: D:\Projects\MethodImmo\MethodImmo\MethodImmo.DAL\MethodImmoDb.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [methodimmodb];
+USE [MethodImmoDb];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO

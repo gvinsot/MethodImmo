@@ -40,16 +40,18 @@ var SS;
             var destinationNode = document.getElementById(destinationNodeId);
             SS.BindingTools.SetDataContext(destinationNode, dataContextObject);
             var context = SS.BindingTools.GetParentContext(SS.BindingTools.GetItemsSourceContext(sourceNode));
-            var onDataContextChanged = context["DataContextChanged"];
-            if (onDataContextChanged == undefined) {
-                onDataContextChanged = new SS.EventHandler();
-                context["DataContextChanged"] = onDataContextChanged;
-            }
-            if (sourceNode["IsPropagationAttached"] == undefined) {
-                onDataContextChanged.Attach(function (ctx, args) {
-                    SS.BindingTools.SetDataContext(ctx, "{x:Null}");
-                }, destinationNode);
-                sourceNode["IsPropagationAttached"] = true;
+            if (context != null) {
+                var onDataContextChanged = context["DataContextChanged"];
+                if (onDataContextChanged == undefined) {
+                    onDataContextChanged = new SS.EventHandler();
+                    context["DataContextChanged"] = onDataContextChanged;
+                }
+                if (sourceNode["IsPropagationAttached"] == undefined) {
+                    onDataContextChanged.Attach(function (ctx, args) {
+                        SS.BindingTools.SetDataContext(ctx, "{x:Null}");
+                    }, destinationNode);
+                    sourceNode["IsPropagationAttached"] = true;
+                }
             }
         });
     }
@@ -484,21 +486,29 @@ var SS;
                 }
             }
             if (mode == "OneWay" && dataContextObject != null) {
-                BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+                if (htmlElement["SS-HasBindingCallBack"] == undefined) {
+                    BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+                    htmlElement["SS-HasBindingCallBack"] = true;
+                }
             }
             else if (mode == "TwoWay" && dataContextObject != null) {
-                var binding = BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
-                htmlElement.onchange = function () {
-                    if (!sourceIsArray) {
-                        var evalString = "dataContextObject." + path + "=htmlElement.value; if (dataContextObject.PropertyChanged != undefined) dataContextObject.PropertyChanged.FireEvent(path);";
-                        try {
-                            eval(evalString);
+                if (htmlElement["SS-HasBindingCallBack"] == undefined) {
+                    var binding = BindingTools.Bindings.CreateBinding(dataContextObject, path, htmlElement);
+                    var callback = function () {
+                        if (!sourceIsArray) {
+                            var evalString = "dataContextObject." + path + "=htmlElement.value; if (dataContextObject.PropertyChanged != undefined) dataContextObject.PropertyChanged.FireEvent(path);";
+                            try {
+                                eval(evalString);
+                            }
+                            catch (ex) {
+                                console.log("Exception applying binding : " + evalString);
+                            }
                         }
-                        catch (ex) {
-                            console.log("Exception applying binding : " + evalString);
-                        }
-                    }
-                };
+                    };
+                    //htmlElement.onchange = callback;
+                    htmlElement.onkeyup = callback;
+                    htmlElement["SS-HasBindingCallBack"] = true;
+                }
             }
             else if (mode == "Eval") {
                 try {
@@ -529,4 +539,3 @@ var SS;
 $(function () {
     SS.BindingTools.SetBindingsRecursively(document.body);
 });
-//# sourceMappingURL=BindingTools.js.map

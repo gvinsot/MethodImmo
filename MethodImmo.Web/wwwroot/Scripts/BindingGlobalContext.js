@@ -63,4 +63,3 @@ var SS;
     }());
     SS.BindingGlobalContext = BindingGlobalContext;
 })(SS || (SS = {}));
-//# sourceMappingURL=BindingGlobalContext.js.map

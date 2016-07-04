@@ -1,0 +1,26 @@
+﻿<div class="row-fluid">
+    <div class="col-md-3 sidebar" style="background-color:aliceblue;padding:4px">
+        <div class="input-group" data-context="{Mode=Eval,Value=new MI.SearchViewModel()}" style="padding:7px">
+            <input type="text" onkeydown="SS.PropagateDataContext(this, 'searchPanel')" data-binding="{Mode=TwoWay,Path=SearchTerms,Destination=value}" class="form-control" placeholder="Rechercher...">
+            <span class="input-group-btn">
+                <button class="btn btn-secondary" onclick="SS.PropagateDataContext(this, 'searchPanel')">></button>
+                <button style="margin-left:10px" data-context="viewmodels/immeuble/new.json"  onclick="$(this).tab('show'); OpenImmeuble(this); this['data-context-value'] = null;" class="btn btn-secondary">+</button>
+            </span>
+        </div>
+        <nav id="searchPanel" class="navbar">
+            <ul class="nav nav-pills" data-template="views/immeuble/SearchItem.html" data-source="viewmodels/immeuble/immeubleservice.ashx?search={SearchTerms}">
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-3" style="height:100%">
+    </div>
+
+    <div id="breadAndView" class="col-md-7 main" data-context="{x:Null}" data-template="views/Wait.html"> <!--Bread + View-->
+    </div>
+
+    <div class="col-md-2" style="height:100%">
+        <!--Comments and files-->
+    </div>
+</div>
+
+

@@ -46,4 +46,3 @@ var SS;
     }());
     SS.EventHandler = EventHandler;
 })(SS || (SS = {}));
-//# sourceMappingURL=EventHandler.js.map

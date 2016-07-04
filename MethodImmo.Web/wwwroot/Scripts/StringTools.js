@@ -99,4 +99,3 @@ var SS;
     }());
     SS.StringTools = StringTools;
 })(SS || (SS = {}));
-//# sourceMappingURL=StringTools.js.map

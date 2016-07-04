@@ -14,7 +14,8 @@ var MI;
     }());
     MI.BreadCrumbViewModel = BreadCrumbViewModel;
     var BreadCrumbItemViewModel = (function () {
-        function BreadCrumbItemViewModel(dataTemplateUri, breadCrumbContext) {
+        function BreadCrumbItemViewModel(dataTemplateUri, breadCrumbContext, title) {
+            if (title === void 0) { title = null; }
             this.OnClick = function () {
                 SS.SetTemplate('view', this.DataTemplateUri, this.BreadDataContext);
                 var vm = SS.GetDataContext('breadcrumb');
@@ -23,14 +24,16 @@ var MI;
             };
             this.DataTemplateUri = dataTemplateUri;
             this.BreadDataContext = breadCrumbContext;
+            this.Label = title != null ? title : breadCrumbContext.Nom;
         }
         return BreadCrumbItemViewModel;
     }());
     MI.BreadCrumbItemViewModel = BreadCrumbItemViewModel;
 })(MI || (MI = {}));
-function AddBreadCrumbItem(templateUrl, context) {
+function AddBreadCrumbItem(templateUrl, context, title) {
+    if (title === void 0) { title = null; }
     SS.BindingTools.EvaluateDataContext(context, function (ctxt, dataContextObject) {
-        var item = new MI.BreadCrumbItemViewModel(templateUrl, dataContextObject);
+        var item = new MI.BreadCrumbItemViewModel(templateUrl, dataContextObject, title);
         var breadCrumbVM = SS.GetDataContext('breadcrumb');
         breadCrumbVM.Values[breadCrumbVM.Values.length] = item;
         breadCrumbVM.PropertyChanged.FireEvent(item);
@@ -43,4 +46,3 @@ function OpenImmeuble(element) {
     viewModel.Values[0] = item;
     SS.SetTemplate('breadAndView', 'views/Immeuble/BreadAndView.html', viewModel);
 }
-//# sourceMappingURL=BreadCrumbViewModel.js.map

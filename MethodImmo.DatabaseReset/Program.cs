@@ -99,12 +99,13 @@ CREATE DATABASE " + DbName;
 
         public static void CreateEmptyViewModels()
         {
-            string basePath = @"D:\Projects\MethodImmo\MethodImmo.Services\ViewModels";
-            File.WriteAllText(Path.Combine(basePath, @"Immeuble\new.json"), JsonSerializationTool<object>.SerializeAllTree(new Immeuble() { Adresses = new List<AdressePostale>() { new AdressePostale() } }));
-            File.WriteAllText(Path.Combine(basePath, @"Lot\new.json"), JsonSerializationTool<object>.SerializeAllTree(new Lot()));
-            File.WriteAllText(Path.Combine(basePath, @"CoordonneesDeContact\new.json"), JsonSerializationTool<object>.SerializeAllTree(new CoordonneesDeContact()));
-            File.WriteAllText(Path.Combine(basePath, @"AdressePostale\new.json"), JsonSerializationTool<object>.SerializeAllTree(new AdressePostale()));
-            File.WriteAllText(Path.Combine(basePath, @"Individu\new.json"), JsonSerializationTool<object>.SerializeAllTree(new Individu()));
+            string basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            basePath = Path.Combine(basePath, "..\\..\\..","MethodImmo.Services\\ViewModels\\new\\");
+            File.WriteAllText(Path.Combine(basePath, @"Immeuble.json"), JsonSerializationTool<object>.SerializeAllTree(new Immeuble() { Adresses = new List<AdressePostale>() { new AdressePostale() } }));
+            File.WriteAllText(Path.Combine(basePath, @"Lot.json"), JsonSerializationTool<object>.SerializeAllTree(new Lot()));
+            File.WriteAllText(Path.Combine(basePath, @"CoordonneesDeContact.json"), JsonSerializationTool<object>.SerializeAllTree(new CoordonneesDeContact()));
+            File.WriteAllText(Path.Combine(basePath, @"AdressePostale.json"), JsonSerializationTool<object>.SerializeAllTree(new AdressePostale()));
+            File.WriteAllText(Path.Combine(basePath, @"Individu.json"), JsonSerializationTool<object>.SerializeAllTree(new Individu()));
 
         }
         public static void CreateDataSet()
