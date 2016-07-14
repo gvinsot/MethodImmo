@@ -14,22 +14,26 @@ namespace MethodImmo.Web.Controllers
     [Route("api/[controller]")]
     public class ImmeubleController : Controller
     {
+        private MethodImmoContext _context;
+
+
+        public ImmeubleController(MethodImmoContext context)
+        {
+            _context = context;
+        }
+
         // GET: api/values
         [HttpGet]
-        public List<Immeuble> Get([FromBody] string search=null)
+        public List<Immeuble> Get([FromQuery] string search=null)
         {
-            List<Immeuble> result = null;
-            using (MethodImmoContext context = new MethodImmoContext(null))
-            {
-                ImmeubleManager manager = new ImmeubleManager();
-                IQueryable<Immeuble> query = context.ImmeubleSet;
-                if (!String.IsNullOrWhiteSpace(search))
-                    query = manager.Search(search, query);
+            ImmeubleManager manager = new ImmeubleManager();
+            IQueryable<Immeuble> query = _context.ImmeubleSet;
+            if (!String.IsNullOrWhiteSpace(search) && search!="null")
+                query = manager.Search(search, query);
 
-                result = query.ToList();
-            }
-            return result;
-            
+            List<Immeuble> result = query.ToList();
+
+            return result;            
         }
 
         // GET api/values/5

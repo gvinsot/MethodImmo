@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MethodImmo.DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace MethodImmo.Web
 {
@@ -36,7 +38,10 @@ namespace MethodImmo.Web
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddSwaggerGen();
-           // services.ConfigureSwaggerGen(new Action<Swashbuckle.SwaggerGen.Application.SwaggerGenOptions>(options => { }));
+            services.AddEntityFrameworkSqlServer();
+            
+            services.AddDbContext<MethodImmoContext>(options => options.UseSqlServer(Configuration["DefaultConnection:ConnectionString"]));
+            // services.ConfigureSwaggerGen(new Action<Swashbuckle.SwaggerGen.Application.SwaggerGenOptions>(options => { }));
             services.AddMvc();
         }
 

@@ -44,7 +44,7 @@ namespace Mid.Tools
             try
             {
                 byte[] byteResult = algorithm.ComputeHash(stream);
-                //algorithm.Clear();
+                algorithm.Clear();
                 string result = this.CleanUpShaCode(byteResult);
                 return result;
             }
@@ -52,7 +52,7 @@ namespace Mid.Tools
             {
                 if (algorithm != null)
                 {
-                    algorithm.Dispose();
+                    algorithm.Clear();
                 }
             }
         }

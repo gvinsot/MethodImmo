@@ -3,8 +3,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Dynamic;
 using System.Reflection;
@@ -164,12 +166,11 @@ namespace Mid.Tools
                         }
                         else if (ObjectTools.IsArrayType(valueType))
                         {
-                            Type generic = valueType.GenericTypeArguments.First();
+                            Type generic = valueType.GetGenericArguments().First();
                             if (ObjectTools.HasMember(generic, "Id"))
                             {
-                               
                                 //switch
-                                var property = generic.GetRuntimeProperty("Id");
+                                var property = generic.GetProperty("Id");
                                 var collection = val as IEnumerable;
                                 foreach (var item in collection)
                                 {

@@ -1,20 +1,41 @@
 ﻿using System;
+using System.Data;
+using System.Data.Entity.Core;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Mid.Tools
 {
     public static class ThreadTools
     {
+        public static Thread StartNewTread(string threadName, ThreadStart method, bool isBackground=false)
+        {
+            var thread = new Thread(method);
+            thread.IsBackground = isBackground;
+            thread.Name = threadName;
+            thread.Start();
+            return thread;
+        }
+
 
         public delegate void MethodToTry();
 
-        public static void DelayMethod(TimeSpan startDelay, MethodToTry methodToDo)
+        public static void DelayMethod(TimeSpan startTime, MethodToTry methodToDo)
         {
-            Task.Delay((int)startDelay.TotalMilliseconds).Wait();
-
-            methodToDo();
-
+            var timer = new System.Timers.Timer(startTime.TotalMilliseconds);
+            timer.Elapsed += delegate
+            {
+                timer.Stop();
+                try
+                {
+                    methodToDo();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    //TraceManager.Instance.WriteError(ex);
+                }
+            };
+            timer.Start();
         }
 
         public static void TryMethodManyTimes(int maxTry, TimeSpan sleepBetweenTries,MethodToTry methodToTry)
@@ -36,7 +57,8 @@ namespace Mid.Tools
                     {
                         throw ex;
                     }
-                    Task.Delay(sleepBetweenTries).Wait();
+
+                    Thread.Sleep(sleepBetweenTries);
                 }
                 finally
                 {
@@ -58,7 +80,7 @@ namespace Mid.Tools
                     methodToTry();
                     hasSucceeded = true;
                 }
-                catch (Exception ex)
+                catch (OptimisticConcurrencyException ex)
                 {
                     hasSucceeded = false;
 
@@ -66,7 +88,8 @@ namespace Mid.Tools
                     {
                         throw ex;
                     }
-                    Task.Delay(sleepBetweenTries).Wait();
+
+                    Thread.Sleep(sleepBetweenTries);
                 }
                 finally
                 {

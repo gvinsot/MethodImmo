@@ -222,11 +222,11 @@ namespace Mid.Tools
 
         public static bool IsPrimitiveType(Type objType)
         {
-            return !objType.IsByRef;// objType.IsPrimitive|| objType.IsEnum || objType == typeof(Decimal) || objType == typeof(String) || objType == typeof(DateTime);
+            return objType.IsPrimitive|| objType.IsEnum || objType == typeof(Decimal) || objType == typeof(String) || objType == typeof(DateTime);
         }
         public static bool IsArrayType(Type objType)
         {
-            return objType.IsArray;//typeof(IEnumerable).IsAssignableFrom(objType);
+            return typeof(IEnumerable).IsAssignableFrom(objType);
         }
 
         public static List<T> RetrieveObjectsRecursively<T>(object root, List<Type> typesToGoThrough)
@@ -248,7 +248,7 @@ namespace Mid.Tools
                 {
                     result.AddRange(RetrieveObjectsRecursively<T>(ObjectTools.GetMemberValue(root, member),  typesToGoThrough));
                 }
-                else if (memberType.IsConstructedGenericType && typesToGoThrough.Contains(memberType.GenericTypeArguments[0]))
+                else if (memberType.IsGenericType && typesToGoThrough.Contains(memberType.GetGenericArguments()[0]))
                 {
                     IEnumerable list = ObjectTools.GetMemberValue(root, member) as IEnumerable;
                     if (list != null)
@@ -269,8 +269,8 @@ namespace Mid.Tools
 
         public static List<MemberInfo> GetPropertiesAndFields(Type typeToSearchIn)
         {
-            List<MemberInfo> result = new List<MemberInfo>(typeToSearchIn.GetRuntimeProperties());
-            result.AddRange(typeToSearchIn.GetRuntimeFields());
+            List<MemberInfo> result = new List<MemberInfo>(typeToSearchIn.GetProperties());
+            result.AddRange(typeToSearchIn.GetFields());
             return result;
         }
 
@@ -342,15 +342,14 @@ namespace Mid.Tools
         {
             if (sourceObject == null)
                 return null;
-            MemberInfo prop = sourceObject.GetType().GetRuntimeField(PropName);
-            if(prop==null)
-                prop = sourceObject.GetType().GetRuntimeProperty(PropName);
+            MemberInfo prop = sourceObject.GetType().GetMember(PropName).FirstOrDefault();
             return GetMemberValue(sourceObject, prop);
         }
 
         public static bool HasMember(Type type, string propertyOrFieldName)
         {
-               return type.GetRuntimeField(propertyOrFieldName) == null && type.GetType().GetRuntimeProperty(propertyOrFieldName) == null;
+            MemberInfo prop = type.GetMember(propertyOrFieldName).FirstOrDefault();
+            return prop != null;
         }
 
         public static object GetMemberValue(object sourceObject, MemberInfo member)
@@ -374,9 +373,7 @@ namespace Mid.Tools
         }
         public static void SetMemberValue(object destinationObject, string memberName, object value, bool tryConvert=false)
         {
-            MemberInfo member = destinationObject.GetType().GetRuntimeField(memberName);
-            if(member== null)
-                member= destinationObject.GetType().GetRuntimeProperty(memberName);
+            MemberInfo member = destinationObject.GetType().GetMember(memberName).FirstOrDefault();
             SetMemberValue(destinationObject, member, value, tryConvert);
         }
         public static void SetMemberValue(object destinationObject, MemberInfo member, object value, bool tryConvert = false)
