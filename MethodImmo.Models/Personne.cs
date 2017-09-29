@@ -1,15 +1,6 @@
-
-
-
-//
-
-
-
-
-
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
+     
     using System;
     using System.Collections.Generic;
 
@@ -29,16 +20,16 @@ namespace MethodImmo.Models
         
         public List<Commentaire> CommentairesRecus { get; set; }
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Personne>()
-                .HasMany<Partenaire>(im => im.Partenaires);
-            modelBuilder.Entity<Personne>()
-                .HasMany<CoordonneesDeContact>(im => im.CoordonneesDeContact);
-            modelBuilder.Entity<Personne>()
-                .HasMany<CoordonneesBancaires>(im => im.CoordonneesBancaires);
-            modelBuilder.Entity<Personne>()
-                .HasMany<Commentaire>(im => im.CommentairesRecus);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Personne>()
+        //        .HasMany<Partenaire>(im => im.Partenaires);
+        //    modelBuilder.Entity<Personne>()
+        //        .HasMany<CoordonneesDeContact>(im => im.CoordonneesDeContact);
+        //    modelBuilder.Entity<Personne>()
+        //        .HasMany<CoordonneesBancaires>(im => im.CoordonneesBancaires);
+        //    modelBuilder.Entity<Personne>()
+        //        .HasMany<Commentaire>(im => im.CommentairesRecus);
+        //}
     }
 }

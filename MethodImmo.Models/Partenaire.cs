@@ -1,10 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-
     public  class Partenaire
     {
         public long Id { get; set; }
@@ -14,12 +10,12 @@ namespace MethodImmo.Models
         public Personne PartenaireDe { get; set; }
 
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Partenaire>()
-                .HasOne<Personne>(im => im.PartenaireDe);
-            modelBuilder.Entity<Partenaire>()
-                .HasOne<Personne>(im => im.Personne);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Partenaire>()
+        //        .HasOne<Personne>(im => im.PartenaireDe);
+        //    modelBuilder.Entity<Partenaire>()
+        //        .HasOne<Personne>(im => im.Personne);
+        //}
     }
 }

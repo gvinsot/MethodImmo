@@ -1,16 +1,6 @@
-
-
-
-//
-
-
-
-
-
 namespace MethodImmo.Models
 {
-    using System;
-    
+
     public enum TypeDeLot : int
     {
         Appartement = 0,

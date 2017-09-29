@@ -1,8 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
 
     public  class CoordonneesDeContact
@@ -18,12 +16,12 @@ namespace MethodImmo.Models
         public List<AdressePostale> AdressesPostales { get; set; }
         public Personne Personne { get; set; }
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CoordonneesDeContact>()
-                .HasMany<AdresseEmail>(im => im.AdressesEmails);
-            modelBuilder.Entity<CoordonneesDeContact>()
-                .HasMany<AdressePostale>(im => im.AdressesPostales);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<CoordonneesDeContact>()
+        //        .HasMany<AdresseEmail>(im => im.AdressesEmails);
+        //    modelBuilder.Entity<CoordonneesDeContact>()
+        //        .HasMany<AdressePostale>(im => im.AdressesPostales);
+        //}
     }
 }

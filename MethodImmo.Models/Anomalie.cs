@@ -1,10 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-
     public  class Anomalie : Action
     {
     
@@ -14,16 +10,16 @@ namespace MethodImmo.Models
         public CompteBancaire AnomalieDeCompteBancaire { get; set; }
 
 
-        public static new void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Anomalie>()
-                .HasOne<Documentation>(el => el.AnomalieDeDocumentation);
-            modelBuilder.Entity<Anomalie>()
-                .HasOne<VersionDeDocument>(el => el.AnomalieDeVersionDeDocument);
-            modelBuilder.Entity<Anomalie>()
-                .HasOne<Contrat>(el => el.AnomalieDeContrat);
-            modelBuilder.Entity<Anomalie>()
-                .HasOne<CompteBancaire>(el => el.AnomalieDeCompteBancaire);
-        }
+        //public static new void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Anomalie>()
+        //        .HasOne<Documentation>(el => el.AnomalieDeDocumentation);
+        //    modelBuilder.Entity<Anomalie>()
+        //        .HasOne<VersionDeDocument>(el => el.AnomalieDeVersionDeDocument);
+        //    modelBuilder.Entity<Anomalie>()
+        //        .HasOne<Contrat>(el => el.AnomalieDeContrat);
+        //    modelBuilder.Entity<Anomalie>()
+        //        .HasOne<CompteBancaire>(el => el.AnomalieDeCompteBancaire);
+        //}
     }
 }

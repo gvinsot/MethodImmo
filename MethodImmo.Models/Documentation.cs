@@ -1,8 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
 
     public  class Documentation
@@ -17,10 +15,10 @@ namespace MethodImmo.Models
         public CompteBancaire CompteBancaire { get; set; }
 
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Documentation>()
-                .HasMany<VersionDeDocument>(im => im.Versions);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Documentation>()
+        //        .HasMany<VersionDeDocument>(im => im.Versions);
+        //}
     }
 }

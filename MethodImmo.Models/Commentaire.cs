@@ -1,10 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
-    using System.Collections.Generic;
-
     public  class Commentaire
     {
         public long Id { get; set; }
@@ -19,20 +15,20 @@ namespace MethodImmo.Models
         public Individu Auteur { get; set; }
 
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Contrat>(im => im.CommentaireDeContrat);
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Action>(im => im.CommentaireDAction);
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Personne>(im => im.CommentaireDePersonne);
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Lot>(im => im.CommentaireDeLot);
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Immeuble>(im => im.CommentaireDeImmeuble);
-            modelBuilder.Entity<Commentaire>()
-                .HasOne<Individu>(im => im.Auteur);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Contrat>(im => im.CommentaireDeContrat);
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Action>(im => im.CommentaireDAction);
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Personne>(im => im.CommentaireDePersonne);
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Lot>(im => im.CommentaireDeLot);
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Immeuble>(im => im.CommentaireDeImmeuble);
+        //    modelBuilder.Entity<Commentaire>()
+        //        .HasOne<Individu>(im => im.Auteur);
+        //}
     }
 }

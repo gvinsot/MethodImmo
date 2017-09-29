@@ -1,16 +1,6 @@
-
-
-
-//
-
-
-
-
-
 namespace MethodImmo.Models
 {
-    using System;
-    
+
     public enum TypeDUsage : int
     {
         Habitation = 0,

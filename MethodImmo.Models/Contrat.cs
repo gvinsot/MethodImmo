@@ -1,10 +1,7 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public  class Contrat
     {
@@ -23,10 +20,10 @@ namespace MethodImmo.Models
         
         public List<Commentaire> Commentaires { get; set; }
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Contrat>()
-                .HasMany<GroupeDePersonnes>(im => im.GroupesContractants);            
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Contrat>()
+        //        .HasMany<GroupeDePersonnes>(im => im.GroupesContractants);            
+        //}
     }
 }

@@ -1,7 +1,7 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
+     
     using System;
     using System.Collections.Generic;
 
@@ -23,18 +23,18 @@ namespace MethodImmo.Models
         
         public List<CleDeRepartition> ClesDeRepartition { get; set; }
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Lot>()
-                .HasOne<Immeuble>(im => im.Immeuble);
-            modelBuilder.Entity<Lot>()
-                .HasOne<GroupeDeRepartition>(im => im.Proprietaires);
-            modelBuilder.Entity<Lot>()
-                .HasOne<GroupeDeRepartition>(im => im.Occupants);
-            modelBuilder.Entity<Lot>()
-                .HasMany<Commentaire>(im => im.Commentaires);
-            modelBuilder.Entity<Lot>()
-                .HasMany<CleDeRepartition>(im => im.ClesDeRepartition);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Lot>()
+        //        .HasOne<Immeuble>(im => im.Immeuble);
+        //    modelBuilder.Entity<Lot>()
+        //        .HasOne<GroupeDeRepartition>(im => im.Proprietaires);
+        //    modelBuilder.Entity<Lot>()
+        //        .HasOne<GroupeDeRepartition>(im => im.Occupants);
+        //    modelBuilder.Entity<Lot>()
+        //        .HasMany<Commentaire>(im => im.Commentaires);
+        //    modelBuilder.Entity<Lot>()
+        //        .HasMany<CleDeRepartition>(im => im.ClesDeRepartition);
+        //}
     }
 }

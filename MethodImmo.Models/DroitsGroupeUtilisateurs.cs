@@ -1,16 +1,5 @@
-
-
-
-//
-
-
-
-
-
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
 
     public  class DroitsGroupeUtilisateurs
@@ -23,10 +12,10 @@ namespace MethodImmo.Models
         
         public List<Immeuble> Immeubles { get; set; }
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<DroitsGroupeUtilisateurs>()
-                .HasMany<Immeuble>(im => im.Immeubles);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<DroitsGroupeUtilisateurs>()
+        //        .HasMany<Immeuble>(im => im.Immeubles);
+        //}
     }
 }

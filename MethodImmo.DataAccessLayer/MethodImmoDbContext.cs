@@ -28,18 +28,18 @@ namespace MethodImmo.DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var assemblyName= Assembly.GetEntryAssembly().GetReferencedAssemblies().First(el => el.Name=="MethodImmo.Models");
-            var assembly = Assembly.Load(assemblyName);
-            var types =  GetTypesInNamespace(assembly, "MethodImmo.Models");
+            //var assemblyName= Assembly.GetEntryAssembly().GetReferencedAssemblies().First(el => el.Name=="MethodImmo.Models");
+            //var assembly = Assembly.Load(assemblyName);
+            //var types =  GetTypesInNamespace(assembly, "MethodImmo.Models");
             
-            foreach (var type in types)
-            {
-                var method = type.GetMethod("OnModelCreating");
-                if(method!=null)
-                {
-                    method.Invoke(null,new object[] { modelBuilder });
-                }
-            }
+            //foreach (var type in types)
+            //{
+            //    var method = type.GetMethod("OnModelCreating");
+            //    if(method!=null)
+            //    {
+            //        method.Invoke(null,new object[] { modelBuilder });
+            //    }
+            //}
         }
             
         private Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
@@ -47,24 +47,24 @@ namespace MethodImmo.DataAccessLayer
             return assembly.GetTypes().Where(t => String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
         }
 
-        public virtual DbSet<AccesUtilisateur> AccesUtilisateurSet { get; set; }
-        public virtual DbSet<MethodImmo.Models.Action> ActionSet { get; set; }
-        public virtual DbSet<Commentaire> CommentaireSet { get; set; }
-        public virtual DbSet<CompteBancaire> CompteBancaireSet { get; set; }
-        public virtual DbSet<Contrat> ContratSet { get; set; }
-        public virtual DbSet<CoordonneesBancaires> CoordonneesBancairesSet { get; set; }
-        public virtual DbSet<Documentation> DocumentationSet { get; set; }
-        public virtual DbSet<DroitsGroupeUtilisateurs> DroitsGroupeUtilisateursSet { get; set; }
-        public virtual DbSet<GroupeDePersonnes> GroupeDePersonnesSet { get; set; }
-        public virtual DbSet<Immeuble> ImmeubleSet { get; set; }
-        public virtual DbSet<Personne> PersonneSet { get; set; }
-        public virtual DbSet<CoordonneesDeContact> CoordonneesDeContactSet { get; set; }
-        public virtual DbSet<AdressePostale> AdressePostaleSet { get; set; }
-        public virtual DbSet<AdresseEmail> AdresseEmailSet { get; set; }
-        public virtual DbSet<Telephone> TelephoneSet { get; set; }
-        public virtual DbSet<VersionDeDocument> VersionDeDocumentSet { get; set; }
-        public virtual DbSet<Lot> LotSet { get; set; }
-        public virtual DbSet<Partenaire> PartenaireSet { get; set; }
-        public virtual DbSet<CleDeRepartition> CleDeRepartitionSet { get; set; }
+        public DbSet<AccesUtilisateur> AccesUtilisateurSet { get; set; }
+        public  DbSet<MethodImmo.Models.Action> ActionSet { get; set; }
+        public  DbSet<Commentaire> CommentaireSet { get; set; }
+        public  DbSet<CompteBancaire> CompteBancaireSet { get; set; }
+        public  DbSet<Contrat> ContratSet { get; set; }
+        public  DbSet<CoordonneesBancaires> CoordonneesBancairesSet { get; set; }
+        public  DbSet<Documentation> DocumentationSet { get; set; }
+        public  DbSet<DroitsGroupeUtilisateurs> DroitsGroupeUtilisateursSet { get; set; }
+        public  DbSet<GroupeDePersonnes> GroupeDePersonnesSet { get; set; }
+        public  DbSet<Immeuble> ImmeubleSet { get; set; }
+        public  DbSet<Personne> PersonneSet { get; set; }
+        public  DbSet<CoordonneesDeContact> CoordonneesDeContactSet { get; set; }
+        public  DbSet<AdressePostale> AdressePostaleSet { get; set; }
+        public  DbSet<AdresseEmail> AdresseEmailSet { get; set; }
+        public  DbSet<Telephone> TelephoneSet { get; set; }
+        public  DbSet<VersionDeDocument> VersionDeDocumentSet { get; set; }
+        public  DbSet<Lot> LotSet { get; set; }
+        public  DbSet<Partenaire> PartenaireSet { get; set; }
+        public  DbSet<CleDeRepartition> CleDeRepartitionSet { get; set; }
     }
 }

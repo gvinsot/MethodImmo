@@ -40,7 +40,7 @@ namespace MethodImmo.Web
             services.AddSwaggerGen();
             services.AddEntityFrameworkSqlServer();
             
-            services.AddDbContext<MethodImmoContext>(options => options.UseSqlServer(Configuration["DefaultConnection:ConnectionString"]));
+            //services.AddDbContext<MethodImmoContext>(options => options.UseSqlServer(Configuration["DefaultConnection:ConnectionString"]));
             // services.ConfigureSwaggerGen(new Action<Swashbuckle.SwaggerGen.Application.SwaggerGenOptions>(options => { }));
             services.AddMvc();
         }

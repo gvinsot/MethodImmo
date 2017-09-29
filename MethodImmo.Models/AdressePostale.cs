@@ -1,12 +1,9 @@
 
 namespace MethodImmo.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public  class AdressePostale
     {
-        
         public AdressePostale()
         {
             this.Pays = "France";

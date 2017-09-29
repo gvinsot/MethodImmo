@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>MethodImmo.Web</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>MethodImmo.Web</PackageId>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot/Scripts\Binding.js" />
+    <Content Remove="wwwroot/Scripts\Binding.js.map" />
+    <Content Remove="wwwroot/Scripts\Binding.ts" />
+    <Content Remove="wwwroot/Scripts\BindingGlobalContext.js" />
+    <Content Remove="wwwroot/Scripts\BindingGlobalContext.js.map" />
+    <Content Remove="wwwroot/Scripts\BindingGlobalContext.ts" />
+    <Content Remove="wwwroot/Scripts\BindingTools.js" />
+    <Content Remove="wwwroot/Scripts\BindingTools.js.map" />
+    <Content Remove="wwwroot/Scripts\BindingTools.ts" />
+    <Content Remove="wwwroot/Scripts\EventHandler.js" />
+    <Content Remove="wwwroot/Scripts\EventHandler.js.map" />
+    <Content Remove="wwwroot/Scripts\EventHandler.ts" />
+    <Content Remove="wwwroot/Scripts\FileTools.js" />
+    <Content Remove="wwwroot/Scripts\FileTools.js.map" />
+    <Content Remove="wwwroot/Scripts\FileTools.ts" />
+    <Content Remove="wwwroot/Scripts\Interfaces.js" />
+    <Content Remove="wwwroot/Scripts\Interfaces.js.map" />
+    <Content Remove="wwwroot/Scripts\Interfaces.ts" />
+    <Content Remove="wwwroot/Scripts\ObjectTools.js" />
+    <Content Remove="wwwroot/Scripts\ObjectTools.js.map" />
+    <Content Remove="wwwroot/Scripts\ObjectTools.ts" />
+    <Content Remove="wwwroot/Scripts\QueryStringTools.js" />
+    <Content Remove="wwwroot/Scripts\QueryStringTools.js.map" />
+    <Content Remove="wwwroot/Scripts\QueryStringTools.ts" />
+    <Content Remove="wwwroot/Scripts\silverscript.js.map" />
+    <Content Remove="wwwroot/Scripts\StringTools.js" />
+    <Content Remove="wwwroot/Scripts\StringTools.js.map" />
+    <Content Remove="wwwroot/Scripts\StringTools.ts" />
+    <Content Remove="wwwroot/Scripts\UiTools.js" />
+    <Content Remove="wwwroot/Scripts\UiTools.js.map" />
+    <Content Remove="wwwroot/Scripts\UiTools.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\Scripts\silverscript.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="wwwroot\**\*;Views;Areas\**\Views">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MethodImmo.Models\MethodImmo.Models.csproj" />
+    <ProjectReference Include="..\MethodImmo.BusinessLayer\MethodImmo.BusinessLayer.csproj" />
+    <ProjectReference Include="..\MethodImmo.DataAccessLayer\MethodImmo.DataAccessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.0" />
+    <PackageReference Include="Swashbuckle" Version="6.0.0-beta901" />
+    <PackageReference Include="BundlerMinifier.Core" Version="2.4.337" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.1.1" />
+  </ItemGroup>
+
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="bower install" />
+    <Exec Command="dotnet bundle" />
+  </Target>
+
+</Project>

@@ -1,9 +1,8 @@
 
 namespace MethodImmo.Models
 {
-    using System;
     using System.Collections.Generic;
-    
+
     public  class VersionDeDocument
     {
         public long Id { get; set; }

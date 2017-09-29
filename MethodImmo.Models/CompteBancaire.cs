@@ -1,12 +1,10 @@
 
 namespace MethodImmo.Models
 {
-    using System;
     using System.Collections.Generic;
-    
+
     public  class CompteBancaire
     {
-
         public long Id { get; set; }
         public string Nom { get; set; }
     

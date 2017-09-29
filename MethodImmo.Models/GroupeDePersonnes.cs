@@ -1,8 +1,6 @@
 
 namespace MethodImmo.Models
 {
-    using Microsoft.EntityFrameworkCore;
-    using System;
     using System.Collections.Generic;
 
     public  class GroupeDePersonnes
@@ -17,10 +15,10 @@ namespace MethodImmo.Models
         public Lot GroupeDOccupants { get; set; }
 
 
-        public static void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<GroupeDePersonnes>()
-                .HasMany<Contrat>(im => im.Contrats);
-        }
+        //public static void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<GroupeDePersonnes>()
+        //        .HasMany<Contrat>(im => im.Contrats);
+        //}
     }
 }
